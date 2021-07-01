@@ -89,7 +89,7 @@ class Main extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 
-	public function view() {//?size=8,10&color=чёрный,белый
+	public function view() {//?size=8&size=10&color=чёрный&color=белый
 		$this->load->model('Goods_model');
 		$this->load->model('Othertables_model');
 
@@ -99,38 +99,50 @@ class Main extends MY_Controller {
 		$this->data['active_name'] = 3;
 
 		
-		$this->data['url'] = $this->uri->uri_string();
 
 		$offset = (int) $this->uri->segment(2);
 		$row_count = 42;
 
-
 		$sort_type = 3;
 		$has_params = FALSE;
-		$where_array = array();
 
-		$url = parse_url($_SERVER['REQUEST_URI']);
-		$preparams = explode("&", urldecode(@$url['query']));
-		parse_str(@$url['query'], $params);
-		$this->data['params'] = $preparams;
-		foreach ($params as $key => $value) {
+		$where_array = $_GET;
+
+		foreach ($where_array as $key => $value) {
 			switch ($key) {
 				case 'sort-type':
 					$sort_type = $value;
+					unset($where_array['sort-type']);
 					break;
 				case 'colour':
-					/*$this->load->model('Color_model');
-					$colors_arr = explode(",", $value);
-					$where_array['colorcode'] = array();
-					for ($j=0; $j < count($colors_arr); $j++) { 
-						$colors_array = $this->Color_model->getColorCodes($colors_arr[$j]);
-						for ($i=0; $i < count($colors_array); $i++) { 
-							array_push($where_array['colorcode'], $colors_array[$i]['colorcode']);
+					$has_params = TRUE;
+					$this->load->model('Color_model');
+					$ColoursArray = array();
+					foreach ($value as $key1 => $value1) {
+						$ColoursID = $this->Color_model->getIDByColourName($value1);
+						foreach ($ColoursID as $key2 => $value2) {
+						 	$ColoursArray[] = $value2['id'];
 						}
 					}
-					if (count($where_array['colorcode']) > 0) {
-						$has_params = TRUE;
-					}*/
+					$where_array['colour'] = $ColoursArray;
+					break;
+
+				case 'itemgroup':
+					$has_params = TRUE;
+					$KeysArray = array();
+					foreach ($value as $key1 => $value1) {
+						$KeysArray[] = $this->Othertables_model->FindID("groups", "name", $value1);
+					}
+					$where_array[$key] = $KeysArray;
+					break;
+
+				case 'size':
+					$has_params = TRUE;
+					$KeysArray = array();
+					foreach ($value as $key1 => $value1) {
+						$KeysArray[] = $this->Othertables_model->FindID("sizes", "size", $value1);
+					}
+					$where_array[$key] = $KeysArray;
 					break;
 
 				default:
@@ -141,6 +153,8 @@ class Main extends MY_Controller {
 					break;
 			}
 		}
+
+		$this->data['where_array'] = $where_array;
 
 		$this->data['sort_type'] = $sort_type;
 
@@ -175,6 +189,7 @@ class Main extends MY_Controller {
 		$this->data['pagination'] = $this->pagination->create_links();
 
 		$this->data['OtherTables_model'] = $this->Othertables_model;
+
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/filters', $this->data);
 		$this->load->view('main/view', $this->data);
@@ -209,7 +224,7 @@ class Main extends MY_Controller {
 		$this->data['title'] = "";
 		$this->data['active_name'] = -1;
 
-		$this->data['good'] = $this->Goods_model->getGood($good_id);
+		$this->data['good'] = $this->Goods_model->getGood(trim($good_id, "id-"));
 		if (empty($this->data['good'])) {
 			show_404();
 		}

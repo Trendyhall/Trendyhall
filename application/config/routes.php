@@ -70,6 +70,10 @@ $route['goods'] = 'main/view';
 $route['goods/(:any)'] = 'main/view/$1';
 
 
+$route['good/(:any)'] = 'main/item/$1';
+
+
+
 $route['brands'] = 'brand';
 $route['brands/(:any)'] = 'brand/view/$1';
 $route['brands/(:any)/(:any)'] = 'brand/view/$1';

@@ -105,17 +105,27 @@ class Goods_model extends CI_Model {
 	}
 
 	public function getGood($ID) {
+		$query = $this->db->query("SELECT * FROM goods WHERE id = ".$ID." LIMIT 1");
+		return $query->row_array();
+	}
+
+	public function getGoodByCodeColour($ModelCode, $Colour) {
 		$query = $this->db->query("SELECT * FROM goods LIMIT 1");
 		return $query->row_array();
 	}
 
 	public function InsertGood($goods) {
-		$sql = "INSERT INTO goods (id, articule, colour, size, firstsize, gender, brand, itemgroup, name, consist, provider, manufacturer, contry, imagecount, price, sale, count, adddate, season, description) VALUES (null";
+		$sql = "INSERT INTO goods (id, articule, modelcode, colour, size, firstsize, gender, brand, itemgroup, name, consist, provider, manufacturer, contry, imagecount, price, sale, count, adddate, season, description) VALUES (null";
 		foreach ($goods as $key => $value) {
 			if ($key == 0) $sql.$this->db->escape($value);
 			else $sql = $sql.", ".$this->db->escape($value);
 		}
 		$sql = $sql.")";
+		$this->db->query($sql);
+	}
+
+	public function Special1() {
+		$sql = "";
 		$this->db->query($sql);
 	}
 }

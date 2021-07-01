@@ -45,7 +45,7 @@
 						    <div class="list-group">
 							  	<?php foreach ($OtherTables_model->GetTable('groups') as $key => $value): ?>
 									<label class="list-group-item">
-									    <input name="itemgroup" class="form-check-input me-1" type="checkbox" value="<?php echo $value['name'] ?>">
+									    <input name="itemgroup[]" class="form-check-input me-1" type="checkbox" value="<?php echo $value['name'] ?>">
 									    <?php echo $value['name'] ?>
 									</label>
 								<?php endforeach ?>
@@ -60,7 +60,7 @@
 						    <div class="list-group">
 							  	<?php foreach ($OtherTables_model->GetUniqueColumn('colours', 'runame') as $key => $value): ?>
 									<label class="list-group-item">
-									    <input name="colour" class="form-check-input me-1" type="checkbox" value="<?php echo $value['runame'] ?>">
+									    <input name="colour[]" class="form-check-input me-1" type="checkbox" value="<?php echo $value['runame'] ?>">
 									    <?php echo $value['runame'] ?>
 									</label>
 								<?php endforeach ?>
@@ -75,12 +75,16 @@
 						    <div class="list-group">
 							  	<?php foreach ($OtherTables_model->GetTable('sizes') as $key => $value): ?>
 									<label class="list-group-item">
-									    <input name="size" class="form-check-input me-1" type="checkbox" value="<?php echo $value['size'] ?>">
+									    <input name="size[]" class="form-check-input me-1" type="checkbox" value="<?php echo $value['size'] ?>">
 									    <?php echo $value['size'] ?>
 									</label>
 								<?php endforeach ?>
 							</div>
-							<?php echo print_r($params); ?>
+							<?php 
+							echo '<br>';
+							echo print_r($where_array);
+
+							?>
 						</div>
 
 						

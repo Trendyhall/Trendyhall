@@ -5,9 +5,8 @@ class Color_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function getColorCodes($colorName) {
-		
-		$query = $this->db->select('colorcode')->get_where('colors', array('runame' => $colorName));
+	public function getIDByColourName($colourName) {
+		$query = $this->db->select('id')->get_where('colours', array('runame' => $colourName));
 		return $query->result_array();
 	}
 }
