@@ -1,0 +1,260 @@
+/*general*/
+@font-face {
+    font-family: Graphik;
+    font-weight: 400;
+    src: url(/assets/fonts/Graphik-Regular-Web.woff2) format("woff2");
+}
+
+html {
+    min-width: 300px;
+}
+
+html::-webkit-scrollbar {
+  width: 0;
+}
+
+body {
+    font-family: Graphik;
+}
+
+h1 {
+    font-weight: 400;
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.no-margine {
+    margin: 0;
+}
+
+
+
+
+
+
+
+
+/*pagination*/
+.pagination-div {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    display: block;
+    width: fit-content;
+}
+
+.pagination .page-link a {
+    color: #616161;
+}
+
+.pagination .page-link a:hover {
+    color: #000;
+}
+
+.page-item.active .page-link {
+    background-color: #616161;
+    border-color: #616161;
+}
+
+.page-item.active .page-link:hover {
+    background-color: #616161;
+    border-color: #616161;
+}
+
+
+/* card */
+a .card {
+    color: #000;
+}
+
+a .card:hover {
+    color: #000;
+}
+
+
+.card {
+    background-color: #fff;
+    border: none;
+    border-radius: 0;
+    text-align: center;
+    
+}
+
+.brand-container .card {
+    background-color: #fff;
+    border: solid 1px #e6e6e6;
+    border-radius: 5px;
+}
+
+.card img {
+    background-color: #e6e6e6;
+    border-radius: 0;
+
+    transition: all 0.1s ease;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+.card:hover img {
+    transition: all 0.1s ease;
+    -webkit-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    transform: scale(1.03);
+}
+
+.brand-container .card:hover img {
+    transition: all 0.1s ease;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+.card .card-brand {
+    font-size: 1.3rem;
+}
+
+.card .card-name {
+    font-size: 1.1rem;
+}
+
+.card .card-price {
+    font-size: 1.2rem;
+}
+
+
+
+/* sort and filters */
+
+.filters button {
+    /*display: block;*/
+    border: none;
+    padding: 5px 10px;
+    width: 100%;
+    text-align: left;
+    background-color: #eee;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.filters button .arrow {
+    /*margin-right: 5px;*/
+    transition: transform 0.35s ease;
+}
+
+.filters button[aria-expanded='true'] .arrow {
+    transform: rotate(90deg);
+}
+
+.filters .list-group {
+    border-radius: 0;
+    background-color: #eee;
+}
+
+.filters .list-group .list-group-item {
+    border: none;
+    border-radius: 0;
+    background-color: #eee;
+}
+
+.form-check-input {
+    width: 1.3em;
+    height: 1.3em;
+    background-color: #c5c5c5;
+    border-color: #c5c5c5;
+    margin-top: 0;
+    border:  none;
+}
+
+.form-check-input[type=checkbox] {
+    border-radius: 0;
+}
+
+.form-check-input:checked {
+    background-color: #c5c5c5;
+    border-color: #c5c5c5;
+}
+
+
+.form-check-input:checked[type=radio] {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='1.7' fill='%23212529'/%3e%3c/svg%3e");
+}
+
+.form-check-input:checked[type=checkbox] {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16' width='16' height='16' %3e%3cpath d='M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z'/%3e%3c/svg%3e");
+}
+
+.form-check-input:focus {
+    box-shadow: none !important;
+}
+
+
+.filters .submitbtncont {
+    width: 100%;
+    padding: 8px;
+    padding-bottom: 2px;
+    background-color: #eee;
+}
+
+.submitbtncont .submitbtn {
+    display: block;
+    text-align: center;
+    background-color: #c5c5c5;
+}
+
+
+/* sign up */
+
+.signup-container {
+    border-radius: 0;
+}
+
+.signup-container input {
+    border-radius: 0;
+}
+
+.signup-container button {
+    border-radius: 0;
+    margin: auto;
+    display: flex;
+}
+
+.btn-outline-dark:focus {
+    box-shadow: none;
+}
+
+/*
+.signup-container .form-control {
+    border-color: #212529;
+}*/
+
+.signup-container .form-control:focus {
+    /*border-color: #212529;*/
+    box-shadow: none !important;
+}
+
+.signup-container .form-check-input[type=checkbox] {
+    border-radius: 0;
+    border: solid 1px #212529;
+    background-color: #fff;
+}
+/*
+.signup-container .form-check-input:valid~.form-check-label {
+    color: #212529;
+}
+
+.signup-container .form-check-input:valid:checked {
+    border: solid 1px #212529;
+    background-color: #fff ;
+}*/
+
+/*===========================================================================================================*/
