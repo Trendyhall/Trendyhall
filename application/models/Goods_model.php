@@ -125,7 +125,13 @@ class Goods_model extends CI_Model {
 	}
 
 	public function Special1() {
-		$sql = "";
-		$this->db->query($sql);
+		$sql = "SELECT id, articule FROM goods";
+		$goods = $this->db->query($sql)->result_array();
+
+		
+		/*foreach ($goods as $key => $value) {
+			$sql = "UPDATE goods SET modelcode = ".$this->db->escape(explode('*', $value['articule'])[0])." WHERE id = ".$this->db->escape($value['id']);
+			$this->db->query($sql);
+		}*/
 	}
 }

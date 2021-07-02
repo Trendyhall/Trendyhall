@@ -3,7 +3,14 @@ DtabseInit();
 IfUser();
 
 
+function UserLogout() {
+	setCookie('user-id', 1, {'max-age': 0});
+	setCookie('user-first-leter', 1, {'max-age': 0});
+	setCookie('user-cart-count', 1, {'max-age': 0});
 
+	window.location.replace('/');
+
+}
 
 
 function UserLogin(phone, password) {
@@ -43,25 +50,37 @@ function UserData(userid){
 
 function SetUserTemplateData(userid){
 	const dbRef = firebase.database().ref();
-	dbRef.child("Users").child(userid).child("Data").child("Name").get().then((snapshot) => {
-	  if (snapshot.exists()) {
-	  	document.querySelector('.icon-profile').setAttribute('data-qty', snapshot.val()[0]);
-	  } else {
-	    console.log("No data");
-	  }
-	}).catch((error) => {
-	  console.error(error);
-	});
+	let ufl = getCookie('user-first-leter');
+	if (ufl) {
+		document.querySelector('.icon-profile').setAttribute('data-qty', ufl);
+	} else {
+		dbRef.child("Users").child(userid).child("Data").child("Name").get().then((snapshot) => {
+		  if (snapshot.exists()) {
+		  	document.querySelector('.icon-profile').setAttribute('data-qty', snapshot.val()[0]);
+		  	setCookie('user-first-leter', snapshot.val()[0], {'max-age': 864000});
+		  } else {
+		    console.log("No data");
+		  }
+		}).catch((error) => {
+		  console.error(error);
+		});
+	}
 
-	dbRef.child("Carts").child(userid).child("Count").get().then((snapshot) => {
-	  if (snapshot.exists()) {
-	  	document.querySelector('.icon-cart').setAttribute('data-qty', snapshot.val());
-	  } else {
-	    console.log("No data");
-	  }
-	}).catch((error) => {
-	  console.error(error);
-	});
+	ufl = getCookie('user-cart-count');
+	if (ufl) {
+		document.querySelector('.icon-cart').setAttribute('data-qty', ufl);
+	} else {
+		dbRef.child("Carts").child(userid).child("Count").get().then((snapshot) => {
+		  if (snapshot.exists()) {
+		  	document.querySelector('.icon-cart').setAttribute('data-qty', snapshot.val());
+		  	setCookie('user-cart-count', snapshot.val(), {'max-age': 864000});
+		  } else {
+		  	setCookie('user-cart-count', '', {'max-age': 864000});
+		  }
+		}).catch((error) => {
+		  console.error(error);
+		});
+	}
 }
 
 function LoginInit(){
@@ -108,10 +127,6 @@ function IfUser(){
 		iconProfile.removeAttribute('data-bs-toggle');
 		iconProfile.removeAttribute('data-bs-target');
 		iconProfile.setAttribute('onclick', 'location.href="/profile"');
-		iconProfile = document.querySelector('.icon-cart');
-		iconProfile.removeAttribute('data-bs-toggle');
-		iconProfile.removeAttribute('data-bs-target');
-		iconProfile.setAttribute('onclick', 'location.href="/cart"');
 
 		SetUserTemplateData(userid);
 	}

@@ -188,7 +188,7 @@ class Main extends MY_Controller {
 		$this->pagination->initialize($p_config);
 		$this->data['pagination'] = $this->pagination->create_links();
 
-		$this->data['OtherTables_model'] = $this->Othertables_model;
+		$this->data['Othertables_model'] = $this->Othertables_model;
 
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/filters', $this->data);
