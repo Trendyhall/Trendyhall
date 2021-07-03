@@ -47,8 +47,8 @@
               <li class="cat<?php isA($a, 0); ?>"><a href="/">Главная</a></li>
               <li class="cat<?php isA($a, 1); ?>"><a href="/news">Новости</a></li>
               <li class="cat<?php isA($a, 2); ?>"><a href="/brands">Бренды</a></li>
-              <li class="cat<?php isA($a, 3); ?>"><a href="/goods">Мальчики</a></li> 
-              <li class="cat<?php isA($a, 4); ?>"><a href="/goods">Девочки</a></li> 
+              <li class="cat<?php isA($a, 3); ?>"><a href="/boys">Мальчики</a></li> 
+              <li class="cat<?php isA($a, 4); ?>"><a href="/girls">Девочки</a></li> 
               <li class="cat<?php isA($a, 5); ?>"><a href="/new">Новинки</a></li>
               <li class="cat<?php isA($a, 6); ?>"><a href="/sale">Скидки</a></li>
             </ul>
@@ -87,8 +87,8 @@
           <li class="cat<?php isA($a, 0); ?>"><a href="/">Главная</a></li>
           <li class="cat<?php isA($a, 1); ?>"><a href="/news">Новости</a></li>
           <li class="cat<?php isA($a, 2); ?>"><a href="/brands">Бренды</a></li>
-          <li class="cat<?php isA($a, 3); ?>"><a href="/goods">Мальчики</a></li> 
-          <li class="cat<?php isA($a, 4); ?>"><a href="/goods">Девочки</a></li> 
+          <li class="cat<?php isA($a, 3); ?>"><a href="/boys">Мальчики</a></li> 
+          <li class="cat<?php isA($a, 4); ?>"><a href="/girls">Девочки</a></li> 
           <li class="cat<?php isA($a, 5); ?>"><a href="/new">Новинки</a></li>
           <li class="cat<?php isA($a, 6); ?>"><a href="/sale">Скидки</a></li>
         </ul>

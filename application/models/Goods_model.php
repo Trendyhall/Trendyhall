@@ -5,8 +5,7 @@ class Goods_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function getGoodsCount($sort_type, $where_array = FALSE)
-	{
+	public function BuildGetGoodsQuery($sort_type, $where_array = FALSE){
 		if ($sort_type == 1) {
 			$query = $this->db
 			->order_by('price', 'asc');
@@ -15,14 +14,12 @@ class Goods_model extends CI_Model {
 			$query = $this->db
 			->order_by('price', 'desc');
 		}
-		elseif ($sort_type == 3) {
+		elseif ($sort_type == 3 | $sort_type == 0) {
 			$query = $this->db
-			->order_by('year', 'asc')
 			->order_by('season', 'desc');
 		}
 		elseif ($sort_type == 4) {
 			$query = $this->db
-			->order_by('year', 'desc')
 			->order_by('season', 'asc');
 		}
 		else {
@@ -31,9 +28,7 @@ class Goods_model extends CI_Model {
 
 		
 		if ($where_array === FALSE) {
-			$query = $query->where("firstsize", 0);
-			$query = $query->from('goods');
-			return $query->count_all_results();
+			return $query->where("firstsize", 0);
 		}
 		else {
 			if (@$where_array['size'] == null) {
@@ -49,59 +44,21 @@ class Goods_model extends CI_Model {
 				$where .= ")";
 			}
 
-			$query = $query->where($where);
-			$query = $query->from('goods');
-			return $query->count_all_results();
+			return $query->where($where);
 		}
 	}
 
+	public function getGoodsCount($sort_type, $where_array = FALSE)
+	{
+		$query = $this->BuildGetGoodsQuery($sort_type, $where_array);
+		$query = $query->from('goods');
+		return $query->count_all_results();
+	}
+
 	public function getGoods($row_count, $offset, $sort_type, $where_array = FALSE) {
-		if ($sort_type == 1) {
-			$query = $this->db
-			->order_by('price', 'asc');
-		}
-		elseif ($sort_type == 2) {
-			$query = $this->db
-			->order_by('price', 'desc');
-		}
-		elseif ($sort_type == 3) {
-			$query = $this->db
-			->order_by('adddate', 'asc')
-			->order_by('season', 'desc');
-		}
-		elseif ($sort_type == 4) {
-			$query = $this->db
-			->order_by('adddate', 'desc')
-			->order_by('season', 'asc');
-		}
-		else {
-			$query = $this->db;
-		}
-
-		
-		if ($where_array === FALSE) {
-			$query = $query->where("firstsize", 0);
-			$query = $query->get('goods', $row_count, $offset);
-			return $query->result_array();
-		}
-		else {
-			if (@$where_array['size'] == null) {
-				$query = $query->where("firstsize", 0);
-			}
-
-			$where = "1";
-			foreach ($where_array as $key => $value) {
-				$where .= " AND (0";
-				foreach ($value as $key1 => $value1) {
-					$where .= " OR ".$key." = '".$value1."'";
-				}
-				$where .= ")";
-			}
-
-			$query = $query->where($where);
-			$query = $query->get('goods', $row_count, $offset);
-			return $query->result_array();
-		}
+		$query = $this->BuildGetGoodsQuery($sort_type, $where_array);
+		$query = $query->get('goods', $row_count, $offset);
+		return $query->result_array();
 	}
 
 	public function getGood($ID) {

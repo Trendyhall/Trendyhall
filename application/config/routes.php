@@ -62,15 +62,20 @@ $route['cart'] = 'main/cart';
 
 
 $route['news'] = 'main/news';
-$route['new'] = 'main/new';
-$route['sale'] = 'main/sale';
+$route['news'] = 'main/news/$1';
 
 
-$route['goods'] = 'main/view';
-$route['goods/(:any)'] = 'main/view/$1';
+$route['boys'] = 'view/boys';
+$route['boys/(:num)'] = 'view/boys/$1';
+$route['girls'] = 'view/girls';
+$route['girls/(:num)'] = 'view/girls/$1';
+$route['new'] = 'view/new';
+$route['new/(:num)'] = 'view/new/$1';
+$route['sale'] = 'view/sale';
+$route['sale/(:num)'] = 'view/sale/$1';
 
 
-$route['good/(:any)'] = 'main/item/$1';
+$route['goods/(:any)'] = 'main/item/$1';
 
 
 

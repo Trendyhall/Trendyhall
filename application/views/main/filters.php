@@ -9,7 +9,7 @@
 						<div class="collapse" id="collapseSort">
 						  <div class="list-group">
 							  <label class="list-group-item">
-							    <input name="sort-type" value="3" class="form-check-input me-1" type="radio" onclick="submitform();" checked>
+							    <input name="sort-type" value="0" class="form-check-input me-1" type="radio" onclick="submitform();" checked>
 							    По умолчанию
 							  </label>
 							  <label class="list-group-item">
@@ -43,7 +43,7 @@
 
 						<div class="collapse" id="collapseGroup">
 						    <div class="list-group">
-							  	<?php foreach ($OtherTables_model->GetTable('groups') as $key => $value): ?>
+							  	<?php foreach ($Othertables_model->GetTable('groups') as $key => $value): ?>
 									<label class="list-group-item">
 									    <input name="itemgroup[]" class="form-check-input me-1" type="checkbox" value="<?php echo $value['name'] ?>">
 									    <?php echo $value['name'] ?>
@@ -58,7 +58,7 @@
 
 						<div class="collapse" id="collapseColour">
 						    <div class="list-group">
-							  	<?php foreach ($OtherTables_model->GetUniqueColumn('colours', 'runame') as $key => $value): ?>
+							  	<?php foreach ($Othertables_model->GetUniqueColumn('colours', 'runame') as $key => $value): ?>
 									<label class="list-group-item">
 									    <input name="colour[]" class="form-check-input me-1" type="checkbox" value="<?php echo $value['runame'] ?>">
 									    <?php echo $value['runame'] ?>
@@ -73,18 +73,13 @@
 
 						<div class="collapse" id="collapseSize">
 						    <div class="list-group">
-							  	<?php foreach ($OtherTables_model->GetTable('sizes') as $key => $value): ?>
+							  	<?php foreach ($Othertables_model->GetTable('sizes') as $key => $value): ?>
 									<label class="list-group-item">
 									    <input name="size[]" class="form-check-input me-1" type="checkbox" value="<?php echo $value['size'] ?>">
 									    <?php echo $value['size'] ?>
 									</label>
 								<?php endforeach ?>
 							</div>
-							<?php 
-							echo '<br>';
-							echo print_r($where_array);
-
-							?>
 						</div>
 
 						

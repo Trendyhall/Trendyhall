@@ -6,7 +6,8 @@ function init_filters() {
   let href = window.location.search.split('?');
   if (href.length > 1){
     href = decodeURI(href[1]);
-    while (href.includes('+')) href = href.replace('+', ' ');
+    href = href.replace(/\+/g, ' ');
+    href = href.replace(/\[\d+\]/g, '[]');
     
 
     href = href.split('&');

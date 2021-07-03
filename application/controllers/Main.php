@@ -103,7 +103,7 @@ class Main extends MY_Controller {
 		$offset = (int) $this->uri->segment(2);
 		$row_count = 42;
 
-		$sort_type = 3;
+		$sort_type = 0;
 		$has_params = FALSE;
 
 		$where_array = $_GET;
