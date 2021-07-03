@@ -93,7 +93,7 @@ class View extends MY_Controller {
 		else return $where_array;
 	}
 
-	public function BuildFilters($offset) {
+	public function BuildFilters($offset, $addition_where) {
 		$this->load->model('Goods_model');
 		$this->load->model('Othertables_model');
 		$this->data['Othertables_model'] = $this->Othertables_model;
@@ -102,6 +102,7 @@ class View extends MY_Controller {
 		$row_count = 42;
 
 		$where_array = $this->ParseFiltersInput();
+		$where_array[$addition_where[0]] = $addition_where[1];
 		$sort_type = $this->data['sort_type'];
 
 		if ($where_array === FALSE) {
@@ -148,14 +149,20 @@ class View extends MY_Controller {
 		$this->data['title'] = "Мальчики";
 		$this->data['active_name'] = 3;
 
-		$this->BuildFilters($offset);
+		$addition_where[0] = 'gender';
+		$addition_where[1] = array(1, 3);
+
+		$this->BuildFilters($offset, $addition_where);
 	}
 
 	public function girls($offset = 0) {
 		$this->data['title'] = "Девочки";
 		$this->data['active_name'] = 4;
 
-		$this->BuildFilters($offset);
+		$addition_where[0] = 'gender';
+		$addition_where[1] = array(2, 3);
+
+		$this->BuildFilters($offset, $addition_where);
 	}
 
 
@@ -163,13 +170,19 @@ class View extends MY_Controller {
 		$this->data['title'] = "Новинки";
 		$this->data['active_name'] = 5;
 
-		$this->BuildFilters($offset);
+		$addition_where[0] = 'season';
+		$addition_where[1] = array(2);
+
+		$this->BuildFilters($offset, $addition_where);
 	}
 
 	public function sale($offset = 0) {
 		$this->data['title'] = "Скидки";
 		$this->data['active_name'] = 6;
 
-		$this->BuildFilters($offset);
+		$addition_where[0] = 'sale!';
+		$addition_where[1] = array(1);
+
+		$this->BuildFilters($offset, $addition_where);
 	}
 }

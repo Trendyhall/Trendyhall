@@ -39,7 +39,7 @@ class Goods_model extends CI_Model {
 			foreach ($where_array as $key => $value) {
 				$where .= " AND (0";
 				foreach ($value as $key1 => $value1) {
-					$where .= " OR ".$key." = '".$value1."'";
+					$where .= " OR ".$key."= '".$value1."'";
 				}
 				$where .= ")";
 			}
