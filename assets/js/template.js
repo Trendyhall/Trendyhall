@@ -85,19 +85,73 @@ function SetUserTemplateData(userid){
 
 function LoginInit(){
 	let form = document.forms['login'];
+
+	let NumberSave = form.phone.value;
+	form.phone.oninput = () => {
+		let input = form.phone;
+
+		if(/[^0-9+]/.test(input.value)) {
+			let Selection = input.selectionStart-1;
+			input.value = input.value.replace(/[^0-9+]/g,'');
+			input.setSelectionRange(Selection, Selection);
+		}
+
+		if (input.value[0] == '+') {
+			if (input.value.length <= 12) NumberSave = input.value;
+		}
+		else {
+			if (input.value.length <= 11) NumberSave = input.value;
+		}
+
+
+		input.value = NumberSave;
+
+		let re = /\+7\d{10}|8\d{10}/;
+		if (re.test(input.value) & ((input.value[0] == '8' & input.value.length == 11) | (input.value[0] == '+' & input.value.length == 12))) {
+			input.classList.add('is-valid');
+			input.classList.remove('is-invalid');
+		}
+		else {
+			input.classList.add('is-invalid');
+			input.classList.remove('is-valid');
+		}
+	}
+
+	let PasswordSave = form.password.value;
+	form.password.oninput = () => {
+		let input = form.password;
+
+		if(/[^0-9a-zA-Zа-яА-Я_]/.test(input.value)) {
+			let Selection = input.selectionStart-1;
+			input.value = input.value.replace(/[^0-9a-zA-Zа-яА-Я_]/g,'');
+			input.setSelectionRange(Selection, Selection);
+		}
+
+		if (input.value.length <= 16) NumberSave = input.value;
+		
+		input.value = NumberSave;
+
+		let re = /[0-9a-zA-Zа-яА-Я_]{6,16}/;
+		if (re.test(input.value) & input.value.length >= 6 & input.value.length <= 16) {
+			input.classList.add('is-valid');
+			input.classList.remove('is-invalid');
+		}
+		else {
+			input.classList.add('is-invalid');
+			input.classList.remove('is-valid');
+		}
+	}
+
+
 	form.addEventListener('submit', function (event) {
 		event.preventDefault();
 		event.stopPropagation();
 
-		if (form.checkValidity()) {
-			UserLogin(form['phone'].value, form['password'].value);
-		}
-		else {
-			/*event.preventDefault();
-			event.stopPropagation();*/
-		}
 
-	form.classList.add('was-validated');
+		if (/\+7\d{10}|8\d{10}/.test(form.phone.value) & ((form.phone.value[0] == '8' & form.phone.value.length == 11) | (form.phone.value[0] == '+' & form.phone.value.length == 12)))
+				if (/[0-9a-zA-Zа-яА-Я_]/.test(form.password.value) & form.password.value.length >= 6 & form.password.value.length <= 16) {
+					UserLogin(form['phone'].value, form['password'].value);
+				}
 	}, false);
 }
 

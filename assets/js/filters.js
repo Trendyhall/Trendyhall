@@ -16,7 +16,7 @@ function init_filters() {
       let v = href[i].split('=');
       for (let j = 0; j < form[v[0]].length; j++) {
         if (form[v[0]][j].value == v[1]) form[v[0]][j].setAttribute('checked', '');
-      } 
+      }
 
     }
 
