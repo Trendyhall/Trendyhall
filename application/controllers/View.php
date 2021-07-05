@@ -92,7 +92,7 @@ class View extends MY_Controller {
 		else return $where_array;
 	}
 
-	public function BuildFilters($offset, $addition_where) {
+	public function BuildFilters($offset, $addition_where = FALSE) {
 		$this->load->model('Goods_model');
 		$this->load->model('Colour_model');
 		$this->load->model('Othertables_model');
@@ -102,27 +102,21 @@ class View extends MY_Controller {
 		$row_count = 42;
 
 		$where_array = $this->ParseFiltersInput();
-		$where_array[$addition_where[0]] = $addition_where[1];
+		if ($addition_where !== FALSE) $where_array[$addition_where[0]] = $addition_where[1];
+
 		$sort_type = $this->data['sort_type'];
 
-		if ($where_array === FALSE) {
-			$count = (int) $this->Goods_model->getGoodsCount($sort_type);	
-			$this->data['goods'] = $this->Goods_model->getGoods($row_count, $offset, $sort_type);
 
-			foreach ($this->data['goods'] as $key => $value) {
-				$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
-				$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
-			}
+		$IDs_array = $this->Goods_model->getGoodsID($where_array);
+	
+		$count = (int) $this->Goods_model->getGoodsCountByID($sort_type, $IDs_array);	
+		$this->data['goods'] = $this->Goods_model->getGoodsByID($row_count, $offset, $sort_type, $IDs_array);
 
-		} else {
-			$count = (int) $this->Goods_model->getGoodsCount($sort_type, $where_array);	
-			$this->data['goods'] = $this->Goods_model->getGoods($row_count, $offset, $sort_type, $where_array);
-
-			foreach ($this->data['goods'] as $key => $value) {
-				$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
-				$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
-			}
+		foreach ($this->data['goods'] as $key => $value) {
+			$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
+			$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
 		}
+		
 		
 		
 

@@ -5,7 +5,8 @@ class Goods_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function BuildGetGoodsQuery($sort_type, $where_array = FALSE){
+
+	public function BuildGetGoodsQuery($sort_type, $IDs_array){
 		if ($sort_type == 1) {
 			$query = $this->db
 			->order_by('price', 'asc');
@@ -26,11 +27,31 @@ class Goods_model extends CI_Model {
 			$query = $this->db;
 		}
 
-		
-		if ($where_array === FALSE) {
-			return $query->where("firstsize", 0);
+		$where = 'firstsize = 0 AND (0';
+		foreach ($IDs_array as $key => $value) {
+			$where .= " OR id = '".$value."'";
 		}
-		else {
+		$where .= ')';
+		return $query->where($where);
+	}
+
+	public function getGoodsCountById($sort_type, $IDs_array)
+	{
+		$query = $this->BuildGetGoodsQuery($sort_type, $IDs_array);
+		$query = $query->from('goods');
+		return $query->count_all_results();
+	}
+
+	public function getGoodsByID($row_count, $offset, $sort_type, $IDs_array) {
+		$query = $this->BuildGetGoodsQuery($sort_type, $IDs_array);
+		$query = $query->get('goods', $row_count, $offset);
+		return $query->result_array();
+	}
+
+	public function getGoodsID($where_array = FALSE) {
+		$query = $this->db->select('id, firstsize');
+
+		if ($where_array !== FALSE) {
 			if (@$where_array['size'] == null) {
 				$query = $query->where("firstsize", 0);
 			}
@@ -44,21 +65,15 @@ class Goods_model extends CI_Model {
 				$where .= ")";
 			}
 
-			return $query->where($where);
+			$query = $query->where($where);
 		}
-	}
-
-	public function getGoodsCount($sort_type, $where_array = FALSE)
-	{
-		$query = $this->BuildGetGoodsQuery($sort_type, $where_array);
-		$query = $query->from('goods');
-		return $query->count_all_results();
-	}
-
-	public function getGoods($row_count, $offset, $sort_type, $where_array = FALSE) {
-		$query = $this->BuildGetGoodsQuery($sort_type, $where_array);
-		$query = $query->get('goods', $row_count, $offset);
-		return $query->result_array();
+		$query = $query->get('goods')->result_array();
+		$result_array = array();
+		foreach ($query as $key => $value) {
+			if ($value['firstsize'] == 0) $result_array[] = $value['id'];
+			else $result_array[] = $value['firstsize'];
+		}
+		return $result_array;
 	}
 
 	public function getGood($ID) {
