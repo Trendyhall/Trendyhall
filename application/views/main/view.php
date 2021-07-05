@@ -4,7 +4,7 @@
 		<div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 g-4">
 			<?php foreach ($goods as $key => $value): ?>
 				<div class="col">
-					<a href="/goods/id-<?php echo $value['id']; ?>">
+					<a href="/goods/<?php echo $value['modelcode'].'_'.$value['colour']; ?>">
 					    <div class="card h-100">
 					        <img src="<?php if ($value['imagecount'] == 0) { echo "/assets/img/general/noimage.webp"; } else { echo "https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/id".$value['id'].".webp"; }?>" class="card-img-top" alt="...">
 					        <div class="card-body">

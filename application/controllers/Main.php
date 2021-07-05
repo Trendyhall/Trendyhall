@@ -8,32 +8,6 @@ class Main extends MY_Controller {
 		parent::__constract();
 	}
 
-	public function p_init() {
-		//pagination bootstrap
-		$p_config['reuse_query_string'] = TRUE;
-		$p_config['full_tag_open'] = "<ul class='pagination'>";
-		$p_config['full_tag_close'] ="</ul>";
-		$p_config['num_tag_open'] = '<li class="page-item"><span class="page-link">';
-		$p_config['num_tag_close'] = '</span></li>';
-		$p_config['cur_tag_open'] = '<li class="page-item active" aria-current="page"><span class="page-link">';
-		$p_config['cur_tag_close'] = "</span></li>";
-		$p_config['next_tag_open'] = '<li class="page-item"><span class="page-link">';
-		$config['next_link'] = '<span aria-hidden="true">&raquo;</span>';
-		$p_config['next_tagl_close'] = "</span></li>";
-		$p_config['prev_tag_open'] = '<li class="page-item"><span class="page-link">';
-		$config['prev_link'] = '<span aria-hidden="true">&laquo;</span>';
-		$p_config['prev_tagl_close'] = "</span></li>";
-
-		$config['first_link'] = 'Первая';
-		$p_config['first_tag_open'] = "<li>";
-		$p_config['first_tagl_close'] = "</li>";
-		$config['last_link'] = 'Последняя';
-		$p_config['last_tag_open'] = "<li>";
-		$p_config['last_tagl_close'] = "</li>";
-
-		return $p_config;
-	}
-
 	public function index() {
 		$this->data['title'] = "Главная страница";
 		$this->data['active_name'] = 0;
@@ -90,13 +64,16 @@ class Main extends MY_Controller {
 	}
 
 
-	public function item($good_id = NULL) {
+	public function item($good_code = NULL) {
 		$this->load->model('Goods_model');
+		$this->load->model('Colour_model');
 
 		$this->data['title'] = "";
 		$this->data['active_name'] = -1;
 
-		$this->data['good'] = $this->Goods_model->getGood(trim($good_id, "id-"));
+		$good_code = explode('_', $good_code);
+		$good_code[1] = $this->Colour_model->getIDByCode($good_code[1]);
+		$this->data['good'] = $this->Goods_model->getGoodByCodeColour($good_code[0], $good_code[1]);
 		if (empty($this->data['good'])) {
 			show_404();
 		}

@@ -49,10 +49,9 @@ class View extends MY_Controller {
 					break;
 				case 'colour':
 					$has_params = TRUE;
-					$this->load->model('Color_model');
 					$ColoursArray = array();
 					foreach ($value as $key1 => $value1) {
-						$ColoursID = $this->Color_model->getIDByColourName($value1);
+						$ColoursID = $this->Colour_model->getIDByColourName($value1);
 						foreach ($ColoursID as $key2 => $value2) {
 						 	$ColoursArray[] = $value2['id'];
 						}
@@ -95,6 +94,7 @@ class View extends MY_Controller {
 
 	public function BuildFilters($offset, $addition_where) {
 		$this->load->model('Goods_model');
+		$this->load->model('Colour_model');
 		$this->load->model('Othertables_model');
 		$this->data['Othertables_model'] = $this->Othertables_model;
 
@@ -111,6 +111,7 @@ class View extends MY_Controller {
 
 			foreach ($this->data['goods'] as $key => $value) {
 				$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
+				$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
 			}
 
 		} else {
@@ -119,6 +120,7 @@ class View extends MY_Controller {
 
 			foreach ($this->data['goods'] as $key => $value) {
 				$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
+				$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
 			}
 		}
 		

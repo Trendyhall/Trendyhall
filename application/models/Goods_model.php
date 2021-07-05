@@ -67,7 +67,7 @@ class Goods_model extends CI_Model {
 	}
 
 	public function getGoodByCodeColour($ModelCode, $Colour) {
-		$query = $this->db->query("SELECT * FROM goods LIMIT 1");
+		$query = $this->db->query("SELECT * FROM goods WHERE modelcode = '".$ModelCode."' AND colour = '".$Colour."' AND firstsize = 0 LIMIT 1");
 		return $query->row_array();
 	}
 
