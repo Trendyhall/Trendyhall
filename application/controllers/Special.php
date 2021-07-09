@@ -49,7 +49,7 @@ class Special extends MY_Controller {
 			$row = explode(";", $value);
 
 			/*
-			$row[2] = $this->Othertables_model->FindID("colours", "colorcode", $row[2]);
+			$row[2] = $this->Othertables_model->FindID("colours", "colourcode", $row[2]);
 			$row[3] = $this->Othertables_model->FindID("sizes", "size", $row[3]);
 			$row[6] = $this->Othertables_model->FindID("brands", "name", $row[6]);
 			$row[7] = $this->Othertables_model->FindID("groups", "name", $row[7]);

@@ -57,11 +57,35 @@
 	    <!-- Small images end -->
 	</div>
 	<div class="col col-12 col-sm-5">
-	       
+		<!-- first three line -->
         <h2><?php echo $good['name']; ?></h2>
-		<div class="card-name"><?php echo $good['brand']; ?></div>
-		<div class="card-price"><?php echo $good['price']; ?> &#8381;</div>
-	        
+		<div style="font-size: 1.4rem;"><?php echo $Othertables_model->GetByID("brands", "name", $good['brand']); ?></div>
+		<?php if ($good['sale'] == 1): ?>
+			<div style="font-size: 1.4rem;"><?php echo number_format($good['price'], 2,"."," "); ?> &#8381; </div>
+		<?php endif; ?>
+		<?php if ($good['sale'] != 1): ?>
+			<?php $Sale = $Othertables_model->GetByID("sales", "sale", $good['sale']); ?>
+			<div style="font-size: 1.4rem;">
+				<div style="text-decoration: line-through; display: inline;"><?php echo number_format($good['price'], 2,"."," "); ?> &#8381;</div>
+				<div style="color: #f00; display: inline;"><?php echo number_format($good['price'] * (0.01 * (100 - $Sale)), 2,"."," "); ?> &#8381;</div>
+			</div>
+		<?php endif; ?>
+	    <!-- size couse -->
+
+	    <!-- buttons -->
+	    <div>
+	    	<button class="btn btn-outline-dark" id="addToCart">Добавить</button>
+	    	<button class="btn btn-outline-dark" id="addToCart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
+  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+</svg></button>
+	    </div>
+	    
+
+	    <!-- colour couse -->
+
+	    <!-- Discription -->
+
+
 	</div>
 </div>
 	

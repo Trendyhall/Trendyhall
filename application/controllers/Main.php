@@ -67,6 +67,8 @@ class Main extends MY_Controller {
 	public function item($good_code = NULL) {
 		$this->load->model('Goods_model');
 		$this->load->model('Colour_model');
+		$this->load->model('Othertables_model');
+		$this->data['Othertables_model'] = $this->Othertables_model;
 
 		$this->data['title'] = "";
 		$this->data['active_name'] = -1;
