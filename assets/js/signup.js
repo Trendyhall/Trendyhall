@@ -59,15 +59,6 @@ function InitInputRules() {
 		}
 	}
 
-	form.birthday.oninput = () => {
-		let input = form.birthday;
-
-		/*input.value = input.value.replace(/[^0-9]/g,'');
-		if (input.value.length > 2) input.value = input.value[0] + "" + input.value[1];
-		if (input.value > 31) input.value = 31;
-		if (input.value < 1 & input.value.length > 0) input.value = 1;*/
-	}
-
 
 	form.passcode.oninput = () => {
 		let input = form.passcode;
@@ -176,7 +167,7 @@ function Signup() {
 			else
 				setCookie('user-id', uuid);
 
-			writeUserData(uuid, form.firstname.value, form.secondname.value, form.patronymic.value, form.phone1.value, form.password1.value, form.birthday.value);
+			writeUserData(uuid, form.firstname.value, form.secondname.value, form.patronymic.value, form.phone1.value, form.password1.value);
 	  	
 	  		window.location.replace('/');
 	    }
@@ -186,12 +177,11 @@ function Signup() {
 	});	
 }
 
-function writeUserData(userId, name, secondname, patronymic, phone, password, birthday) {
+function writeUserData(userId, name, secondname, patronymic, phone, password) {
 
 	firebase.database().ref('Phones/').child(phone).child(password).set(userId);
 
 	firebase.database().ref('Users/' + userId + '/Data').set({
-		Birthday: birthday,
 		Name: name,
 		Password: password,
 		Patronymic: patronymic,

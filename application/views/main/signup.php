@@ -22,18 +22,6 @@
 			    </div>
 		    </div>
 		</div>
-		<div>День рождения</div>
-		<div class="col">
-			<div class="form-floating">
-				<input type="date" name="birthday" class="form-control" placeholder="День рождения" id="birthday">
-				<label for="birthday">День рождения</label>
-			</div>
-		</div>
-		<div class="row mb-3">
-			<div class="col">
-				День рождения - необязателен, он нужен для предоставления скидки. Его можно будет добавить позже.
-			</div>
-		</div>
 		<div class="mb-3">
 			<div class="row g-2 mb-3">
 				<div class="col-12 col-sm-9">

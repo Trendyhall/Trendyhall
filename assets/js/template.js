@@ -70,7 +70,7 @@ function SetUserTemplateData(userid){
 	if (ufl) {
 		document.querySelector('.icon-cart').setAttribute('data-qty', ufl);
 	} else {
-		dbRef.child("Carts").child(userid).child("Count").get().then((snapshot) => {
+		dbRef.child("Users").child(userid).child("CartCount").get().then((snapshot) => {
 		  if (snapshot.exists()) {
 		  	document.querySelector('.icon-cart').setAttribute('data-qty', snapshot.val());
 		  	setCookie('user-cart-count', snapshot.val(), {'max-age': 864000});
