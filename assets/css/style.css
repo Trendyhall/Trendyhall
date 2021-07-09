@@ -215,7 +215,8 @@ a .card:hover {
 
 .sale-lable {
     background-color: #f00; 
-    color: #fff; 
+    /*color: #fff; */
+    color: #f8ff29;
     padding: 2px 4px;
     position: absolute; 
     left: 5px; 
