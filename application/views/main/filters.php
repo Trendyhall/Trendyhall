@@ -1,5 +1,5 @@
 		<div class="row">
-			<div class="col col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3">
+			<div class="col col-12 col-md-3">
 				<form action="" method="put" class="filters" name="filters">
 					<div class="sort mb-3">
 					  	<button class="sortbtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSort" aria-expanded="false">

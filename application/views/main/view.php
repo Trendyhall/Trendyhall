@@ -1,6 +1,6 @@
 
 
-	<div class="col col-xs-12 col-sm-12 col-md-9 col-lg-9">
+	<div class="col col-12 col-md-9">
 		<div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 g-4">
 			<?php foreach ($goods as $key => $value): ?>
 				<div class="col">
