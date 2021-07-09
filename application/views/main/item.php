@@ -37,7 +37,7 @@
 	    </div>
 	    <!-- Carusel end -->
 
-        
+        <!-- Small images -->
         <div class="row row-cols-5" style="margin-left: -2px; margin-right: -2px; padding-top: 2px;">
         	<div class="col" style="padding: 2px;">
         		<button type="button" data-bs-target="#itemCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" style="border: none; background-color: #fff; padding: 0;">
@@ -54,14 +54,14 @@
 				<?php endfor; ?>
 	    	<?php endif; ?>
 	    </div>
+	    <!-- Small images end -->
 	</div>
 	<div class="col col-12 col-sm-5">
 	       
-	        <div class="card-body">
-		        <div class="card-brand"><?php echo $good['name']; ?></div>
-        		<div class="card-name"><?php echo $good['brand']; ?></div>
-        		<div class="card-price"><?php echo $good['price']; ?> &#8381;</div>
-	        </div>
+        <h2><?php echo $good['name']; ?></h2>
+		<div class="card-name"><?php echo $good['brand']; ?></div>
+		<div class="card-price"><?php echo $good['price']; ?> &#8381;</div>
+	        
 	</div>
 </div>
 	

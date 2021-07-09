@@ -131,6 +131,7 @@ a .card:hover {
 
 
 
+
 /* sort and filters */
 
 .filters button {
@@ -209,6 +210,17 @@ a .card:hover {
     display: block;
     text-align: center;
     background-color: #c5c5c5;
+}
+
+/* goods list */
+
+.sale-lable {
+    background-color: #f00; 
+    color: #fff; 
+    padding: 2px 4px;
+    position: absolute; 
+    left: 5px; 
+    top:5px; 
 }
 
 
