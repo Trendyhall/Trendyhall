@@ -5,8 +5,8 @@ IfUser();
 
 function UserLogout() {
 	setCookie('user-id', 1, {'max-age': 0});
-	setCookie('user-first-leter', 1, {'max-age': 0});
-	setCookie('user-cart-count', 1, {'max-age': 0});
+	localStorage.removeItem('user-first-leter');
+	localStorage.removeItem('user-cart-count');
 
 	window.location.replace('/');
 
@@ -50,14 +50,14 @@ function UserData(userid){
 
 function SetUserTemplateData(userid){
 	const dbRef = firebase.database().ref();
-	let ufl = getCookie('user-first-leter');
-	if (ufl) {
+	let ufl = localStorage.getItem('user-first-leter');
+	if (ufl != null) {
 		document.querySelector('.icon-profile').setAttribute('data-qty', ufl);
 	} else {
 		dbRef.child("Users").child(userid).child("Data").child("Name").get().then((snapshot) => {
 		  if (snapshot.exists()) {
 		  	document.querySelector('.icon-profile').setAttribute('data-qty', snapshot.val()[0]);
-		  	setCookie('user-first-leter', snapshot.val()[0], {'max-age': 864000});
+		  	localStorage.setItem('user-first-leter', snapshot.val()[0]);
 		  } else {
 		    console.log("No data");
 		  }
@@ -66,16 +66,16 @@ function SetUserTemplateData(userid){
 		});
 	}
 
-	ufl = getCookie('user-cart-count');
-	if (ufl) {
+	ufl = localStorage.getItem('user-cart-count');
+	if (ufl != null) {
 		document.querySelector('.icon-cart').setAttribute('data-qty', ufl);
 	} else {
 		dbRef.child("Users").child(userid).child("CartCount").get().then((snapshot) => {
 		  if (snapshot.exists()) {
 		  	document.querySelector('.icon-cart').setAttribute('data-qty', snapshot.val());
-		  	setCookie('user-cart-count', snapshot.val(), {'max-age': 864000});
+		  	localStorage.setItem('user-cart-count', snapshot.val());
 		  } else {
-		  	setCookie('user-cart-count', '', {'max-age': 864000});
+		  	localStorage.setItem('user-cart-count', '');
 		  }
 		}).catch((error) => {
 		  console.error(error);

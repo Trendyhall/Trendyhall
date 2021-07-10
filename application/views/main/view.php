@@ -1,5 +1,5 @@
 	
-	<div class="col col-12 col-md-9">
+	<div class="col col-12 col-md-9 view-conteiner">
 		<div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 g-4">
 			<?php foreach ($goods as $key => $value): ?>
 				<?php if ($value['sale'] != 1) $Sale = $Othertables_model->GetByID("sales", "sale", $value['sale']); ?>

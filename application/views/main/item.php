@@ -1,4 +1,4 @@
-
+<script src="/assets/js/cart.js"></script>
 <div class="row">
 	<div class="col col-12 col-sm-7">
 		<!-- Carusel -->
@@ -73,25 +73,32 @@
 	    <!-- size couse -->
 
 	    <!-- buttons -->
-	    <div>
-	    	<button class="btn btn-outline-dark" id="addToCart">Добавить</button>
-	    	<button class="btn btn-outline-dark" id="addToCart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-</svg></button>
+	    <div class="mb-3">
+	    	<button class="btn btn-outline-dark" id="addToCart" style="border-radius: 0;" onclick="addToCart(<?php echo $good['id']; ?>)">Добавить</button>
+	    	<button class="btn btn-outline-dark" id="addToLike" style="border-radius: 0;">
+	    		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
+    				<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+				</svg>
+			</button>
 	    </div>
 	    
 
 	    <!-- colour couse -->
 
 	    <!-- Discription -->
+	    <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#DATA" aria-expanded="false" aria-controls="DATA" style="border-radius: 0;">
+		    DATA
+		</button>
 
+		<div class="collapse" id="DATA" style="text-align: left;">
+		    <?php foreach ($good as $key => $value): ?>
+				<br>
+				<?php echo $key.": ".$value; ?>
+			<?php endforeach ?>
+		</div>
 
 	</div>
 </div>
 	
 
 
-<?php foreach ($good as $key => $value): ?>
-	<br>
-	<?php echo $key.": ".$value; ?>
-<?php endforeach ?>
