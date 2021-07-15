@@ -54,6 +54,16 @@ class Main extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	public function like() {
+		$this->data['title'] = "Понравилось";
+		$this->data['active_name'] = -1;
+
+		$this->load->view('templates/header', $this->data);
+		$this->load->view('main/like', $this->data);
+		$this->load->view('templates/footer');
+	}
+
+
 	public function news() {
 		$this->data['title'] = "Новости";
 		$this->data['active_name'] = 1;

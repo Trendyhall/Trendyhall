@@ -153,45 +153,51 @@ header .nav-right {
 }
 
 header .nav-right .icon {
-    width: 50px;
+    width: 33px;
     height: 50px;
     position: relative;
     color: #232323;
     background-color: #fff;
     border: none;
-
-    padding: 12px;
 }
 
 header .nav-right .icon svg {
-    width: 26px;
-    height: 26px;
+    width: 23px;
+    height: 23px;
 }
+
+header .nav-right .icon.icon-cart {
+    transform: translateY(-4px);
+}
+header .nav-right .icon.icon-cart svg {
+    height: 33px;
+}
+
 
 header .nav-right .icon.icon-cart:after {
     content: attr(data-qty);
-    font-size: 10px;
+    font-size: 12px;
     color: #000;
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    left: 0;
+    left: 3px;
     right: 0;
-    top: 21px;
+    top: 19px;
     text-align: center;
 }
 
 
 header .nav-right .icon.icon-profile:after {
     content: attr(data-qty);
-    font-size: 20px;
+    font-size: 17px;
     color: #000;
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    left: 0;
+    left: 3px;
     right: 0;
-    top: 11px;
+    top: 13px;
     text-align: center;
 }
 
@@ -247,17 +253,15 @@ header .navbar-collapse.collapse.in {
     }
 
     header .nav-right .icon {
-        width: 40px;
         height: 40px;
-        padding: 7px;
     }
 
     header .nav-right .icon.icon-cart:after {
-        top: 17px;
+        top: 15px;
     }
 
     header .nav-right .icon.icon-profile:after {
-        top: 6px;
+        top: 8px;
     }
 } 
 /*===========================================================================================================*/

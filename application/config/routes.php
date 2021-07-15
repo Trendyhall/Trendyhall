@@ -59,6 +59,7 @@ $route['signup'] = 'main/signup';
 $route['reset-password'] = 'main/reset_password';
 $route['profile'] = 'main/profile';
 $route['cart'] = 'main/cart';
+$route['like'] = 'main/like';
 
 
 $route['news'] = 'main/news';
