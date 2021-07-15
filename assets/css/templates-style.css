@@ -18,7 +18,7 @@ header .wrapper {
 }
 
 header .nav-title {
-    padding: 13px 12px 13px 12px;
+    padding: 5px;
 }
 
 header .nav-title img {
@@ -26,7 +26,6 @@ header .nav-title img {
 }
 
 header nav {
-    height: 70px;
     flex: 1;
     display: flex;
     z-index: 10;
@@ -38,7 +37,7 @@ header nav ul {
 }
 
 header nav .cat {
-    padding: 25px 20px;
+    padding: 15px 20px;
 }
 
 
@@ -93,7 +92,7 @@ header .nav {
 }
 
 header .nav .cat {
-    padding-bottom: 13px;
+    padding-bottom: 7px;
     margin-right: auto;
     margin-left: auto;
 }
@@ -187,6 +186,9 @@ header .nav-right .icon.icon-cart:after {
     text-align: center;
 }
 
+header .nav-right .icon.icon-profile {
+    margin-right: 5px;
+}
 
 header .nav-right .icon.icon-profile:after {
     content: attr(data-qty);
@@ -203,7 +205,7 @@ header .nav-right .icon.icon-profile:after {
 
 
 header .navbar-toggle {
-    margin-left: 5px;
+    margin-right: 5px;
 }
 
 header .icon-bar {
