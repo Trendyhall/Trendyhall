@@ -63,6 +63,24 @@ class Main extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	public function card() {
+		$this->load->model('Goods_model');
+		$this->load->model('Colour_model');
+		$this->load->model('Othertables_model');
+		$this->data['Othertables_model'] = $this->Othertables_model;
+
+		$this->data['goods'] = $this->Goods_model->getGoodsByOnlyID($_GET['id']);
+
+		foreach ($this->data['goods'] as $key => $value) {
+			$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
+			$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
+		}
+
+		//$this->data['good'] = $this->Goods_model->getGood($goodID);
+
+		$this->load->view('main/card', $this->data);
+	}
+
 
 	public function news() {
 		$this->data['title'] = "Новости";

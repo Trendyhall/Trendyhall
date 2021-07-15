@@ -60,6 +60,8 @@ $route['reset-password'] = 'main/reset_password';
 $route['profile'] = 'main/profile';
 $route['cart'] = 'main/cart';
 $route['like'] = 'main/like';
+$route['card'] = 'main/card';
+
 
 
 $route['news'] = 'main/news';

@@ -32,6 +32,7 @@
 
 
     <script src="/assets/js/template.js"></script>
+    <script src="/assets/js/cart.js"></script>
 
   </body>
 </html>

@@ -243,6 +243,17 @@ a .card:hover {
     top:5px; 
 }
 
+button.btn.like {
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0;
+    z-index: 1;
+    position: absolute;
+    top: 4px;
+    right: 0;
+    transform: translateX(-100%);
+}
+
 
 /* sign up */
 

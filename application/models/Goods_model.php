@@ -48,6 +48,16 @@ class Goods_model extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function getGoodsByOnlyID($IDs_array) {
+		$where = 'firstsize = 0 AND (0';
+		foreach ($IDs_array as $key => $value) {
+			$where .= " OR id = '".$value."'";
+		}
+		$where .= ')';
+		$query = $this->db->get_where('goods', $where);
+		return $query->result_array();
+	}
+
 	public function getGoodsID($where_array = FALSE) {
 		$query = $this->db->select('id, firstsize');
 
