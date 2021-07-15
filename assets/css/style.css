@@ -30,6 +30,10 @@ a:hover {
     text-decoration: none;
 }
 
+button.btn {
+    border-radius: 0;
+}
+
 .no-margine {
     margin: 0;
 }
@@ -268,5 +272,14 @@ a .card:hover {
     border: solid 1px #212529;
     background-color: #fff ;
 }*/
+
+
+/* item page */
+
+.list-group-item.active {
+    color: #41464b;
+    background-color: #e2e3e5;
+    border-color: #e2e3e5;
+}
 
 /*===========================================================================================================*/

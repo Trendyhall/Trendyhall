@@ -30,8 +30,7 @@
         cart
         <div id="cartTest"></div>
         <script>
-            localStorage.setItem('name', JSON.stringify({name: "John"}));
-            document.getElementById('cartTest').innerHTML = JSON.stringify(localStorage, null, 2);
+            document.getElementById('cartTest').innerHTML = JSON.stringify(localStorage.getItem("cart"), null, 2);
 
         </script>
          <br>
