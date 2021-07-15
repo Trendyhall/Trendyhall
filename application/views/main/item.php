@@ -1,7 +1,7 @@
 <script src="/assets/js/cart.js"></script>
 <script>isItemPage = true;</script>
 <div class="row">
-	<div class="col col-12 col-sm-7">
+	<div class="col col-12 col-sm-7 mb-3">
 		<!-- Carusel -->
 	    <div id="itemCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false">
 	      
@@ -42,14 +42,14 @@
         <div class="row row-cols-5" style="margin-left: -2px; margin-right: -2px; padding-top: 2px;">
         	<div class="col" style="padding: 2px;">
         		<button type="button" data-bs-target="#itemCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" style="border: none; background-color: #fff; padding: 0;">
-        			<img src="https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/id<?php echo $good['id']; ?>.webp" class="w-100" alt="...">
+        			<img src="https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/id<?php echo $good['id']; ?>.webp" class="w-100 scaleup-on-hover" alt="...">
         		</button>
         	</div>
         	<?php if ($good['imagecount'] != 0): ?>
 	        	<?php for ($i = 1; $i <= $good['imagecount']; $i++): ?>
 	        	<div class="col" style="padding: 2px;">
 	        		<button type="button" data-bs-target="#itemCarousel" data-bs-slide-to="<?php echo $i; ?>" aria-label="Slide <?php echo $i+1; ?>" style="border: none; background-color: #fff; padding: 0;">
-				    	<img src="https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Alternate/id<?php echo $good['id']."_".$i; ?>.webp" class="w-100" alt="...">
+				    	<img src="https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Alternate/id<?php echo $good['id']."_".$i; ?>.webp" class="w-100 scaleup-on-hover" alt="...">
 					</button>
 				</div>
 				<?php endfor; ?>
@@ -105,7 +105,7 @@
 	    		<button class="btn btn-outline-dark w-100" id="addToCart" onclick="addToCart(<?php echo $good['id']; ?>, 2)" disabled>В корзину</button>
 	    	</div>
 	    	<div class="col col-2" style="padding: 0 0 0 1px;">
-	    		<button class="btn btn-outline-dark w-100" style="padding-left: 0; padding-right: 0;" id="addToLike">
+	    		<button class="btn btn-outline-dark w-100" style="padding-left: 0; padding-right: 0;" id="addToLike" data-likeid="<?php echo $good['id']; ?>">
 		    		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
 	    				<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
 					</svg>

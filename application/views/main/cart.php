@@ -29,8 +29,11 @@
     <div class="col col-12 col-sm-4">
         cart
         <div id="cartTest"></div>
+        like
+        <div id="likeTest"></div>
         <script>
             document.getElementById('cartTest').innerHTML = JSON.stringify(localStorage.getItem("cart"), null, 2);
+            document.getElementById('likeTest').innerHTML = JSON.stringify(localStorage.getItem("like"), null, 2);
 
         </script>
          <br>

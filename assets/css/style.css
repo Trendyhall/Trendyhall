@@ -34,6 +34,10 @@ button.btn {
     border-radius: 0;
 }
 
+button.btn:focus {
+    box-shadow: none !important;
+}
+
 .no-margine {
     margin: 0;
 }
@@ -42,7 +46,19 @@ button.btn {
     border: solid 1px #c3c3c3;
 }
 
+.scaleup-on-hover {
+    transition: all 0.1s ease;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
 
+.scaleup-on-hover:hover {
+    transition: all 0.1s ease;
+    -webkit-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    transform: scale(1.03);
+}
 
 
 
