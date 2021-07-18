@@ -54,6 +54,34 @@ class Main extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	public function cart_cards() {
+		$this->load->model('Goods_model');
+		$this->load->model('Colour_model');
+		$this->load->model('Othertables_model');
+		$this->data['Othertables_model'] = $this->Othertables_model;
+
+
+		$postData = file_get_contents('php://input');
+		$like_ids_json = json_decode($postData, true);
+		foreach ($like_ids_json as $key => $value) {
+			$like_ids[] = $key;
+		}
+
+		$this->data['goods'] = $this->Goods_model->getGoodsByOnlyID($like_ids);
+
+
+		foreach ($this->data['goods'] as $key => $value) {
+			$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
+			$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
+		}
+
+		//$this->data['good'] = $this->Goods_model->getGood($goodID);
+
+		$this->load->view('main/cart-cards', $this->data);
+	}
+
+
+
 	public function like() {
 		$this->data['title'] = "Понравилось";
 		$this->data['active_name'] = -1;
@@ -63,13 +91,19 @@ class Main extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 
-	public function card() {
+	public function like_cards() {
 		$this->load->model('Goods_model');
 		$this->load->model('Colour_model');
 		$this->load->model('Othertables_model');
 		$this->data['Othertables_model'] = $this->Othertables_model;
 
-		$this->data['goods'] = $this->Goods_model->getGoodsByOnlyID($_GET['id']);
+		$postData = file_get_contents('php://input');
+		$like_ids_json = json_decode($postData, true);
+		foreach ($like_ids_json as $key => $value) {
+			$like_ids[] = $key;
+		}
+
+		$this->data['goods'] = $this->Goods_model->getGoodsByOnlyID($like_ids);
 
 		foreach ($this->data['goods'] as $key => $value) {
 			$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
@@ -78,7 +112,7 @@ class Main extends MY_Controller {
 
 		//$this->data['good'] = $this->Goods_model->getGood($goodID);
 
-		$this->load->view('main/card', $this->data);
+		$this->load->view('main/like-cards', $this->data);
 	}
 
 

@@ -58,9 +58,14 @@ $route['translate_uri_dashes'] = FALSE;
 $route['signup'] = 'main/signup';
 $route['reset-password'] = 'main/reset_password';
 $route['profile'] = 'main/profile';
+
 $route['cart'] = 'main/cart';
+$route['cart-cards'] = 'main/cart_cards';
+$route['cart-result'] = 'main/cart_result';
+
+
 $route['like'] = 'main/like';
-$route['card'] = 'main/card';
+$route['like-cards'] = 'main/like_cards';
 
 
 

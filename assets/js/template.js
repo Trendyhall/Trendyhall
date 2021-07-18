@@ -6,7 +6,6 @@ IfUser();
 function UserLogout() {
 	setCookie('user-id', 1, {'max-age': 0});
 	localStorage.removeItem('user-first-leter');
-	localStorage.removeItem('user-cart-count');
 
 	window.location.replace('/');
 
