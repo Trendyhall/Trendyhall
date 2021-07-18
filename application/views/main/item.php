@@ -95,12 +95,30 @@
 		  </div>
 		</div>
 
+		<style>
+			.fly-animation {
+				position: fixed;
+				z-index: 10;
+
+				background-color: darkcyan;
+				width: 16px;
+				height: 16px;
+
+				transition: top 2s ease, right 2s ease;
+  				transition-timing-function: ease;
+
+  				top: unset;
+  				right: unset;
+			}
+		</style>
+
 
 	    <!-- buttons -->
 	    <div class="row m-0 mb-3">
 	    	<div class="col col-10 position-relative" style="padding: 0 1px 0 0;">
 	    		<span id="addToCartBadge" class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-dark" style="z-index: 1;">Выбирите размер</span>
 	    		<button class="btn btn-outline-dark w-100" id="addToCart" disabled>В корзину</button>
+	    		
 	    	</div>
 	    	<div class="col col-2" style="padding: 0 0 0 1px;">
 	    		<button class="btn btn-outline-dark w-100" style="padding-left: 0; padding-right: 0;" id="addToLike" data-likeid="<?php echo $good['id']; ?>">

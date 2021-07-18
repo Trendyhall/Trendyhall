@@ -89,6 +89,10 @@ function itemPageInit(){
 	    			document.getElementById("addToLike").getAttribute("data-likeid"),
 	    			sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"), 
 	    			1); 
+	    		document.getElementById("addToCart").insertAdjacentHTML('beforeend', "<div class='fly-animation'></div>");
+	    		document.getElementById("addToCart").lastChild.style = 'top:25px; right: 50px;';
+
+	    		setTimeout(() => document.getElementById("addToCart").lastChild.remove(), 2100);
 	    	};
 	    }
     }

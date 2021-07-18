@@ -173,6 +173,7 @@ function DtabseInit(){
 }
 
 function IfUser(){
+	document.querySelector('.icon-cart').setAttribute('data-qty', localStorage.getItem('user-cart-count'));
 	let userid = getCookie('user-id');
 	if (userid) {
 		let iconProfile = document.querySelector('.icon-profile');
