@@ -31,7 +31,7 @@
 				        <div class="invalid-feedback">Введите верный номер телефона</div>
 				    </div>
 			    </div>
-			    <div class="col-12 col-sm-3">
+			    <div class="col-12 col-sm-3 w-100">
 			    	<button class="btn btn-outline-dark" style="height: calc(3.5rem + 2px); align-items: center; " id="vercodeBtn">Подтвердить</button>
 			    </div>
 			</div>

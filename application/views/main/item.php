@@ -132,8 +132,8 @@
 	    
 
 	    <!-- colour chouse -->
-	    <h4>Другие цвета:</h4>
-	    <div class="row row-cols-4 m-0 mb-3">
+	    <h5>Другие цвета:</h5>
+	    <div class="row row-cols-4 mb-3" style="margin: 0 -0.25rem">
 	    	<?php foreach ($colours as $key => $value): ?>
 	    		<a href="/goods/<?php echo $value['modelcode'].'_'.$value['colour']; ?>" class="ps-1 pe-1">
 	    			<img src="https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/id<?php echo $value['id']; ?>.webp" class="w-100 scaleup-on-hover" alt="...">
@@ -144,8 +144,21 @@
 	    </div>
 
 	    <!-- Discription -->
-
-
+		<h5>Детали:</h5>
+		<ul class="list-inline" style="font-size: 0.85rem;">
+			<li><?php echo $good['description']; ?></li>
+			<li><p></p></li>
+			<li>Состав: <?php echo $good['consist']; ?></li>
+			<li><p></p></li>
+			<li>Марка: <?php echo $good['brand']; ?></li>
+			<li>Производитель: <?php echo $good['manufacturer']; ?></li>
+			<li>Страна производства: <?php echo $good['country']; ?></li>
+			<li>Поставщик: <?php echo $good['provider']; ?></li>
+			<li><p></p></li>
+			<li>Цвет: <?php echo $good['colour']; ?></li>
+			<li>Модель: <?php echo $good['modelcode']; ?></li>
+			<li>Артикул: <?php echo $good['articule']; ?></li>
+		</ul>
 
 	    <!-- Discription for me -->
 	    <?php if ($IsAdmin): ?>
