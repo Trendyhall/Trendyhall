@@ -134,8 +134,8 @@ class View extends MY_Controller {
 		
 
 		$this->load->view('templates/header', $this->data);
-		$this->load->view('main/filters', $this->data);
-		$this->load->view('main/view', $this->data);
+		$this->load->view('view/filters', $this->data);
+		$this->load->view('view/view', $this->data);
 		$this->load->view('templates/footer');
 	}
 
@@ -181,4 +181,57 @@ class View extends MY_Controller {
 
 		$this->BuildFilters($offset, $addition_where);
 	}
+
+	public function cart_cards() {
+		$this->load->model('Goods_model');
+		$this->load->model('Colour_model');
+		$this->load->model('Othertables_model');
+		$this->data['Othertables_model'] = $this->Othertables_model;
+
+
+		$postData = file_get_contents('php://input');
+		$like_ids_json = json_decode($postData, true);
+		foreach ($like_ids_json as $key => $value) {
+			$like_ids[] = $key;
+		}
+
+		$this->data['goods'] = $this->Goods_model->getGoodsByOnlyID($like_ids);
+
+
+		foreach ($this->data['goods'] as $key => $value) {
+			$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
+			$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
+		}
+
+		//$this->data['good'] = $this->Goods_model->getGood($goodID);
+
+		$this->load->view('view/cart-cards', $this->data);
+	}
+
+
+	public function like_cards() {
+		$this->load->model('Goods_model');
+		$this->load->model('Colour_model');
+		$this->load->model('Othertables_model');
+		$this->data['Othertables_model'] = $this->Othertables_model;
+
+		$postData = file_get_contents('php://input');
+		$like_ids_json = json_decode($postData, true);
+		foreach ($like_ids_json as $key => $value) {
+			$like_ids[] = $key;
+		}
+
+		$this->data['goods'] = $this->Goods_model->getGoodsByOnlyID($like_ids);
+
+		foreach ($this->data['goods'] as $key => $value) {
+			$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
+			$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
+		}
+
+		//$this->data['good'] = $this->Goods_model->getGood($goodID);
+
+		$this->load->view('view/like-cards', $this->data);
+	}
+
+
 }

@@ -60,12 +60,12 @@ $route['reset-password'] = 'main/reset_password';
 $route['profile'] = 'main/profile';
 
 $route['cart'] = 'main/cart';
-$route['cart-cards'] = 'main/cart_cards';
-$route['cart-result'] = 'main/cart_result';
+$route['cart-cards'] = 'view/cart_cards';
+$route['cart-result'] = 'view/cart_result';
 
 
 $route['like'] = 'main/like';
-$route['like-cards'] = 'main/like_cards';
+$route['like-cards'] = 'view/like_cards';
 
 
 
