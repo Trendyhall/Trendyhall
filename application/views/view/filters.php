@@ -1,6 +1,6 @@
 		<div class="row">
 			<div class="col col-12 col-md-3">
-				<h2>Фильтры</h2>
+				<h3>Фильтры</h3>
 				
 				<form action="" method="put" class="filters" name="filters">
 					<div class="sort mb-2 black-border">

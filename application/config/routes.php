@@ -82,15 +82,25 @@ $route['new/(:num)'] = 'view/new/$1';
 $route['sale'] = 'view/sale';
 $route['sale/(:num)'] = 'view/sale/$1';
 
+$route['brands'] = 'view/brands';
+$route['brand/(:any)'] = 'view/brand/$1';
+$route['brand/(:any)/(:num)'] = 'view/brand/$1/$2';
+/*$route['brand/(:any)/(:num)'] = function ($brand, $offset)
+{
+        return 'view/brand/' . strtolower($brand) . '/' . $offset;
+};*/
+//$route['brand/(:any)/(:num)'] = 'view/brand/$1/$2';
+
+
 
 $route['goods/(:any)'] = 'main/item/$1';
 
 
-
+/*
 $route['brands'] = 'brand';
 $route['brands/(:any)'] = 'brand/view/$1';
 $route['brands/(:any)/(:any)'] = 'brand/view/$1';
-
+*/
 
 $route['special'] = 'special';
 $route['special/database-upload'] = 'special/database_upload';

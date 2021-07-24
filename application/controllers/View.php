@@ -32,6 +32,7 @@ class View extends MY_Controller {
 		$p_config['last_tagl_close'] = "</li>";
 
 		$p_config['base_url'] = '/'.$this->uri->segment(1).'/';
+		if (array_key_exists('addBrandDescription', $this->data)) $p_config['base_url'] .= $this->uri->segment(2).'/';
 
 		return $p_config;
 	}
@@ -134,12 +135,40 @@ class View extends MY_Controller {
 		
 
 		$this->load->view('templates/header', $this->data);
+		if (array_key_exists('addBrandDescription', $this->data)) $this->load->view('brand/view', $this->data);
 		$this->load->view('view/filters', $this->data);
 		$this->load->view('view/view', $this->data);
 		$this->load->view('templates/footer');
 	}
 
 	public function index() {}
+
+	public function brands() {
+		$this->data['title'] = "Бренды";
+		$this->data['active_name'] = 2;
+
+        $this->load->model('Brands_model');
+        $this->data['brands'] = $this->Brands_model->getBrands();
+
+		$this->load->view('templates/header', $this->data);
+		$this->load->view('brand/index', $this->data);
+		$this->load->view('templates/footer');
+	}
+
+    public function brand($slug, $offset = 0) {
+        $this->load->model('Brands_model');
+        $this->data['brand'] = $this->Brands_model->getBrand($slug);
+
+        $this->data['title'] = $this->data['brand']['name'];
+        $this->data['active_name'] = -1;
+        $this->data['addBrandDescription'] = TRUE;
+
+
+        $addition_where[0] = 'brand';
+		$addition_where[1] = array($this->data['brand']['id']);
+
+		$this->BuildFilters($offset, $addition_where);
+    }
 
 	public function boys($offset = 0) {
 		$this->data['title'] = "Мальчики";
