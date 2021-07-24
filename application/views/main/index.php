@@ -16,7 +16,7 @@
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="#eee"></rect>
             <image xlink:href="/assets/img/main/0050.jpg" height="100%"/>
-            <image xlink:href="/assets/img/main/0102.jpg" height="100%" text-anchor="end"/>
+            <image xlink:href="/assets/img/main/0102.jpg" height="100%" style="transform: translateX(calc(100% - 354px));"/>
             <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
           </svg>
           <div class="carousel-caption d-none d-md-block">

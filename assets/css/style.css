@@ -5,6 +5,10 @@
     src: url(/assets/fonts/Graphik-Regular-Web.woff2) format("woff2");
 }
 
+:root {
+    --dark: #232323;
+}
+
 html {
     min-width: 300px;
 }
@@ -140,11 +144,12 @@ a .card:hover {
     transform: scale(1);
 }
 
-.card .card-brand {
+.card .card-name {
+    color: var(--dark);
     font-size: 1.3rem;
 }
 
-.card .card-name {
+.card .card-brand {
     font-size: 1.1rem;
 }
 
@@ -193,7 +198,7 @@ a .card:hover {
 
 .form-check-input {
     background-color: #fff;
-    border-color: #232323;
+    border-color: var(--dark);
     margin-top: 2px;
     height: 20px;
     width: 20px;
@@ -206,7 +211,7 @@ a .card:hover {
 
 .form-check-input:checked {
     background-color: #fff;
-    border-color: #232323;
+    border-color: var(--dark);
 }
 
 
@@ -220,7 +225,7 @@ a .card:hover {
 
 .form-check-input:focus {
     box-shadow: none !important;
-    border-color: #232323;
+    border-color: var(--dark);
 }
 
 
@@ -293,26 +298,26 @@ button.btn.like.active {
 
 /*
 .signup-container .form-control {
-    border-color: #212529;
+    border-color: var(--dark);
 }*/
 
 .signup-container .form-control:focus {
-    /*border-color: #212529;*/
+    /*border-color: var(--dark);*/
     box-shadow: none !important;
 }
 
 .signup-container .form-check-input[type=checkbox] {
     border-radius: 0;
-    border: solid 1px #212529;
+    border: solid 1px var(--dark);
     background-color: #fff;
 }
 /*
 .signup-container .form-check-input:valid~.form-check-label {
-    color: #212529;
+    color: var(--dark);
 }
 
 .signup-container .form-check-input:valid:checked {
-    border: solid 1px #212529;
+    border: solid 1px var(--dark);
     background-color: #fff ;
 }*/
 

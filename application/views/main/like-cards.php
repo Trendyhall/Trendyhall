@@ -9,8 +9,8 @@
                     <div class="sale-lable">-<?php echo $Sale ?>%</div>
                 <?php endif; ?>
                 <div class="card-body">
-                    <div class="card-brand"><?php echo $value['name']; ?></div>
-                    <div class="card-name"><?php echo $value['brand']; ?></div>
+                    <div class="card-name"><?php echo $value['name']; ?></div>
+                    <div class="card-brand"><?php echo $value['brand']; ?></div>
                     <?php if ($value['sale'] == 1): ?>
                         <div class="card-price"><?php echo number_format($value['price'], 0,"."," "); ?> &#8381; </div>
                     <?php endif; ?>

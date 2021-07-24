@@ -116,12 +116,27 @@ class Goods_model extends CI_Model {
 		return $result_array;
 	}
 
+	public function getAllColoursByCode($ModelCode) {
+		$query = $this->db->query("SELECT id, modelcode, colour FROM goods WHERE modelcode = '".$ModelCode."' AND firstsize = 0");
+		$result_array = $query->result_array();
+		foreach ($result_array as $key => $value) {
+			$query1 = $this->db->query("SELECT colourcode FROM colours WHERE id = '".$value['colour']."' LIMIT 1");
+			$result_array[$key]['colour'] = $query1->row_array()['colourcode'];
+		}
+		return $result_array;
+	}
+
 	public function getFirstsizeIDByID($ID) {
 		$query = $this->db->query("SELECT firstsize FROM goods WHERE id = '".$ID."' LIMIT 1");
 		$result_array = $query->row_array();
 		if ($result_array['firstsize'] == 0) return $ID;
 		else return $result_array['firstsize'];
 	}
+
+
+
+
+
 
 	public function Special1() {
 		$sql = "SELECT id, articule FROM goods";

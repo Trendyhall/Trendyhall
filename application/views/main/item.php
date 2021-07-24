@@ -60,11 +60,11 @@
         <h3><?php echo $good['name']; ?></h3>
 		<div style="font-size: 1.2rem;"><?php echo $Othertables_model->GetByID("brands", "name", $good['brand']); ?></div>
 		<?php if ($good['sale'] == 1): ?>
-			<div style="font-size: 1.2rem;" class="mb-3 d-inline"><?php echo number_format($good['price'], 0,"."," "); ?> &#8381; </div>
+			<div style="font-size: 1.2rem;" class="mb-4 d-inline"><?php echo number_format($good['price'], 0,"."," "); ?> &#8381; </div>
 		<?php endif; ?>
 		<?php if ($good['sale'] != 1): ?>
 			<?php $Sale = $Othertables_model->GetByID("sales", "sale", $good['sale']); ?>
-			<div style="font-size: 1.2rem;" class="mb-3">
+			<div style="font-size: 1.2rem;" class="mb-4">
 				<div style="text-decoration: line-through;" class="d-inline"><?php echo number_format($good['price'], 0,"."," "); ?> &#8381;</div>
 				<div style="color: #f00;" class="d-inline"><?php echo number_format($good['price'] * (0.01 * (100 - $Sale)), 0,"."," "); ?> &#8381;</div>
 			</div>
@@ -131,20 +131,35 @@
 	    </div>
 	    
 
-	    <!-- colour couse -->
+	    <!-- colour chouse -->
+	    <h4>Другие цвета:</h4>
+	    <div class="row row-cols-4 m-0 mb-3">
+	    	<?php foreach ($colours as $key => $value): ?>
+	    		<a href="/goods/<?php echo $value['modelcode'].'_'.$value['colour']; ?>" class="ps-1 pe-1">
+	    			<img src="https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/id<?php echo $value['id']; ?>.webp" class="w-100 scaleup-on-hover" alt="...">
+	    		</a>
+	    		
+	    	<?php endforeach ?>
+	    	
+	    </div>
 
 	    <!-- Discription -->
-	    <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse" data-bs-target="#DATA" aria-expanded="false" aria-controls="DATA">
-		    DATA
-		</button>
 
-		<div class="collapse" id="DATA" style="text-align: left;">
-		    <?php foreach ($good as $key => $value): ?>
-				<br>
-				<?php echo $key.": ".$value; ?>
-			<?php endforeach ?>
-		</div>
 
+
+	    <!-- Discription for me -->
+	    <?php if ($IsAdmin): ?>
+		    <button class="btn btn-outline-dark w-100" type="button" data-bs-toggle="collapse" data-bs-target="#DATA" aria-expanded="false" aria-controls="DATA">
+			    DATA
+			</button>
+
+			<div class="collapse" id="DATA" style="text-align: left;">
+			    <?php foreach ($good as $key => $value): ?>
+					<br>
+					<?php echo $key.": ".$value; ?>
+				<?php endforeach ?>
+			</div>
+		<?php endif; ?>
 	</div>
 </div>
 	

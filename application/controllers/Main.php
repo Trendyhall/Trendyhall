@@ -141,7 +141,9 @@ class Main extends MY_Controller {
 		if (empty($this->data['good'])) {
 			show_404();
 		}
+
 		$this->data['sizes'] = $this->Goods_model->getAllSizesByCodeColour($good_code[0], $good_code[1]);
+		$this->data['colours'] = $this->Goods_model->getAllColoursByCode($good_code[0]);
 
 
 		$this->data['title'] = $this->data['good']['name'];
