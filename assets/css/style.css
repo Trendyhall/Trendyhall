@@ -85,8 +85,13 @@ button.btn-close:focus {
     width: fit-content;
 }
 
+.pagination .page-link {
+    padding: .375rem 0;
+}
+
 .pagination .page-link a {
     color: #616161;
+    padding: .675rem .75rem;
 }
 
 .pagination .page-link a:hover {
@@ -96,6 +101,7 @@ button.btn-close:focus {
 .page-item.active .page-link {
     background-color: #616161;
     border-color: #616161;
+    padding: .375rem .75rem;
 }
 
 .page-item.active .page-link:hover {
