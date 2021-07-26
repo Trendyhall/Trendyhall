@@ -96,14 +96,12 @@ class Goods_model extends CI_Model {
 		return $query->row_array();
 	}
 
-	public function InsertGood($goods) {
-		$sql = "INSERT INTO goods (id, articule, modelcode, colour, size, firstsize, gender, brand, itemgroup, name, consist, provider, manufacturer, contry, imagecount, price, sale, count, adddate, season, description) VALUES (null";
-		foreach ($goods as $key => $value) {
-			if ($key == 0) $sql.$this->db->escape($value);
-			else $sql = $sql.", ".$this->db->escape($value);
-		}
-		$sql = $sql.")";
-		$this->db->query($sql);
+
+
+	
+	public function getGoodWithSameItemgroup($itemgroup) {
+		$query = $this->db->query("SELECT * FROM goods WHERE firstsize = 0 AND itemgroup = ".$itemgroup." ORDER BY RAND() LIMIT 5");
+		return $query->result_array();
 	}
 
 	public function getAllSizesByCodeColour($ModelCode, $Colour) {
@@ -136,7 +134,7 @@ class Goods_model extends CI_Model {
 
 
 
-
+	/*Special and for 1C*/
 
 	public function Special1() {
 		$sql = "SELECT id, articule FROM goods";
@@ -147,5 +145,15 @@ class Goods_model extends CI_Model {
 			$sql = "UPDATE goods SET modelcode = ".$this->db->escape(explode('*', $value['articule'])[0])." WHERE id = ".$this->db->escape($value['id']);
 			$this->db->query($sql);
 		}*/
+	}
+
+	public function InsertGood($goods) {
+		$sql = "INSERT INTO goods (id, articule, modelcode, colour, size, firstsize, gender, brand, itemgroup, name, consist, provider, manufacturer, contry, imagecount, price, sale, count, adddate, season, description) VALUES (null";
+		foreach ($goods as $key => $value) {
+			if ($key == 0) $sql.$this->db->escape($value);
+			else $sql = $sql.", ".$this->db->escape($value);
+		}
+		$sql = $sql.")";
+		$this->db->query($sql);
 	}
 }

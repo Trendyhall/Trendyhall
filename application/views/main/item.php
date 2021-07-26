@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mb-5">
 	<div class="col col-12 col-sm-7 mb-3">
 		<!-- Carusel -->
 	    <div id="itemCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false">
@@ -104,11 +104,23 @@
 				width: 16px;
 				height: 16px;
 
-				transition: top 2s ease, right 2s ease;
-  				transition-timing-function: ease;
+				transition: fly-animation 2s ease;
 
   				top: unset;
   				right: unset;
+			}
+
+			@keyframes fly-animation {
+			  0% {
+			    left: -10%;
+			  }
+			  40%,
+			  60% {
+			    left: 50%;
+			  }
+			  100% {
+			    left: 110%;
+			  }
 			}
 		</style>
 
@@ -176,5 +188,32 @@
 	</div>
 </div>
 	
-
-
+<!-- Other goods -->
+<h5>Пожожие товары:</h5>
+<div class="row row-cols-2 row-cols-md-4 row-cols-lg-5">
+	<?php foreach ($other_goods as $key => $value): ?>
+	    <?php if ($value['sale'] != 1) $Sale = $Othertables_model->GetByID("sales", "sale", $value['sale']); ?>
+	    <div class="col position-relative">
+	        <button class="btn like" data-likeid="<?php echo $value['id']; ?>"></button>
+	        <a href="/goods/<?php echo $value['modelcode'].'_'.$value['colour']; ?>">
+	            <div class="card h-100">
+	                <img src="<?php if ($value['imagecount'] == 0) { echo "/assets/img/general/noimage.webp"; } else { echo "https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/id".$value['id'].".webp"; }?>" class="card-img-top" alt="...">
+	                <?php if ($value['sale'] != 1): ?>
+	                    <div class="sale-lable">-<?php echo $Sale ?>%</div>
+	                <?php endif; ?>
+	                <div class="card-body">
+	                    <div class="card-name"><?php echo $value['name']; ?></div>
+	                    <div class="card-brand"><?php echo $value['brand']; ?></div>
+	                    <?php if ($value['sale'] == 1): ?>
+	                        <div class="card-price"><?php echo number_format($value['price'], 0,"."," "); ?> &#8381; </div>
+	                    <?php endif; ?>
+	                    <?php if ($value['sale'] != 1): ?>
+	                        <div style="font-size: 1rem; text-decoration: line-through;"><?php echo number_format($value['price'], 0,"."," "); ?> &#8381;</div>
+	                        <div class="card-price" style="color: #f00;"><?php echo number_format($value['price'] * (0.01 * (100 - $Sale)), 0,"."," "); ?> &#8381;</div>
+	                    <?php endif; ?>
+	                </div>
+	            </div>
+	        </a>
+	    </div>
+	<?php endforeach ?>
+</div>
