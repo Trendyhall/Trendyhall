@@ -18,6 +18,17 @@ class Main extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	public function error_404() {
+		$this->data['title'] = "404";
+		$this->data['active_name'] = -1;
+
+
+		$this->load->view('templates/header', $this->data);
+		$this->load->view('main/error-404', $this->data);
+		$this->load->view('templates/footer');
+	}
+	
+
 	public function signup() {
 		$this->data['title'] = "Зарегистрироваться";
 		$this->data['active_name'] = -1;

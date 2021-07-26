@@ -1,32 +1,23 @@
-<div class="well">
-    <?php $attributes = array("class" => "form-horizontal", "name" => "contactform", "action" => "hhtp://trendyhall.ru/contact");
-    echo form_open("/contact", $attributes);?>
-    <!--form action="http://trendyhall.ru/contact" class="form-horizontal" name="contactform" method="post" accept-charset="utf-8"-->
-    <fieldset>
-	    <div class="form-group">
-	        <input class="form-control" name="name" placeholder="Ваше имя" type="text" value="<?php echo set_value('name'); ?>" />
-	        <span class="text-danger"><?php echo form_error('name'); ?></span>
-	    </div>
+<h6>Наш телефон: +7(495)225-73-90</h6>
+<h6>Наш e-mail: ............@gmail.com</h6>
+<h6>Наш WhatsApp: +7(495)225-73-90</h6>
 
-	    <div class="form-group">
-	        <input class="form-control" name="email" placeholder="Ваш email" type="text" value="<?php echo set_value('email'); ?>" />
-	        <span class="text-danger"><?php echo form_error('email'); ?></span>
-	    </div>
 
-	    <div class="form-group">
-	        <input class="form-control" name="subject" placeholder="Тема" type="text" value="<?php echo set_value('subject'); ?>" />
-	        <span class="text-danger"><?php echo form_error('subject'); ?></span>
-	    </div>
+<form name="Message" method="post" action="" accept-charset="utf-8" class="signup-container" novalidate>
+	<div class="form-floating mb-2">
+      <input type="text" name="name" class="form-control" id="floatingN" placeholder="Имя Фамилия Отчество" required>
+      <label for="floatingN">Имя Фамилия Отчество</label>
+      <div class="invalid-feedback">Введите Имя Фамилия Отчество</div>
+    </div>
+    <div class="form-floating mb-2">
+      <input type="text" name="emailphone" class="form-control" id="floatingEP" placeholder="Почта или Номер телефона" required>
+      <label for="floatingEP">Почта или Номер телефона</label>
+      <div class="invalid-feedback">Введите Почту или Номер телефона</div>
+    </div>
+    <div class="form-floating mb-2">
+      <textarea name="patronymic" class="form-control" id="floatingM" placeholder="Сообщение" style="height: 35vh;" required></textarea>
+      <label for="floatingM">Сообщение</label>
+    </div>
+	<button type="submit" class="btn btn-outline-dark" disabled id="SendBTN">Отправить</button>
+</form>
 
-	    <div class="form-group">
-	        <textarea class="form-control" name="message" rows="4" placeholder="Ваше сообщение"><?php echo set_value('message'); ?></textarea>
-	        <span class="text-danger"><?php echo form_error('message'); ?></span>
-	    </div>
-
-	    <div class="form-group">
-	        <input name="submit" type="submit" class="btn btn-lg btn-warning pull-right" value="отправить" />
-	    </div>
-    </fieldset>
-    <?php echo form_close(); ?>
-    <?php echo $this->session->flashdata('msg'); ?>
-</div>

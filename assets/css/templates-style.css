@@ -285,6 +285,7 @@ header .navbar-collapse.collapse.in {
 
 .form-control {
     border-color: #212529;
+    border-radius: 0;
 }
 
 .form-control:focus {

@@ -285,13 +285,17 @@ button.btn.like.active {
 .signup-container {
     border-radius: 0;
 }
-
+/*
 .signup-container input {
     border-radius: 0;
 }
 
-.signup-container button {
+.signup-container textarea {
     border-radius: 0;
+}*/
+
+.signup-container button#submitBtn {
+    /*border-radius: 0;*/
     margin: auto;
     display: flex;
 }
