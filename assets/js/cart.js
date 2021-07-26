@@ -1,64 +1,36 @@
 
 /* cart */
-function addToCart(firstsizeID, goodID, count){
+
+function setToCart(goodID, count){
 	let cart = JSON.parse(localStorage.getItem('cart'));
 	if (cart == null) cart = {};
-	if (cart[firstsizeID] == undefined) {
+	if (cart[goodID] == undefined) {
 		localStorage.setItem('user-cart-count', Number(localStorage.getItem('user-cart-count'))+1);
 		document.querySelector('.icon-cart').setAttribute('data-qty', localStorage.getItem('user-cart-count'));
-		cart[firstsizeID] = {};
-		cart[firstsizeID][goodID] = count;
+		cart[goodID] = count;
 	}
 	else {
-		if (cart[firstsizeID][goodID] == undefined) cart[firstsizeID][goodID] = count;
-		else cart[firstsizeID][goodID] += count;
+		cart[goodID] = count;
 	}
 	
 	localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-function setToCart(firstsizeID, goodID, count){
+function removeFromCart(goodID){
 	let cart = JSON.parse(localStorage.getItem('cart'));
 	if (cart == null) cart = {};
-	if (cart[firstsizeID] == undefined) {
-		localStorage.setItem('user-cart-count', Number(localStorage.getItem('user-cart-count'))+1);
+	if (cart[goodID] != undefined) {
+		localStorage.setItem('user-cart-count', Number(localStorage.getItem('user-cart-count'))-1);
 		document.querySelector('.icon-cart').setAttribute('data-qty', localStorage.getItem('user-cart-count'));
-		cart[firstsizeID] = {};
-		cart[firstsizeID][goodID] = count;
-	}
-	else {
-		cart[firstsizeID][goodID] = count;
-	}
-	
-	localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-function removeFromCart(firstsizeID, goodID, count){
-	let cart = JSON.parse(localStorage.getItem('cart'));
-	if (cart == null) cart = {};
-	if (cart[firstsizeID][goodID] == undefined) cart[firstsizeID][goodID] = 0;
-	else cart[firstsizeID][goodID] -= count;
-	if (cart[firstsizeID][goodID] <= 0) 
-	{
-		delete cart[firstsizeID][goodID];
-		let empty = true;
-		for(var k in like) {
-			empty = false; 
-			break;
-		}
-		if (empty) {
-			localStorage.setItem('user-cart-count', Number(localStorage.getItem('user-cart-count'))-1);
-			document.querySelector('.icon-cart').setAttribute('data-qty', localStorage.getItem('user-cart-count'));
-			delete cart[firstsizeID];
-		}
+		delete cart[goodID];
 	}
 	localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-function checkInCart(firstsizeID){
+function checkInCart(goodID){
 	let cart = JSON.parse(localStorage.getItem('cart'));
 	if (cart == null) cart = {};
-	return cart[firstsizeID] != undefined;
+	return cart[goodID] != undefined;
 }
 
 /* like */
@@ -100,13 +72,11 @@ function itemPageInit(){
 	      	sizeList.setAttribute("data-lt-target", event.currentTarget.getAttribute("data-lt-index"));
 	      	document.getElementById("sizeOffcanvasBtn").innerHTML = sizeList.children[event.currentTarget.getAttribute("data-lt-index")].firstChild.textContent + "<span>&#10095;</span>";
 	    	
-	    	document.getElementById("addToCart").onclick = () => {
-	    		addToCart(
-	    			document.getElementById("addToLike").getAttribute("data-likeid"),
-	    			sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"), 
-	    			1); 
 
-	    		//гиапишгирщапищшипкиоипаощлипкапщотипщоттошишотиптзипщ
+	    	document.getElementById("addToCart").onclick = () => {
+	    		setToCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"), 1); 
+
+	    		//addToCartSelect();
 
 	    		document.querySelector(".icon-cart svg").classList.add('add-to-cart-animation');
 	    		
@@ -117,8 +87,7 @@ function itemPageInit(){
 	    }
     }
     /*cart button*/
-    let likeBtn = document.getElementById("addToCart");
-    if 
+    
 
 
     /*like button*/
@@ -143,7 +112,7 @@ function itemPageInit(){
 }
 
 function addToCartSelect() {
-
+	
 }
 
 function cartPageInit() {
@@ -159,6 +128,12 @@ function cartPageInit() {
         .then(response => response.text())
         .then(card => {
         	document.getElementById("cartCardsContainer").insertAdjacentHTML('beforeend', card);
+        	for (let btn of document.querySelectorAll("[data-closeid]")) {
+        		btn.onclick = () => {
+        			removeFromCart(btn.getAttribute('data-closeid'));
+        			btn.parentNode.parentNode.parentNode.remove();
+        		};
+        	}
         	likeButtonsInit();
         });
 }
@@ -181,7 +156,7 @@ function likePageInit() {
 }
 
 function likeButtonsInit() {
-	let likeButtons = document.querySelectorAll('[data-likeid]');
+	let likeButtons = document.querySelectorAll('[data-likeid]:not(#addToLike)');
 	for (let likeBtn of likeButtons) {
 	    if (checkInLike(likeBtn.getAttribute("data-likeid"))) {
 	    	likeBtn.classList.add('active');

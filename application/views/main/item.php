@@ -97,7 +97,7 @@
 
 		<style>
 			.add-to-cart-animation {
-				animation: anim 2s ease forwards;
+				animation: anim 1s ease forwards;
 			}
 
 			@keyframes anim {
@@ -106,7 +106,7 @@
 			    
 			  }
 			  50%, 55% {
-			    transform: scale(1.5, 1.5);
+			    transform: scale(1.4, 1.4);
 			    
 			  }
 			  100% {
@@ -119,14 +119,14 @@
 	    <!-- buttons -->
 	    <div class="row m-0 mb-3">
 	    	<div class="col col-10 position-relative" style="padding: 0 1px 0 0;">
-	    		<!--<span id="addToCartBadge" class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-dark" style="z-index: 1;">Выбирите размер</span>
-	    		<button class="btn btn-outline-dark w-100" id="addToCart" disabled>В корзину</button>-->
-	    		<select class="form-control" style="outline: none;">
+	    		<span id="addToCartBadge" class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-dark" style="z-index: 1;">Выбирите размер</span>
+	    		<button class="btn btn-outline-dark w-100" id="addToCart" disabled>В корзину</button>
+	    		<!--<select class="form-control" style="outline: none;">
                       <option value="0">Убрать</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
-                </select>
+                </select>-->
 	    	</div>
 	    	<div class="col col-2" style="padding: 0 0 0 1px;">
 	    		<button class="btn btn-outline-dark w-100" style="padding-left: 0; padding-right: 0; user-select: none;" id="addToLike" data-likeid="<?php echo $good['id']; ?>">

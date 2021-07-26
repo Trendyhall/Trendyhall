@@ -46,6 +46,10 @@ button.btn:focus {
     box-shadow: none !important;
 }
 
+button.btn-close:focus {
+    box-shadow: none !important;
+}
+
 .no-margine {
     margin: 0;
 }
