@@ -166,6 +166,36 @@ class Main extends MY_Controller {
         }
 	}
 
+	public function shops()
+	{
+		$this->data['title'] = "Магазины";
+		$this->data['active_name'] = -1;
+		
+		$this->load->view('templates/header', $this->data);
+		$this->load->view('main/shops', $this->data);
+		$this->load->view('templates/footer');
+	}
+
+	public function about_the_refund()
+	{
+		$this->data['title'] = "О возврате";
+		$this->data['active_name'] = -1;
+		
+		$this->load->view('templates/header', $this->data);
+		$this->load->view('main/about-the-refund', $this->data);
+		$this->load->view('templates/footer');
+	}
+
+	public function about_delivery()
+	{
+		$this->data['title'] = "О доставке";
+		$this->data['active_name'] = -1;
+		
+		$this->load->view('templates/header', $this->data);
+		$this->load->view('main/about-delivery', $this->data);
+		$this->load->view('templates/footer');
+	}
+
 	public function privacypolicy()
 	{
 		$this->data['title'] = "Политика о конфиденциальности";
