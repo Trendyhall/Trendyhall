@@ -267,6 +267,7 @@ button.btn.like {
     top: 6px;
     right: 4px;
     transform: translateX(-100%);
+    user-select: none;
 
 }
 

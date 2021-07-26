@@ -105,7 +105,13 @@ class Main extends MY_Controller {
 		$this->data['colours'] = $this->Goods_model->getAllColoursByCode($good_code[0]);
 		$this->data['other_goods'] = $this->Goods_model->getGoodWithSameItemgroup($this->data['good']['itemgroup']);
 
+		foreach ($this->data['other_goods'] as $key => $value) {
+			$this->data['other_goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
+			$this->data['other_goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
+		}
+		
 
+		//data change
 		{
 			$this->data['good']['brand'] = $this->Othertables_model->GetByID("brands", "name", $this->data['good']['brand']);
 			$this->data['good']['colour'] = $this->Othertables_model->GetByID("colours", "runame", $this->data['good']['colour']);

@@ -96,30 +96,21 @@
 		</div>
 
 		<style>
-			.fly-animation {
-				position: fixed;
-				z-index: 10;
-
-				background-color: darkcyan;
-				width: 16px;
-				height: 16px;
-
-				transition: fly-animation 2s ease;
-
-  				top: unset;
-  				right: unset;
+			.add-to-cart-animation {
+				animation: anim 2s ease forwards;
 			}
 
-			@keyframes fly-animation {
+			@keyframes anim {
 			  0% {
-			    left: -10%;
+			    transform: scale(1, 1);
+			    
 			  }
-			  40%,
-			  60% {
-			    left: 50%;
+			  50%, 55% {
+			    transform: scale(1.5, 1.5);
+			    
 			  }
 			  100% {
-			    left: 110%;
+			    transform: scale(1, 1);
 			  }
 			}
 		</style>
@@ -128,12 +119,17 @@
 	    <!-- buttons -->
 	    <div class="row m-0 mb-3">
 	    	<div class="col col-10 position-relative" style="padding: 0 1px 0 0;">
-	    		<span id="addToCartBadge" class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-dark" style="z-index: 1;">Выбирите размер</span>
-	    		<button class="btn btn-outline-dark w-100" id="addToCart" disabled>В корзину</button>
-	    		
+	    		<!--<span id="addToCartBadge" class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-dark" style="z-index: 1;">Выбирите размер</span>
+	    		<button class="btn btn-outline-dark w-100" id="addToCart" disabled>В корзину</button>-->
+	    		<select class="form-control" style="outline: none;">
+                      <option value="0">Убрать</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                </select>
 	    	</div>
 	    	<div class="col col-2" style="padding: 0 0 0 1px;">
-	    		<button class="btn btn-outline-dark w-100" style="padding-left: 0; padding-right: 0;" id="addToLike" data-likeid="<?php echo $good['id']; ?>">
+	    		<button class="btn btn-outline-dark w-100" style="padding-left: 0; padding-right: 0; user-select: none;" id="addToLike" data-likeid="<?php echo $good['id']; ?>">
 		    		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
 	    				<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
 					</svg>
