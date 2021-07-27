@@ -219,12 +219,12 @@ class View extends MY_Controller {
 
 
 		$postData = file_get_contents('php://input');
-		$like_ids_json = json_decode($postData, true);
-		foreach ($like_ids_json as $key => $value) {
-			$like_ids[] = $key;
+		$cart_ids_json = json_decode($postData, true);
+		foreach ($cart_ids_json as $key => $value) {
+			$cart_ids[] = $key;
 		}
 
-		$this->data['goods'] = $this->Goods_model->getGoodsByOnlyID($like_ids);
+		$this->data['goods'] = $this->Goods_model->getGoodsByOnlyID($cart_ids);
 
 
 		foreach ($this->data['goods'] as $key => $value) {

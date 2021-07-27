@@ -55,23 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 
-$route['signup'] = 'main/signup';
-$route['reset-password'] = 'main/reset_password';
-$route['profile'] = 'main/profile';
-
-$route['cart'] = 'main/cart';
-$route['cart-cards'] = 'view/cart_cards';
-$route['cart-result'] = 'view/cart_result';
-
-
-$route['like'] = 'main/like';
-$route['like-cards'] = 'view/like_cards';
-
-
-
-$route['news'] = 'main/news';
-$route['news'] = 'main/news/$1';
-
+//====== VIEW ==========
 
 $route['boys'] = 'view/boys';
 $route['boys/(:num)'] = 'view/boys/$1';
@@ -86,20 +70,11 @@ $route['brands'] = 'view/brands';
 $route['brand/(:any)'] = 'view/brand/$1';
 $route['brand/(:any)/(:num)'] = 'view/brand/$1/$2';
 
-
-
+//======= MAIN ==========
 $route['goods/(:any)'] = 'main/item/$1';
-
-
-
-$route['admin'] = 'admin';
-$route['admin/database-upload'] = 'admin/database_upload';
-$route['admin/database-upload1'] = 'admin/database_upload1';
-$route['admin/headers'] = 'admin/headers1';
-$route['admin/databasedebug'] = 'admin/databasedebug';
-//$route['admin/'] = 'admin/';
-
-
+ 
+$route['news'] = 'main/news';
+$route['news'] = 'main/news/$1';
 
 $route['contact'] = 'main/contact';
 $route['shops'] = 'main/shops';
@@ -108,3 +83,27 @@ $route['about-delivery'] = 'main/about_delivery';
 
 $route['terms'] = 'main/terms';
 $route['privacy-policy'] = 'main/privacypolicy';
+
+
+$route['signup'] = 'main/signup';
+$route['reset-password'] = 'main/reset_password';
+$route['profile'] = 'main/profile';
+
+$route['cart'] = 'main/cart';
+$route['cart-cards'] = 'view/cart_cards';
+$route['cart-result'] = 'view/cart_result';
+
+$route['like'] = 'main/like';
+$route['like-cards'] = 'view/like_cards';
+
+//===== ADMIN =====
+
+$route['admin'] = 'admin';
+$route['admin/database-upload'] = 'admin/database_upload';
+$route['admin/database-upload1'] = 'admin/database_upload1';
+$route['admin/headers'] = 'admin/headers1';
+$route['admin/databasedebug'] = 'admin/databasedebug';
+//$route['admin/'] = 'admin/';
+
+//========= API =============
+$route['api']['post'] = 'api';
