@@ -1,3 +1,5 @@
+/* logic response for signup*/
+
 function SignupInit(){
 	let btn = document.getElementById('vercodeBtn');
 	btn.onclick = SendVercode;

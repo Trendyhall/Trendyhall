@@ -1,6 +1,6 @@
+/* all logi response for manipulation with cart and like */
 
 /* cart */
-
 function setToCart(goodID, count){
 	let cart = JSON.parse(localStorage.getItem('cart'));
 	if (cart == null) cart = {};
@@ -33,6 +33,13 @@ function checkInCart(goodID){
 	return cart[goodID] != undefined;
 }
 
+function getFromCart(goodID){
+	let cart = JSON.parse(localStorage.getItem('cart'));
+	if (cart == null) cart = {};
+	if (cart[goodID] != undefined) return cart[goodID];
+	else return 0;
+}
+
 /* like */
 function addToLike(goodID){
 	let like = JSON.parse(localStorage.getItem('like'));
@@ -53,14 +60,18 @@ function checkInLike(goodID){
 	if (like == null) like = {};
 	return like[goodID] != undefined;
 }
-/* init */
 
+
+/* init */
 function itemPageInit(){
 	/*Size select*/
 	for (var i = 0; i < document.getElementById("sizeList").children.length; i++) {
 		let sizeList = document.getElementById("sizeList");
 		sizeList.children[i].setAttribute("data-lt-index", i);
+
+		//chouse size event
         sizeList.children[i].onclick = (event) => {
+        	//change size select offCanvas
         	if (sizeList.getAttribute("data-lt-target") > -1){
 	      		sizeList.children[sizeList.getAttribute("data-lt-target")].classList.remove('active');
 	      	}
@@ -73,6 +84,27 @@ function itemPageInit(){
 	      	document.getElementById("sizeOffcanvasBtn").innerHTML = sizeList.children[event.currentTarget.getAttribute("data-lt-index")].firstChild.textContent + "<span>&#10095;</span>";
 	    	
 
+	    	//set select if this good in cart
+	    	if (checkInCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"))) {
+	    		let cartSelect = document.getElementById("cartSelect");
+	    		for (var i = 2; i < cartSelect.children.length; i++) {
+	    			cartSelect.children[i].remove();
+	    		}
+	    		
+	    		for (var i = 2; i <= Number(sizeList.children[sizeList.getAttribute("data-lt-target")].children[0].textContent); i++) {
+	    			cartSelect.insertAdjacentHTML('beforeend', '<option value="'+i+'">'+i+'</option>');
+	    		}
+	    		cartSelect.value = getFromCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"));
+
+	    		cartSelect.classList.remove('d-none');
+	    		document.getElementById("addToCart").classList.add('d-none');
+	    	}
+	    	else {
+	    		document.getElementById("cartSelect").classList.add('d-none');
+	    		document.getElementById("addToCart").classList.remove('d-none');
+	    	}
+
+	    	//click to button event
 	    	document.getElementById("addToCart").onclick = () => {
 	    		setToCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"), 1); 
 
@@ -112,7 +144,7 @@ function itemPageInit(){
 }
 
 function addToCartSelect() {
-	
+
 }
 
 function cartPageInit() {

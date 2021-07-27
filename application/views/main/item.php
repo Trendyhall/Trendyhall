@@ -121,12 +121,10 @@
 	    	<div class="col col-10 position-relative" style="padding: 0 1px 0 0;">
 	    		<span id="addToCartBadge" class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-dark" style="z-index: 1;">Выбирите размер</span>
 	    		<button class="btn btn-outline-dark w-100" id="addToCart" disabled>В корзину</button>
-	    		<!--<select class="form-control" style="outline: none;">
+	    		<select id="cartSelect" class="form-control d-none" style="outline: none; appearance: auto; -webkit-appearance: auto; height: 100%;">
                       <option value="0">Убрать</option>
                       <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                </select>-->
+                </select>
 	    	</div>
 	    	<div class="col col-2" style="padding: 0 0 0 1px;">
 	    		<button class="btn btn-outline-dark w-100" style="padding-left: 0; padding-right: 0; user-select: none;" id="addToLike" data-likeid="<?php echo $good['id']; ?>">

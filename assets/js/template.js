@@ -1,3 +1,5 @@
+/* general logic such as login, database init and cookie func*/
+
 DtabseInit();
 
 IfUser();

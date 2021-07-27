@@ -1,3 +1,5 @@
+/* logic response for filters on  view page*/
+
 function init_filters() {
   let form = document.forms['filters'];
 
