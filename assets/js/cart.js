@@ -14,6 +14,8 @@ function setToCart(goodID, count){
 	}
 	
 	localStorage.setItem('cart', JSON.stringify(cart));
+	showToast();
+	cartAnimation()
 }
 
 function removeFromCart(goodID){
@@ -25,6 +27,8 @@ function removeFromCart(goodID){
 		delete cart[goodID];
 	}
 	localStorage.setItem('cart', JSON.stringify(cart));
+	showToast();
+	cartAnimation()
 }
 
 function checkInCart(goodID){
@@ -71,22 +75,51 @@ function cartAnimation() {
 }
 
 function showToast() {
-	let a = new bootstrap.Toast(document.getElementById('Toast'));
+	let a = new bootstrap.Toast(document.getElementById('cartChangeToast'));
     a.show();
 }
 
-function addToCartSelect() {
-
-}
-
-
-
 /* init */
 function itemPageInit(){
+	let sizeList = document.getElementById("sizeList");
+	let cartSelect = document.getElementById("cartSelect");
+
+
+	//set select if this good in cart
+	let setSelect = () => {
+    	if (checkInCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"))) {
+    		for (var i = 2; i < cartSelect.children.length; i++) {
+    			cartSelect.children[i].remove();
+    		}
+    		
+    		for (var i = 2; i <= Number(sizeList.children[sizeList.getAttribute("data-lt-target")].children[0].textContent); i++) {
+    			cartSelect.insertAdjacentHTML('beforeend', '<option value="'+i+'">'+i+'</option>');
+    		}
+    		cartSelect.value = getFromCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"));
+
+    		cartSelect.classList.remove('d-none');
+    		document.getElementById("addToCart").classList.add('d-none');
+    	}
+    	else {
+    		document.getElementById("cartSelect").classList.add('d-none');
+    		document.getElementById("addToCart").classList.remove('d-none');
+    	}
+	}
+
+
+	/*add To Cart Select*/
+	cartSelect.onchange = () => {
+	    let goodID = sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id");
+	    if (cartSelect.value == 0) {
+	    	removeFromCart(goodID);
+	    	setSelect(); 
+	    }
+
+	    if (cartSelect.value > 0) setToCart(goodID, cartSelect.value);
+	}
 
 	/*Size select*/
-	for (var i = 0; i < document.getElementById("sizeList").children.length; i++) {
-		let sizeList = document.getElementById("sizeList");
+	for (var i = 0; i < sizeList.children.length; i++) {
 		sizeList.children[i].setAttribute("data-lt-index", i);
 
 		//chouse size event
@@ -103,34 +136,13 @@ function itemPageInit(){
 	      	sizeList.setAttribute("data-lt-target", event.currentTarget.getAttribute("data-lt-index"));
 	      	document.getElementById("sizeOffcanvasBtn").innerHTML = sizeList.children[event.currentTarget.getAttribute("data-lt-index")].firstChild.textContent + "<span>&#10095;</span>";
 	    	
-
-	    	//set select if this good in cart
-	    	if (checkInCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"))) {
-	    		let cartSelect = document.getElementById("cartSelect");
-	    		for (var i = 2; i < cartSelect.children.length; i++) {
-	    			cartSelect.children[i].remove();
-	    		}
-	    		
-	    		for (var i = 2; i <= Number(sizeList.children[sizeList.getAttribute("data-lt-target")].children[0].textContent); i++) {
-	    			cartSelect.insertAdjacentHTML('beforeend', '<option value="'+i+'">'+i+'</option>');
-	    		}
-	    		cartSelect.value = getFromCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"));
-
-	    		cartSelect.classList.remove('d-none');
-	    		document.getElementById("addToCart").classList.add('d-none');
-	    	}
-	    	else {
-	    		document.getElementById("cartSelect").classList.add('d-none');
-	    		document.getElementById("addToCart").classList.remove('d-none');
-	    	}
+	    	setSelect();
 
 	    	//click to button event
 	    	document.getElementById("addToCart").onclick = () => {
 	    		setToCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"), 1); 
 
-	    		//addToCartSelect();
-
-	    		cartAnimation()
+	    		setSelect();
 	    	};
 	    }
     }
@@ -171,13 +183,20 @@ function cartPageInit() {
 		})
         .then(response => response.text())
         .then(card => {
-        	document.getElementById("cartCardsContainer").insertAdjacentHTML('beforeend', card);
+        	document.getElementById("cartCardsContainer").innerHTML = card;
         	for (let btn of document.querySelectorAll("[data-closeid]")) {
         		btn.onclick = () => {
         			removeFromCart(btn.getAttribute('data-closeid'));
         			btn.parentNode.parentNode.parentNode.remove();
         		};
         	}
+        	document.querySelectorAll('select').forEach((obj) => {
+				obj.value = getFromCart(obj.parentNode.parentNode.querySelector('[data-closeid]').getAttribute('data-closeid'));
+				obj.onchange = (e) => {
+				    let goodID = e.currentTarget.parentNode.parentNode.querySelector('[data-closeid]').getAttribute('data-closeid');
+				    setToCart(goodID, e.currentTarget.value);
+				}
+		    });
         	likeButtonsInit();
         });
 }
@@ -194,7 +213,7 @@ function likePageInit() {
 		})
         .then(response => response.text())
         .then(card => {
-        	document.getElementById("likeCardsContainer").insertAdjacentHTML('beforeend', card);
+        	document.getElementById("likeCardsContainer").innerHTML = card;
         	likeButtonsInit();
         });
 }
