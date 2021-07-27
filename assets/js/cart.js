@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 	/*===================== FUNCTIONS DEFINE =============================*/
 	/* cart */
-	let setToCart = (goodID, count) => {
+	function setToCart(goodID, count) {
 		let cart = JSON.parse(localStorage.getItem('cart'));
 		if (cart == null) cart = {};
 		if (cart[goodID] == undefined) {
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		cartAnimation()
 	}
 
-	let removeFromCart = (goodID) => {
+	function removeFromCart(goodID) {
 		let cart = JSON.parse(localStorage.getItem('cart'));
 		if (cart == null) cart = {};
 		if (cart[goodID] != undefined) {
@@ -32,13 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		cartAnimation()
 	}
 
-	let checkInCart = (goodID) => {
+	function checkInCart(goodID) {
 		let cart = JSON.parse(localStorage.getItem('cart'));
 		if (cart == null) cart = {};
 		return cart[goodID] != undefined;
 	}
 
-	let getFromCart = (goodID) => {
+	function getFromCart(goodID) {
 		let cart = JSON.parse(localStorage.getItem('cart'));
 		if (cart == null) cart = {};
 		if (cart[goodID] != undefined) return cart[goodID];
@@ -46,21 +46,21 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	/* like */
-	let addToLike = (goodID) => {
+	function addToLike(goodID) {
 		let like = JSON.parse(localStorage.getItem('like'));
 		if (like == null) like = {};
 		like[goodID] = "";
 		localStorage.setItem('like', JSON.stringify(like));
 	}
 
-	let removeFromLike = (goodID) => {
+	function removeFromLike(goodID) {
 		let like = JSON.parse(localStorage.getItem('like'));
 		if (like == null) like = {};
 		delete like[goodID];
 		localStorage.setItem('like', JSON.stringify(like));
 	}
 
-	let checkInLike = (goodID) => {
+	function checkInLike(goodID) {
 		let like = JSON.parse(localStorage.getItem('like'));
 		if (like == null) like = {};
 		return like[goodID] != undefined;
@@ -68,19 +68,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 	/* support func */
-	let cartAnimation = () =>  {
+	function cartAnimation()  {
 		document.querySelector(".icon-cart svg").classList.add('add-to-cart-animation');	
 		setTimeout(() => {
 			document.querySelector(".icon-cart svg").classList.remove('add-to-cart-animation');
 		}, 2100);
 	}
 
-	let showToast = () =>  {
+	function showToast()  {
 		let a = new bootstrap.Toast(document.getElementById('cartChangeToast'));
 	    a.show();
 	}
 
-	let likeButtonsInit = () => {
+	function likeButtonsInit() {
 		let likeButtons = document.querySelectorAll('[data-likeid]:not(#addToLike)');
 		for (let likeBtn of likeButtons) {
 		    if (checkInLike(likeBtn.getAttribute("data-likeid"))) {
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 		//set select if this good in cart
-		let setSelect = () => {
+		function setSelect() {
 	    	if (checkInCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"))) {
 	    		for (var i = 2; i < cartSelect.children.length; i++) {
 	    			cartSelect.children[i].remove();
