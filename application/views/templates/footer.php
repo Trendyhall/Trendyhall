@@ -45,7 +45,7 @@
               +7(495)225-73-90
             </a>
 
-            <?php if ($IsAdmin) echo '<a href="/special" class="d-block">SPECIAL PAGE</a>' ?>
+            <?php if ($IsAdmin) echo '<a href="/admin" class="d-block">ADMIN PAGE</a>' ?>
           </div>
         </div>
       </div>

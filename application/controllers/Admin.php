@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direc script access allowed');
 
-class Special extends MY_Controller {
+class Admin extends MY_Controller {
 
 	public function __constract() {
 		parent::__constract();
@@ -11,12 +11,12 @@ class Special extends MY_Controller {
 
 	public function index() {
 		$this->allow_access();
-		$this->data['title'] = "Специальная страница";
+		$this->data['title'] = "Страница администратора";
 		$this->data['active_name'] = -1;
 
 
 		$this->load->view('templates/header', $this->data);
-		$this->load->view('special/index', $this->data);  
+		$this->load->view('admin/index', $this->data);  
 		$this->load->view('templates/footer');
 	}
 
@@ -26,7 +26,7 @@ class Special extends MY_Controller {
 		$this->data['active_name'] = -1;
 
 		$this->load->view('templates/header', $this->data);
-		$this->load->view('special/database-upload', $this->data);
+		$this->load->view('admin/database-upload', $this->data);
 		$this->load->view('templates/footer');
 	}
 
@@ -66,7 +66,7 @@ class Special extends MY_Controller {
 		} 
 
 		$this->load->view('templates/header', $this->data);
-		$this->load->view('special/database-upload1', $this->data);
+		$this->load->view('admin/database-upload1', $this->data);
 		$this->load->view('templates/footer');
 	}
 
@@ -94,7 +94,7 @@ class Special extends MY_Controller {
 		else $this->data['resulte'] = "Check out check box";
 
 		$this->load->view('templates/header', $this->data);
-		$this->load->view('special/databasedebug', $this->data);
+		$this->load->view('admin/databasedebug', $this->data);
 		$this->load->view('templates/footer');
 	}
 
@@ -106,10 +106,10 @@ class Special extends MY_Controller {
 
 		$this->load->model('Goods_model');
 
-		$this->Goods_model->Special1();
+		$this->Goods_model->Spetial1();
 
 		$this->load->view('templates/header', $this->data);
-		$this->load->view('special/fillucode', $this->data);
+		$this->load->view('admin/fillucode', $this->data);
 		$this->load->view('templates/footer');
 	}
 	

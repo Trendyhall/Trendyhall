@@ -92,12 +92,12 @@ $route['goods/(:any)'] = 'main/item/$1';
 
 
 
-$route['special'] = 'special';
-$route['special/database-upload'] = 'special/database_upload';
-$route['special/database-upload1'] = 'special/database_upload1';
-$route['special/headers'] = 'special/headers1';
-$route['special/databasedebug'] = 'special/databasedebug';
-//$route['special/'] = 'special/';
+$route['admin'] = 'admin';
+$route['admin/database-upload'] = 'admin/database_upload';
+$route['admin/database-upload1'] = 'admin/database_upload1';
+$route['admin/headers'] = 'admin/headers1';
+$route['admin/databasedebug'] = 'admin/databasedebug';
+//$route['admin/'] = 'admin/';
 
 
 

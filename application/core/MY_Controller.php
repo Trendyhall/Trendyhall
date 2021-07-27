@@ -9,7 +9,8 @@ class MY_Controller extends CI_Controller {
 
 		$this->load->helper('cookie');
 		$this->data['UserID'] = get_cookie('user-id');
-		$this->data['IsAdmin'] = $this->data['UserID'] == '0';
+		$ADMIN_UUID = "b8038c7c-4fc1-4ad7-b64d-406449663c4c";
+		$this->data['IsAdmin'] = $this->data['UserID'] == $ADMIN_UUID;
 	}
 
 	public function allow_access(){
