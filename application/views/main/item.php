@@ -58,7 +58,7 @@
 	<div class="col col-12 col-sm-5">
 		<!-- first three line -->
         <h3><?php echo $good['name']; ?></h3>
-		<div style="font-size: 1.2rem;"><?php echo $Othertables_model->GetByID("brands", "name", $good['brand']); ?></div>
+		<div style="font-size: 1.2rem;"><?php echo $good['brand']; ?></div>
 		<?php if ($good['sale'] == 1): ?>
 			<div style="font-size: 1.2rem;" class="mb-4 d-inline"><?php echo number_format($good['price'], 0,"."," "); ?> &#8381; </div>
 		<?php endif; ?>
@@ -71,7 +71,7 @@
 		<?php endif; ?>
 
 	    <!-- size couse -->
-	    <button id="sizeOffcanvasBtn" class="btn btn-outline-dark mb-3 w-100" type="button" data-bs-toggle="offcanvas" data-bs-target="#SizeOffcanvas" aria-controls="SizeOffcanvas" style="justify-content: space-between;display: flex;">
+	    <button id="sizeOffcanvasBtn" class="btn btn-outline-dark mb-3 w-100 d-flex justify-content-between" type="button" data-bs-toggle="offcanvas" data-bs-target="#SizeOffcanvas" aria-controls="SizeOffcanvas">
 			Выбрать размер<span>&#10095;</span>
 		</button>
 
@@ -95,39 +95,18 @@
 		  </div>
 		</div>
 
-		<style>
-			.add-to-cart-animation {
-				animation: anim 1s ease forwards;
-			}
-
-			@keyframes anim {
-			  0% {
-			    transform: scale(1, 1);
-			    
-			  }
-			  50%, 55% {
-			    transform: scale(1.4, 1.4);
-			    
-			  }
-			  100% {
-			    transform: scale(1, 1);
-			  }
-			}
-		</style>
-
-
 	    <!-- buttons -->
 	    <div class="row m-0 mb-3">
 	    	<div class="col col-10 position-relative" style="padding: 0 1px 0 0;">
 	    		<span id="addToCartBadge" class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-dark" style="z-index: 1;">Выбирите размер</span>
 	    		<button class="btn btn-outline-dark w-100" id="addToCart" disabled>В корзину</button>
-	    		<select id="cartSelect" class="form-control d-none" style="outline: none; appearance: auto; -webkit-appearance: auto; height: 100%;">
+	    		<select id="cartSelect" class="form-control d-none">
                       <option value="0">Убрать</option>
                       <option value="1">1</option>
                 </select>
 	    	</div>
 	    	<div class="col col-2" style="padding: 0 0 0 1px;">
-	    		<button class="btn btn-outline-dark w-100" style="padding-left: 0; padding-right: 0; user-select: none;" id="addToLike" data-likeid="<?php echo $good['id']; ?>">
+	    		<button class="btn btn-outline-dark w-100" id="addToLike" data-likeid="<?php echo $good['id']; ?>">
 		    		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
 	    				<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
 					</svg>
