@@ -225,22 +225,65 @@ document.addEventListener("DOMContentLoaded", () => {
 			})
 	        .then(response => response.text())
 	        .then(card => {
+	        	function countOverview(){
+	        		// set overview information
+		        	let overview = document.getElementById("cartOverview");
+		        	overview.innerHTML = "";
+		        	for (obj of document.getElementById("cartCardsContainer").children){
+			        	let line =
+			        	'<div class="d-flex">'+
+		                '<div class="col-2"><img src="'+obj.querySelector('img').src+'" alt="" class="w-100"></div>'+
+		                '<div class="col-10 pe-0 ps-2 align-self-center">'+obj.querySelector('.card-name').innerHTML+'</div>'+
+		            	'</div>'+
+		            	'<div class="col-12 p-0">'+obj.querySelector('.card-price').innerHTML+' x <span>'+
+		            	obj.querySelector('select').value+'</span> = <span>'+
+		            	((Number(obj.querySelector('.card-price').innerHTML.replace(/₽| /g, '')) * Number(obj.querySelector('select').value))+'').split( /(?=(?:\d{3})+$)/ ).join(' ')
+		            	+'</span> ₽</div>'+
+		            	'<hr class="mt-1 mb-1">';
+		            	overview.insertAdjacentHTML('beforeend', line);
+	            	}
+	        		let k = 0;
+	            	document.querySelectorAll('#cartOverview span:last-child').forEach((obj) => {
+	            		k+=Number(obj.innerHTML.replace(/₽| /g, ''));
+	            	});
+	            	k=(k+'').split( /(?=(?:\d{3})+$)/ ).join(' ');
+	            	overview.parentNode.querySelector('h4').innerHTML = 'Сумма: '+k+' ₽';
+	        	}
+	        	// set card
 	        	document.getElementById("cartCardsContainer").innerHTML = card;
+	        	// set close btn onclick
 	        	for (let btn of document.querySelectorAll("[data-closeid]")) {
 	        		btn.onclick = () => {
 	        			removeFromCart(btn.getAttribute('data-closeid'));
 	        			btn.parentNode.parentNode.parentNode.remove();
+	        			countOverview();
 	        		};
 	        	}
+	        	// set select options
 	        	document.querySelectorAll('select').forEach((obj) => {
 					obj.value = getFromCart(obj.parentNode.parentNode.querySelector('[data-closeid]').getAttribute('data-closeid'));
 					obj.onchange = (e) => {
 					    let goodID = e.currentTarget.parentNode.parentNode.querySelector('[data-closeid]').getAttribute('data-closeid');
 					    setToCart(goodID, e.currentTarget.value);
+					    countOverview();
 					}
 			    });
+			    // set like options
 	        	likeButtonsInit();
+
+	        	// set overview information
+            	countOverview();
 	        });
+	    // set buy button
+	    document.getElementById("BuyBtn").onclick = () => {
+	    	let cart = JSON.parse(localStorage.getItem('cart'));
+	    	if (cart != null) {
+	    		let link = '';
+	    		for (k in cart) link+='d'+k+'c'+cart[k];
+	    		window.location.replace('/buy/'+link);
+	    	}
+	    };
+
 	}
 
 

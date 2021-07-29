@@ -91,7 +91,8 @@ $route['profile'] = 'main/profile';
 
 $route['cart'] = 'main/cart';
 $route['cart-cards'] = 'view/cart_cards';
-$route['cart-result'] = 'view/cart_result';
+$route['buy/(:any)'] = 'main/buy/$1';
+
 
 $route['like'] = 'main/like';
 $route['like-cards'] = 'view/like_cards';

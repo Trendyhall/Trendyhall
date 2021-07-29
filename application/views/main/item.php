@@ -60,13 +60,13 @@
         <h3><?php echo $good['name']; ?></h3>
 		<div style="font-size: 1.2rem;"><?php echo $good['brand']; ?></div>
 		<?php if ($good['sale'] == 1): ?>
-			<div style="font-size: 1.2rem;" class="mb-4 d-inline"><?php echo number_format($good['price'], 0,"."," "); ?> &#8381; </div>
+			<div style="font-size: 1.2rem;" class="mb-4 d-inline"><?php echo number_format($good['price'], 0,"."," "); ?> ₽ </div>
 		<?php endif; ?>
 		<?php if ($good['sale'] != 1): ?>
 			<?php $Sale = $Othertables_model->GetByID("sales", "sale", $good['sale']); ?>
 			<div style="font-size: 1.2rem;" class="mb-4">
-				<div style="text-decoration: line-through;" class="d-inline"><?php echo number_format($good['price'], 0,"."," "); ?> &#8381;</div>
-				<div style="color: #f00;" class="d-inline"><?php echo number_format($good['price'] * (0.01 * (100 - $Sale)), 0,"."," "); ?> &#8381;</div>
+				<div style="text-decoration: line-through;" class="d-inline"><?php echo number_format($good['price'], 0,"."," "); ?> ₽</div>
+				<div style="color: #f00;" class="d-inline"><?php echo number_format($good['price'] * (0.01 * (100 - $Sale)), 0,"."," "); ?> ₽</div>
 			</div>
 		<?php endif; ?>
 
@@ -178,11 +178,11 @@
 	                    <div class="card-name"><?php echo $value['name']; ?></div>
 	                    <div class="card-brand"><?php echo $value['brand']; ?></div>
 	                    <?php if ($value['sale'] == 1): ?>
-	                        <div class="card-price"><?php echo number_format($value['price'], 0,"."," "); ?> &#8381; </div>
+	                        <div class="card-price"><?php echo number_format($value['price'], 0,"."," "); ?> ₽ </div>
 	                    <?php endif; ?>
 	                    <?php if ($value['sale'] != 1): ?>
-	                        <div style="font-size: 1rem; text-decoration: line-through;"><?php echo number_format($value['price'], 0,"."," "); ?> &#8381;</div>
-	                        <div class="card-price" style="color: #f00;"><?php echo number_format($value['price'] * (0.01 * (100 - $Sale)), 0,"."," "); ?> &#8381;</div>
+	                        <div style="font-size: 1rem; text-decoration: line-through;"><?php echo number_format($value['price'], 0,"."," "); ?> ₽</div>
+	                        <div class="card-price" style="color: #f00;"><?php echo number_format($value['price'] * (0.01 * (100 - $Sale)), 0,"."," "); ?> ₽</div>
 	                    <?php endif; ?>
 	                </div>
 	            </div>
