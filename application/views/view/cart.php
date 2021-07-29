@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <h4 class="mb-3"></h4>
-        <button class="btn btn-outline-dark w-100" id="BuyBtn">Заказать</button>
+        <h4 class="mb-3 d-none"></h4>
+        <a class="btn btn-outline-dark rounded-0 w-100" id="BuyBtn">Заказать</a>
     </div>
 </div>

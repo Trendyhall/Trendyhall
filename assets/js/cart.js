@@ -216,6 +216,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (document.getElementById("cartCardsContainer")) {
 	    let cart = JSON.parse(localStorage.getItem('cart'));
 	    if (cart == null) cart = {};
+	    let a = false;
+    	for (let k in cart) {
+    		a = true;
+    		break;
+    	}
+    	if (a)
 		fetch("/cart-cards", {
 			    method: 'POST',
 			    headers: {
@@ -226,29 +232,51 @@ document.addEventListener("DOMContentLoaded", () => {
 	        .then(response => response.text())
 	        .then(card => {
 	        	function countOverview(){
+	        		cart = JSON.parse(localStorage.getItem('cart'));
+	    			if (cart == null) cart = {};
 	        		// set overview information
 		        	let overview = document.getElementById("cartOverview");
 		        	overview.innerHTML = "";
-		        	for (obj of document.getElementById("cartCardsContainer").children){
-			        	let line =
-			        	'<div class="d-flex">'+
-		                '<div class="col-2"><img src="'+obj.querySelector('img').src+'" alt="" class="w-100"></div>'+
-		                '<div class="col-10 pe-0 ps-2 align-self-center">'+obj.querySelector('.card-name').innerHTML+'</div>'+
-		            	'</div>'+
-		            	'<div class="col-12 p-0">'+obj.querySelector('.card-price').innerHTML+' x <span>'+
-		            	obj.querySelector('select').value+'</span> = <span>'+
-		            	((Number(obj.querySelector('.card-price').innerHTML.replace(/₽| /g, '')) * Number(obj.querySelector('select').value))+'').split( /(?=(?:\d{3})+$)/ ).join(' ')
-		            	+'</span> ₽</div>'+
-		            	'<hr class="mt-1 mb-1">';
-		            	overview.insertAdjacentHTML('beforeend', line);
-	            	}
-	        		let k = 0;
-	            	document.querySelectorAll('#cartOverview span:last-child').forEach((obj) => {
-	            		k+=Number(obj.innerHTML.replace(/₽| /g, ''));
-	            	});
-	            	k=(k+'').split( /(?=(?:\d{3})+$)/ ).join(' ');
-	            	overview.parentNode.querySelector('h4').innerHTML = 'Сумма: '+k+' ₽';
+		        	let a = false;
+		        	for (let k in cart) {
+		        		a = true;
+		        		break;
+		        	}
+		        	if (a) {
+		        		document.getElementById("BuyBtn").parentNode.classList.remove('d-none');
+
+			        	for (obj of document.getElementById("cartCardsContainer").children){
+				        	let line =
+				        	'<div class="d-flex">'+
+			                '<div class="col-2"><img src="'+obj.querySelector('img').src+'" alt="" class="w-100"></div>'+
+			                '<div class="col-10 pe-0 ps-2 align-self-center">'+obj.querySelector('.card-name').innerHTML+'</div>'+
+			            	'</div>'+
+			            	'<div class="col-12 p-0">'+obj.querySelector('.card-price').innerHTML+' x <span>'+
+			            	obj.querySelector('select').value+'</span> = <span>'+
+			            	((Number(obj.querySelector('.card-price').innerHTML.replace(/₽| /g, '')) * Number(obj.querySelector('select').value))+'').split( /(?=(?:\d{3})+$)/ ).join(' ')
+			            	+'</span> ₽</div>'+
+			            	'<hr class="mt-1 mb-1">';
+			            	overview.insertAdjacentHTML('beforeend', line);
+		            	}
+		        		let k = 0;
+		            	document.querySelectorAll('#cartOverview span:last-child').forEach((obj) => {
+		            		k+=Number(obj.innerHTML.replace(/₽| /g, ''));
+		            	});
+		            	k=(k+'').split( /(?=(?:\d{3})+$)/ ).join(' ');
+		            	overview.parentNode.querySelector('h4').innerHTML = 'Сумма: '+k+' ₽';
+
+		            	// set buy button
+			    		let link = '';
+			    		for (k in cart) link+='d'+k+'c'+cart[k];
+			    		document.getElementById("BuyBtn").href = '/buy/'+link;
+			    	}
+			    	else {
+			    		document.getElementById("BuyBtn").parentNode.classList.add('d-none');
+			    		document.getElementById("cartCardsContainer").innerHTML = "<h2>Корзина пуста</h2>";
+			    		document.getElementById("cartOverview").innerHTML = "";
+			    	}
 	        	}
+
 	        	// set card
 	        	document.getElementById("cartCardsContainer").innerHTML = card;
 	        	// set close btn onclick
@@ -274,16 +302,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	        	// set overview information
             	countOverview();
 	        });
-	    // set buy button
-	    document.getElementById("BuyBtn").onclick = () => {
-	    	let cart = JSON.parse(localStorage.getItem('cart'));
-	    	if (cart != null) {
-	    		let link = '';
-	    		for (k in cart) link+='d'+k+'c'+cart[k];
-	    		window.location.replace('/buy/'+link);
-	    	}
-	    };
-
+	        else{
+	        	document.getElementById("BuyBtn").parentNode.classList.add('d-none');
+	        	document.getElementById("cartCardsContainer").innerHTML = "<h2>Корзина пуста</h2>";
+			    document.getElementById("cartOverview").innerHTML = "";
+	        }
 	}
 
 

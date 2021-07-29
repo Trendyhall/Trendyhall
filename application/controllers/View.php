@@ -223,18 +223,15 @@ class View extends MY_Controller {
 		foreach ($cart_ids_json as $key => $value) {
 			$cart_ids[] = $key;
 		}
+		if (isset($cart_ids)) {
+			$this->data['goods'] = $this->Goods_model->getGoodsByOnlyID($cart_ids);
 
-		$this->data['goods'] = $this->Goods_model->getGoodsByOnlyID($cart_ids);
-
-
-		foreach ($this->data['goods'] as $key => $value) {
-			$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
-			$this->data['goods'][$key]['size'] = $this->Othertables_model->GetByID("sizes", "size", $value['size']);
-			$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
+			foreach ($this->data['goods'] as $key => $value) {
+				$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
+				$this->data['goods'][$key]['size'] = $this->Othertables_model->GetByID("sizes", "size", $value['size']);
+				$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
+			}
 		}
-
-		//$this->data['good'] = $this->Goods_model->getGood($goodID);
-
 		$this->load->view('view/cart-cards', $this->data);
 	}
 
