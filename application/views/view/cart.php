@@ -58,11 +58,12 @@
                 <div class="row mt-3 ">
                   <div class="col-12">
                     <div class="d-none" id="DeliveryTypeCollapse1">
-                        <div class="form-floating mb-2">
+                        <div class="form-floating mb-1">
                             <input type="text" name="addres" class="form-control" id="floatingA" placeholder="Адрес доставки" required>
                             <label for="floatingA">Адрес доставки</label>
                             <div class="invalid-feedback">Введите Адрес</div>
                         </div>
+                        <p>С вами свяжуться для уточнения времени доставки</p>
                     </div>
                   </div>
                   <div class="col-12">
@@ -73,7 +74,10 @@
                     </div>
                   </div>
                 </div>
-              <button type="submit" class="btn btn-outline-dark w-50 p-3">Оформить</button>
+                <div class="alert alert-warning" role="alert">
+                    Оплата картой или переводом на карту. <a href="" class="alert-link">об оплате</a>
+                </div>
+              <button type="submit" class="btn btn-outline-dark justify-content-center w-50 p-3">Оформить</button>
             </form>
           </div>
         </div>
