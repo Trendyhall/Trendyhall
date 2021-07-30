@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		            	// set buy button
 			    		let link = '';
 			    		for (k in cart) link+='d'+k+'c'+cart[k];
-			    		document.getElementById("BuyBtn").href = '/buy/'+link;
+			    		document.forms.order.orderBody.value = link;
 			    	}
 			    	else {
 			    		document.getElementById("BuyBtn").parentNode.classList.add('d-none');
@@ -301,12 +301,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	        	// set overview information
             	countOverview();
+
+
 	        });
 	        else{
 	        	document.getElementById("BuyBtn").parentNode.classList.add('d-none');
 	        	document.getElementById("cartCardsContainer").innerHTML = "<h2>Корзина пуста</h2>";
 			    document.getElementById("cartOverview").innerHTML = "";
 	        }
+	    //set order form
+	    document.querySelectorAll('input[type=radio]').forEach((obj) => {
+	    	obj.onclick = () => {
+	    		let myCollapse = document.getElementById('DeliveryTypeCollapse1');
+	            if (document.forms.order.DeliveryType.value == "1") myCollapse.classList.remove('d-none');
+	            else myCollapse.classList.add('d-none');	            
+	            myCollapse = document.getElementById('DeliveryTypeCollapse2');
+	            if (document.forms.order.DeliveryType.value == "2") myCollapse.classList.remove('d-none');
+	            else myCollapse.classList.add('d-none');
+	    	};
+        });
 	}
 
 

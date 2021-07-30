@@ -106,5 +106,12 @@ $route['admin/headers'] = 'admin/headers1';
 $route['admin/databasedebug'] = 'admin/databasedebug';
 //$route['admin/'] = 'admin/';
 
+//========= BACKGROUND =============
+
+$route['user/login']['post'] = 'background/user_login';
+$route['user/get-user-name']['post'] = 'background/get_user_name';
+
+
+
 //========= API =============
 $route['api']['post'] = 'api';
