@@ -290,9 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		            	overview.parentNode.querySelector('h4').innerHTML = 'Сумма: '+k+' ₽';
 
 		            	// set buy button
-			    		let link = '';
-			    		for (k in cart) link+='d'+k+'c'+cart[k];
-			    		document.forms.order.orderBody.value = link;
+			    		document.forms.order.orderBody.value = localStorage.getItem('cart');
 			    	}
 			    	else {
 			    		document.getElementById("BuyBtn").parentNode.classList.add('d-none');
@@ -365,7 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 
 
-			let passcode = new Uint32Array(1);
+			let passcode = new Uint16Array(1);
 			window.crypto.getRandomValues(passcode);
 
 			order.ordertime.value = GetFormattedDate();

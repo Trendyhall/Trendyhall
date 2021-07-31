@@ -64,18 +64,16 @@ class Main extends MY_Controller {
 		$this->data['title'] = "Корзина";
 
 		$post_json['passcode'] = $this->input->post('passcode');
+		$post_json['name'] = $this->input->post('name');
+		$post_json['phone'] = $this->input->post('phone');
+		$post_json['address'] = $this->input->post('address');
 		$post_json['orderbody'] = $this->input->post('orderBody');
 		$post_json['comment'] = $this->input->post('comment');
 		$post_json['deliverytype'] = $this->input->post('DeliveryType');
 		$post_json['ordertime'] = $this->input->post('ordertime');
 		
-		$post_json['data'] = 'Ф.И.О.: '.$this->input->post('name')."\n";
-		$post_json['data'] .= 'Телефон: '.$this->input->post('phone');
-		if ($post_json['deliverytype'] == 1) $post_json['data'] .= "\n".'Адрес: '.$this->input->post('address');
-
 		$this->load->model('Orders_model');
 		$this->Orders_model->SetNewOrder($post_json);
-
 
 
 		$this->load->view('templates/header', $this->data);

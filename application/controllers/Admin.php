@@ -28,16 +28,31 @@ class Admin extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 
-	public function orders() {
+	public function orders($id = false) {
 		$this->allow_access();
 		$this->data['title'] = "Заказы";
 
 		$this->load->model('Orders_model');
-		$this->data['orders'] = $this->Orders_model->GetOrdersList();
+		if (!$id) {
+			$this->data['orders'] = $this->Orders_model->GetOrdersList();
 
-		$this->load->view('templates/header', $this->data);
-		$this->load->view('admin/orders', $this->data);
-		$this->load->view('templates/footer');
+			$this->load->view('templates/header', $this->data);
+			$this->load->view('admin/orders', $this->data);
+			$this->load->view('templates/footer');
+		} else {
+			$this->load->model('Goods_model');
+
+			$this->data['order'] = $this->Orders_model->GetOrderByID($id);
+			$this->data['cart_json'] = json_decode($this->data['order']['orderbody'], true);
+			foreach ($this->data['cart_json'] as $key => $value) {
+				$ids[] = $key;
+			}
+			$this->data['cart'] = $this->Goods_model->getGoodsByOnlyID($ids);
+
+			$this->load->view('templates/header', $this->data);
+			$this->load->view('admin/order', $this->data);
+			$this->load->view('templates/footer');
+		}
 	}
 
 

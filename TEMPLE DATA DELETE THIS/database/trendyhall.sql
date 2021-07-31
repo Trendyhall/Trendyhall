@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июл 30 2021 г., 17:48
+-- Время создания: Июл 31 2021 г., 21:24
 -- Версия сервера: 10.4.19-MariaDB
 -- Версия PHP: 8.0.6
 
@@ -800,11 +800,22 @@ INSERT INTO `manufactures` (`id`, `name`) VALUES
 
 CREATE TABLE `orders` (
   `id` smallint(5) UNSIGNED NOT NULL,
+  `passcode` smallint(5) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `phone` varchar(12) NOT NULL,
+  `address` varchar(500) NOT NULL,
   `orderbody` varchar(500) NOT NULL,
   `comment` text NOT NULL,
-  `data` text NOT NULL,
+  `deliverytype` tinyint(3) UNSIGNED NOT NULL,
   `ordertime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `passcode`, `name`, `phone`, `address`, `orderbody`, `comment`, `deliverytype`, `ordertime`) VALUES
+(8, 38782, 'Арсений Олегович Грунин', '89645832256', '', '{\"1\":1,\"2\":\"1\",\"4\":1,\"5\":1,\"6\":1,\"7\":1,\"204\":1,\"321\":1,\"325\":1}', 'fgkhfk', 2, '2021-07-31 22:22:36');
 
 -- --------------------------------------------------------
 
@@ -911,7 +922,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `uuid`, `phone`, `password`, `name`, `secondname`, `patronymic`, `cart`) VALUES
-(1, 'b8038c7c-4fc1-4ad7-b64d-406449663c4c', '88888888888', 'TrendyhallBEST', 'Iter', 'Holms', 'gg', 'd4c1');
+(1, 'b8038c7c-4fc1-4ad7-b64d-406449663c4c', '88888888888', 'TrendyhallBEST', 'Admin', 'Admin', 'Admin', '');
 
 --
 -- Индексы сохранённых таблиц
@@ -1057,7 +1068,7 @@ ALTER TABLE `manufactures`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT для таблицы `providers`

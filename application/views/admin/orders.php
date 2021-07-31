@@ -1,3 +1,4 @@
+<?php if ($orders): ?>
 <table class="table table-hover">
   <thead>
     <tr>
@@ -15,4 +16,5 @@
       </tr>
     <?php endforeach ?>
   </tbody>
-</table>
+</table>  
+<?php endif; ?>
