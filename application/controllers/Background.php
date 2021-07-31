@@ -30,4 +30,15 @@ class Background extends MY_Controller {
 		echo $this->Users_model->GetUserNameByUUID($post_json['uuid']);
 	}
 
+	public function new_order() {
+		$postData = file_get_contents('php://input');
+		$post_json = json_decode($postData, true);
+		if (!array_key_exists('orderbody', $post_json)) show_404();
+		
+		
+		$this->load->model('Users_model');
+		$this->Users_model->SetNewOrder($post_json);
+		var_dump($post_json);
+	}
+
 }

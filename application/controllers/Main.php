@@ -20,7 +20,6 @@ class Main extends MY_Controller {
 
 	public function error_404() {
 		$this->data['title'] = "404";
-		$this->data['active_name'] = -1;
 
 
 		$this->load->view('templates/header', $this->data);
@@ -31,7 +30,6 @@ class Main extends MY_Controller {
 
 	public function signup() {
 		$this->data['title'] = "Зарегистрироваться";
-		$this->data['active_name'] = -1;
 
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/signup', $this->data);
@@ -40,7 +38,6 @@ class Main extends MY_Controller {
 
 	public function reset_password() {
 		$this->data['title'] = "Восстановить пароль";
-		$this->data['active_name'] = -1;
 
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/reset_password', $this->data);
@@ -49,7 +46,6 @@ class Main extends MY_Controller {
 
 	public function profile() {
 		$this->data['title'] = "Профиль";
-		$this->data['active_name'] = -1;
 
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/profile', $this->data);
@@ -58,17 +54,38 @@ class Main extends MY_Controller {
 
 	public function cart() {
 		$this->data['title'] = "Корзина";
-		$this->data['active_name'] = -1;
 
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('view/cart', $this->data);
 		$this->load->view('templates/footer');
 	}
 
+	public function buy() {
+		$this->data['title'] = "Корзина";
+
+		$post_json['passcode'] = $this->input->post('passcode');
+		$post_json['orderbody'] = $this->input->post('orderBody');
+		$post_json['comment'] = $this->input->post('comment');
+		$post_json['deliverytype'] = $this->input->post('DeliveryType');
+		$post_json['ordertime'] = $this->input->post('ordertime');
+		
+		$post_json['data'] = 'Ф.И.О.: '.$this->input->post('name')."\n";
+		$post_json['data'] .= 'Телефон: '.$this->input->post('phone');
+		if ($post_json['deliverytype'] == 1) $post_json['data'] .= "\n".'Адрес: '.$this->input->post('address');
+
+		$this->load->model('Orders_model');
+		$this->Orders_model->SetNewOrder($post_json);
+
+
+
+		$this->load->view('templates/header', $this->data);
+		$this->load->view('main/buy', $this->data);
+		$this->load->view('templates/footer');
+	}
+
 
 	public function like() {
 		$this->data['title'] = "Понравилось";
-		$this->data['active_name'] = -1;
 
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('view/like', $this->data);
@@ -92,7 +109,6 @@ class Main extends MY_Controller {
 		$this->data['Othertables_model'] = $this->Othertables_model;
 
 		$this->data['title'] = "";
-		$this->data['active_name'] = -1;
 
 		$good_code = explode('_', $good_code);
 		$good_code[1] = $this->Colour_model->getIDByCode($good_code[1]);
@@ -141,7 +157,6 @@ class Main extends MY_Controller {
 	public function contact(){
 
 		$this->data['title'] = "Контакты";
-		$this->data['active_name'] = -1;
 
 		$this->load->library('session');
 		$this->load->library('form_validation');
@@ -192,7 +207,6 @@ class Main extends MY_Controller {
 	public function shops()
 	{
 		$this->data['title'] = "Магазины";
-		$this->data['active_name'] = -1;
 		
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/shops', $this->data);
@@ -202,7 +216,6 @@ class Main extends MY_Controller {
 	public function about_the_refund()
 	{
 		$this->data['title'] = "О возврате";
-		$this->data['active_name'] = -1;
 		
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/about-the-refund', $this->data);
@@ -212,7 +225,6 @@ class Main extends MY_Controller {
 	public function about_delivery()
 	{
 		$this->data['title'] = "О доставке";
-		$this->data['active_name'] = -1;
 		
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/about-delivery', $this->data);
@@ -221,8 +233,7 @@ class Main extends MY_Controller {
 
 	public function privacypolicy()
 	{
-		$this->data['title'] = "Политика о конфиденциальности";
-		$this->data['active_name'] = -1;
+		$this->data['title'] = "Политика конфиденциальности";
 		
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/privacy-policy', $this->data);
@@ -231,8 +242,7 @@ class Main extends MY_Controller {
 
 	public function terms()
 	{
-		$this->data['title'] = "Политика о конфиденциальности";
-		$this->data['active_name'] = -1;
+		$this->data['title'] = "Пользовательское соглашение";
 		
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/terms', $this->data);

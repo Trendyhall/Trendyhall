@@ -1,5 +1,29 @@
 /* all logi response for manipulation with cart and like */
 document.addEventListener("DOMContentLoaded", () => {
+	// ============ DATABASE CLASS DEFINE ===================
+	class Database {
+		constructor(){}
+
+	  	NewOrder (orderbody, comment, data, ordertime, callback, error_callback) {
+			fetch("/orders/new-order", {
+				    method: 'POST',
+				    headers: {
+				      'Content-Type': 'application/json;charset=utf-8'
+				    },
+				    body: JSON.stringify({orderbody: orderbody, comment: comment, data: data, ordertime: ordertime})
+				})
+		    .then(response => {
+		    	if (response.ok) return response.text();
+		    	else error_callback(response.text());
+		    })
+	      .then(result => {
+	      	if (result != false) callback(result);
+	      });
+		}
+	};
+
+	let database = new Database();
+
 	/*===================== FUNCTIONS DEFINE =============================*/
 	/* cart */
 	function setToCart(goodID, count) {
@@ -309,17 +333,46 @@ document.addEventListener("DOMContentLoaded", () => {
 	        	document.getElementById("cartCardsContainer").innerHTML = "<h2>Корзина пуста</h2>";
 			    document.getElementById("cartOverview").innerHTML = "";
 	        }
+
 	    //set order form
+	    let order = document.forms.order;
+
 	    document.querySelectorAll('input[type=radio]').forEach((obj) => {
 	    	obj.onclick = () => {
 	    		let myCollapse = document.getElementById('DeliveryTypeCollapse1');
-	            if (document.forms.order.DeliveryType.value == "1") myCollapse.classList.remove('d-none');
+	            if (order.DeliveryType.value == "1") myCollapse.classList.remove('d-none');
 	            else myCollapse.classList.add('d-none');	            
 	            myCollapse = document.getElementById('DeliveryTypeCollapse2');
-	            if (document.forms.order.DeliveryType.value == "2") myCollapse.classList.remove('d-none');
+	            if (order.DeliveryType.value == "2") myCollapse.classList.remove('d-none');
 	            else myCollapse.classList.add('d-none');
 	    	};
         });
+
+
+        order.addEventListener('submit', function (event) {
+        	event.preventDefault();
+			event.stopPropagation();
+
+			function GetFormattedDate() {
+				var date = new Date();
+			    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+			    var day  = ("0" + (date.getDate())).slice(-2);
+			    var year = date.getFullYear();
+			    var hour =  ("0" + (date.getHours())).slice(-2);
+			    var min =  ("0" + (date.getMinutes())).slice(-2);
+			    var seg = ("0" + (date.getSeconds())).slice(-2);
+			    return year + "-" + month + "-" + day + " " + hour + ":" +  min + ":" + seg;
+			}
+
+
+			let passcode = new Uint32Array(1);
+			window.crypto.getRandomValues(passcode);
+
+			order.ordertime.value = GetFormattedDate();
+			order.passcode.value = passcode[0];
+
+			order.submit();
+		});
 	}
 
 

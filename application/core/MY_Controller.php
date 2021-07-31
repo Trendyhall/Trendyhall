@@ -9,6 +9,7 @@ class MY_Controller extends CI_Controller {
 		
 
 		$this->data['title'] = "TRENDY HALL";
+		$this->data['active_name'] = -1;
 
 		$this->load->helper('cookie');
 		$this->data['UserID'] = get_cookie('user-id');

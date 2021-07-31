@@ -12,7 +12,6 @@ class Admin extends MY_Controller {
 	public function index() {
 		$this->allow_access();
 		$this->data['title'] = "Страница администратора";
-		$this->data['active_name'] = -1;
 
 
 		$this->load->view('templates/header', $this->data);
@@ -20,20 +19,31 @@ class Admin extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 
-	public function database_upload() {
+	public function settings() {
 		$this->allow_access();
-		$this->data['title'] = "Загрузка базы данных";
-		$this->data['active_name'] = -1;
+		$this->data['title'] = "Настройки";
 
 		$this->load->view('templates/header', $this->data);
-		$this->load->view('admin/database-upload', $this->data);
+		$this->load->view('admin/settings', $this->data);
 		$this->load->view('templates/footer');
 	}
+
+	public function orders() {
+		$this->allow_access();
+		$this->data['title'] = "Заказы";
+
+		$this->load->model('Orders_model');
+		$this->data['orders'] = $this->Orders_model->GetOrdersList();
+
+		$this->load->view('templates/header', $this->data);
+		$this->load->view('admin/orders', $this->data);
+		$this->load->view('templates/footer');
+	}
+
 
 	public function database_upload1() {
 		$this->allow_access();
 		$this->data['title'] = "Загрузка базы данных";
-		$this->data['active_name'] = -1;
 		
 		$this->load->model('Goods_model');
 		$this->load->model('Othertables_model');
@@ -73,7 +83,6 @@ class Admin extends MY_Controller {
 	public function headers1() {
 		$this->allow_access();
 		$this->data['title'] = "Заголовки";
-		$this->data['active_name'] = -1;
 
 		$this->load->view('templates/header', $this->data);
 		
@@ -83,7 +92,6 @@ class Admin extends MY_Controller {
 	public function databasedebug() {
 		$this->allow_access();
 		$this->data['title'] = "Заголовки";
-		$this->data['active_name'] = -1;
 
 		$this->input->post('tablename');
 
@@ -102,7 +110,6 @@ class Admin extends MY_Controller {
 	public function fillucode() {
 		$this->allow_access();
 		$this->data['title'] = "Fill ucode";
-		$this->data['active_name'] = -1;
 
 		$this->load->model('Goods_model');
 

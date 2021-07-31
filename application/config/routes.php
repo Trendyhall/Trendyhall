@@ -89,9 +89,9 @@ $route['signup'] = 'main/signup';
 $route['reset-password'] = 'main/reset_password';
 $route['profile'] = 'main/profile';
 
-$route['cart'] = 'main/cart';
+$route['cart']['get'] = 'main/cart';
+$route['cart']['post'] = 'main/buy';
 $route['cart-cards'] = 'view/cart_cards';
-$route['buy/(:any)'] = 'main/buy/$1';
 
 
 $route['like'] = 'main/like';
@@ -100,6 +100,12 @@ $route['like-cards'] = 'view/like_cards';
 //===== ADMIN =====
 
 $route['admin'] = 'admin';
+$route['admin/settings'] = 'admin/settings';
+$route['admin/orders'] = 'admin/orders';
+$route['admin/orders/(:num)'] = 'admin/orders/$1';
+
+
+
 $route['admin/database-upload'] = 'admin/database_upload';
 $route['admin/database-upload1'] = 'admin/database_upload1';
 $route['admin/headers'] = 'admin/headers1';
@@ -110,6 +116,7 @@ $route['admin/databasedebug'] = 'admin/databasedebug';
 
 $route['user/login']['post'] = 'background/user_login';
 $route['user/get-user-name']['post'] = 'background/get_user_name';
+$route['orders/new-order']['post'] = 'background/new_order';
 
 
 
