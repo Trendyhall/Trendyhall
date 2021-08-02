@@ -43,9 +43,9 @@
                 <input name="ordertime" type="text" hidden>
                 <div class="mb-3">
                     <div class="form-floating mb-2">
-                        <input type="text" name="name" class="form-control" id="floatingN" placeholder="Имя Фамилия Отчество" required>
-                        <label for="floatingN">Имя Фамилия Отчество</label>
-                        <div class="invalid-feedback">Введите Имя Фамилия Отчество</div>
+                        <input type="text" name="name" class="form-control" id="floatingN" placeholder="Фамилия Имя Отчество" required>
+                        <label for="floatingN">Фамилия Имя Отчество</label>
+                        <div class="invalid-feedback">Введите Фамилия Имя Отчество</div>
                         <p>Это нужно нам для обращения к вам</p>
                     </div>
                     <div class="form-floating mb-2">

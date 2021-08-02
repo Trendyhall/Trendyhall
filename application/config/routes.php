@@ -103,6 +103,7 @@ $route['admin'] = 'admin';
 $route['admin/settings'] = 'admin/settings';
 $route['admin/orders'] = 'admin/orders';
 $route['admin/orders/(:num)'] = 'admin/orders/$1';
+$route['admin/order/(:num)/delete'] = 'admin/order_delete/$1';
 
 
 

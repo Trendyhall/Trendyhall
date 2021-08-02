@@ -73,8 +73,8 @@ class Main extends MY_Controller {
 		$post_json['ordertime'] = $this->input->post('ordertime');
 		
 		$this->load->model('Orders_model');
-		$this->Orders_model->SetNewOrder($post_json);
-
+		$this->data['id'] = $this->Orders_model->SetNewOrder($post_json);
+		$this->data['passcode'] = $post_json['passcode'];
 
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/buy', $this->data);

@@ -1,18 +1,56 @@
-<h4>Номер заказа: <?php echo $order['id']; ?></h4>
-<h4>Код подтверждения: <?php echo $order['passcode']; ?></h4>
-<h4>Тип доставки: <?php if ($order['deliverytype'] == 1) echo 'Доставка'; if ($order['deliverytype'] == 2) echo 'Самомвывоз'; ?></h4>
-<h4>Дата заказа: <?php echo $order['ordertime']; ?></h4>
+<div class="d-flex">
+  <a class="btn btn-outline-dark mb-2 rounded-0" href="/admin/orders"><-- Назад</a>
+  <a class="btn btn-danger mb-2 rounded-0 ms-auto" href="/admin/order/<?php echo $order['id']; ?>/delete">Удалить заказ</a>
+</div>
 
-<h4>Ф.И.О: <?php echo $order['name']; ?></h4>
-<h4>Телефон: <?php echo $order['phone']; ?></h4>
-<?php if ($order['deliverytype'] == 1): ?>
-  <h4>Адрес: <?php echo $order['address']; ?></h4>
-<?php endif ?>
 
-<h4>Комментарий заказчика:</h4>
-<h4><?php echo $order['comment']; ?></h4>
+<table class="table">
+  <tbody>
+      <tr>
+        <td>Номер заказа:</td>
+        <td><?php echo $order['id']; ?></td>
+      </tr>
+      <tr>
+        <td>Код подтверждения:</td>
+        <td><?php echo $order['passcode']; ?></td>
+      </tr>
+      <tr>
+        <td>Тип доставки:</td>
+        <td><?php if ($order['deliverytype'] == 1) echo 'Доставка'; if ($order['deliverytype'] == 2) echo 'Самомвывоз'; ?></td>
+      </tr>
+      <tr>
+        <td>Дата заказа:</td>
+        <td><?php echo $order['ordertime']; ?></td>
+      </tr>
+      <tr>
+        <td>Ф.И.О:</td>
+        <td><?php echo $order['name']; ?></td>
+      </tr>
+      <tr>
+        <td>Телефон:</td>
+        <td><?php echo $order['phone']; ?></td>
+      </tr>
+      <?php if ($order['deliverytype'] == 1): ?>
+        <tr>
+          <td>Адрес:</td>
+          <td><?php echo $order['address']; ?></td>
+        </tr>
+      <?php endif ?>
+      <tr>
+        <td>Комментарий заказчика:</td>
+        <td><?php echo $order['comment']; ?></td>
+      </tr>
+  </tbody>
+</table>
 
-<button class="btn btn-outline-dark mb-2" type="button">Удалить заказ</button>
+<!--
+<div class="card border mb-3">
+  <div class="card-body text-start">
+    <h5>Комментарий заказчика:</h5>
+    <p class="m-0"><?php echo $order['comment']; ?></p>
+  </div>
+</div>
+-->
 
 <button class="btn btn-outline-dark w-100" type="button" data-bs-toggle="collapse" data-bs-target="#cartCollapse" aria-expanded="false" aria-controls="cartCollapse">
   Список товаров

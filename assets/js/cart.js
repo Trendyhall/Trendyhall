@@ -69,6 +69,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		else return 0;
 	}
 
+	function DeleteCart() {
+		localStorage.setItem('cart', JSON.stringify({}));
+		localStorage.setItem('user-cart-count', '');
+		document.querySelector('.icon-cart').setAttribute('data-qty', localStorage.getItem('user-cart-count'));
+	}
+
 	/* like */
 	function addToLike(goodID) {
 		let like = JSON.parse(localStorage.getItem('like'));
@@ -364,7 +370,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 			let passcode = new Uint16Array(1);
-			window.crypto.getRandomValues(passcode);
+			while (passcode[0] < 1000) window.crypto.getRandomValues(passcode);
+
 
 			order.ordertime.value = GetFormattedDate();
 			order.passcode.value = passcode[0];

@@ -43,6 +43,10 @@ class Admin extends MY_Controller {
 			$this->load->model('Goods_model');
 
 			$this->data['order'] = $this->Orders_model->GetOrderByID($id);
+			if ($this->data['order'] === FALSE) {
+				
+    			echo "<script type='text/javascript'>alert('Заказ с номером $id не был найден'); window.location = '/admin/orders';</script>";
+			}
 			$this->data['cart_json'] = json_decode($this->data['order']['orderbody'], true);
 			foreach ($this->data['cart_json'] as $key => $value) {
 				$ids[] = $key;
@@ -53,6 +57,16 @@ class Admin extends MY_Controller {
 			$this->load->view('admin/order', $this->data);
 			$this->load->view('templates/footer');
 		}
+	}
+
+	public function order_delete($id) {
+		$this->allow_access();
+		$this->data['title'] = "Заказы";
+
+		$this->load->model('Orders_model');
+		$this->Orders_model->DeleteOrderByID($id);
+
+		$this->redirect('/admin/orders');
 	}
 
 

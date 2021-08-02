@@ -1,12 +1,17 @@
+<?php if (!$orders): ?>
+  <div class="d-flex justify-content-center">
+    <h2>Заказов нет</h2>
+  </div>
+<?php endif; ?>
 <?php if ($orders): ?>
 <div class="row mb-3">
-  <div class="col-10">
+  <div class="col-10 pe-0">
     <div class="form-floating">
         <input type="text" name="number" class="form-control" id="numberSearch" placeholder="Номер заказа">
         <label for="numberSearch">Номер заказа</label>
     </div>
   </div>
-  <div class="col-2">
+  <div class="col-2 ps-1">
     <button class="btn btn-outline-dark w-100 h-100" type="button" onclick="document.location = '/admin/orders/'+document.getElementById('numberSearch').value;">Найти</button>
   </div>
 </div>

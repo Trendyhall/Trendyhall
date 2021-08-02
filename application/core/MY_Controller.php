@@ -20,4 +20,10 @@ class MY_Controller extends CI_Controller {
 	public function allow_access(){
 		if (!$this->data['IsAdmin']) show_404();
 	}
+
+	public function redirect($url, $statusCode = 303)
+	{
+	   header('Location: ' . $url, true, $statusCode);
+	   die();
+	}
 }
