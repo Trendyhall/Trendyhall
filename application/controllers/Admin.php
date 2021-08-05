@@ -69,44 +69,26 @@ class Admin extends MY_Controller {
 		$this->redirect('/admin/orders');
 	}
 
-
-	public function database_upload1() {
+	public function order_cancel($id) {
 		$this->allow_access();
-		$this->data['title'] = "Загрузка базы данных";
-		
+		$this->data['title'] = "Заказы";
+
+		$this->load->model('Orders_model');
 		$this->load->model('Goods_model');
-		$this->load->model('Othertables_model');
 
-		$uploaddir = 'C:\xampp\tmp';
-		$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
-		if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
-		    $is_ok = true;
-		} else {
-		    $is_ok = false;
+		$order_body = json_decode($this->Orders_model->GetOrderByID($id)['orderbody']);
+		foreach ($order_body as $key => $value) {
+			$this->Goods_model->updateGoodCountByID($key, $value);
 		}
-		if ($is_ok) foreach (explode("\n", file_get_contents($uploadfile)) as $key => $value) {
-			$row = explode(";", $value);
 
-			/*
-			$row[2] = $this->Othertables_model->FindID("colours", "colourcode", $row[2]);
-			$row[3] = $this->Othertables_model->FindID("sizes", "size", $row[3]);
-			$row[6] = $this->Othertables_model->FindID("brands", "name", $row[6]);
-			$row[7] = $this->Othertables_model->FindID("groups", "name", $row[7]);
-			$row[10] = $this->Othertables_model->FindID("providers", "name", $row[10]);
-			$row[11] = $this->Othertables_model->FindID("manufactures", "name", $row[11]);
-			$row[12] = $this->Othertables_model->FindID("countries", "name", $row[12]);
-			$row[17] = $this->Othertables_model->FindID("adddates", "date", $row[17]);
-			$row[18] = $this->Othertables_model->FindID("seasons", "name", $row[18]);
-			$row[19] = $this->Othertables_model->FindID("descriptions", "description", $row[19]);
-			*/
+		$this->Orders_model->DeleteOrderByID($id);
 
-			//$this->Goods_model->InsertGood($row);
-		} 
-
-		$this->load->view('templates/header', $this->data);
-		$this->load->view('admin/database-upload1', $this->data);
-		$this->load->view('templates/footer');
+		$this->redirect('/admin/orders');
 	}
+
+
+
+	//================
 
 	public function headers1() {
 		$this->allow_access();

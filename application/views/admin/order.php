@@ -1,6 +1,7 @@
 <div class="d-flex">
   <a class="btn btn-outline-dark mb-2 rounded-0" href="/admin/orders"><-- Назад</a>
-  <a class="btn btn-danger mb-2 rounded-0 ms-auto" href="/admin/order/<?php echo $order['id']; ?>/delete">Удалить заказ</a>
+  <a class="btn btn-success mb-2 rounded-0 ms-auto" href="/admin/order/<?php echo $order['id']; ?>/delete">Выполнить заказ</a>
+  <a class="btn btn-danger mb-2 rounded-0" href="/admin/order/<?php echo $order['id']; ?>/cancel">Отменить заказ</a>
 </div>
 
 

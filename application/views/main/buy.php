@@ -1,3 +1,4 @@
+<script>localStorage.setItem('cart',JSON.stringify({}));localStorage.setItem('user-cart-count','');document.querySelector('.icon-cart').setAttribute('data-qty',localStorage.getItem('user-cart-count'));</script>
 <div class="d-flex justify-content-center">
   <div class="card border rounded-3 shadow mb-3" style="max-width: 500px;">
 	  <div class="card-header">Данные по заказу</div>

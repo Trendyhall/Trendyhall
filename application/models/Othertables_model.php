@@ -8,12 +8,12 @@ class Othertables_model extends CI_Model {
 	public function FindID($TableName, $ColumnName, $Value){
 		$Value = $this->db->escape($Value);
 
-		$query = $this->db->query("SELECT id FROM ".$TableName." WHERE ".$ColumnName." = ".$Value." LIMIT 1");
+		$query = $this->db->query("SELECT id FROM $TableName WHERE $ColumnName = $Value LIMIT 1");
 		$row = $query->row();
 		if ($row) return $row->id;
 		else {
-			$this->db->query("INSERT INTO ".$TableName." (id, ".$ColumnName.") VALUES (null, ".$Value.")");
-			$query = $this->db->query("SELECT id FROM ".$TableName." WHERE ".$ColumnName." = ".$Value." LIMIT 1");
+			$this->db->query("INSERT INTO $TableName (id, $ColumnName) VALUES (null, $Value)");
+			$query = $this->db->query("SELECT id FROM $TableName WHERE $ColumnName = $Value LIMIT 1");
 			$row = $query->row();
 			return $row->id;
 		}
@@ -22,14 +22,14 @@ class Othertables_model extends CI_Model {
 	public function GetByID($TableName, $ColumnName, $ID){
 		$Value = $this->db->escape($ID);
 
-		$query = $this->db->query("SELECT ".$ColumnName." FROM ".$TableName." WHERE id = ".$Value." LIMIT 1");
+		$query = $this->db->query("SELECT $ColumnName FROM $TableName WHERE id = $Value LIMIT 1");
 		$row = $query->row_array();
 		if ($row) return $row[$ColumnName];
 		else return FALSE;
 	}
 
 	public function GetTable($TableName){
-		$query = $this->db->query("SELECT * FROM ".$TableName." WHERE 1");
+		$query = $this->db->query("SELECT * FROM $TableName WHERE 1");
 		return $query->result_array();
 	}
 
@@ -38,7 +38,7 @@ class Othertables_model extends CI_Model {
 	}
 
 	public function GetUniqueColumn($TableName, $ColumnName) {
-		$query = $this->db->query("SELECT DISTINCT ".$ColumnName." FROM ".$TableName." WHERE 1");
+		$query = $this->db->query("SELECT DISTINCT $ColumnName FROM $TableName WHERE 1");
 		return $query->result_array();
 	}
 

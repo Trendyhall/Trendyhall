@@ -73,7 +73,14 @@ class Main extends MY_Controller {
 		$post_json['ordertime'] = $this->input->post('ordertime');
 		
 		$this->load->model('Orders_model');
+		$this->load->model('Goods_model');
 		$this->data['id'] = $this->Orders_model->SetNewOrder($post_json);
+		
+		$order_body = json_decode($post_json['orderbody']);
+		foreach ($order_body as $key => $value) {
+			$this->Goods_model->updateGoodCountByID($key, -$value);
+		}
+
 		$this->data['passcode'] = $post_json['passcode'];
 
 		$this->load->view('templates/header', $this->data);
