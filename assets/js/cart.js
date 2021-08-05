@@ -307,13 +307,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	        	// set card
 	        	document.getElementById("cartCardsContainer").innerHTML = card;
+
+	        	// remove from cart
+	        	document.querySelectorAll('[data-delete-id]').forEach((obj) => {
+	        		removeFromCart(btn.getAttribute('data-delete-id'));
+	        	});
+
 	        	// set close btn onclick
 	        	for (let btn of document.querySelectorAll("[data-closeid]")) {
 	        		btn.onclick = () => {
 	        			removeFromCart(btn.getAttribute('data-closeid'));
 	        			btn.parentNode.parentNode.parentNode.remove();
 	        			countOverview();
-	        		};
+	        		};removeFromCart
 	        	}
 	        	// set select options
 	        	document.querySelectorAll('select').forEach((obj) => {
