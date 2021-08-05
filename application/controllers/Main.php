@@ -122,8 +122,6 @@ class Main extends MY_Controller {
 		foreach ($this->data['other_goods'] as $key => $value) {
 			$this->data['other_goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
 			$this->data['other_goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
-			if ($this->data['other_goods'][$key]['sale'] == 1) $this->data['goods'][$key]['sale'] = 0;
-			else $this->data['other_goods'][$key]['sale'] = $this->Othertables_model->GetByID("sales", "sale", $value['sale']);
 		}
 		
 
@@ -135,8 +133,6 @@ class Main extends MY_Controller {
 			$this->data['good']['manufacturer'] = $this->Othertables_model->GetByID("manufactures", "name", $this->data['good']['manufacturer']);
 			$this->data['good']['country'] = $this->Othertables_model->GetByID("countries", "name", $this->data['good']['country']);
 			$this->data['good']['description'] = $this->Othertables_model->GetByID("descriptions", "description", $this->data['good']['description']);
-			if ($this->data['good']['sale'] == 1) $this->data['good']['sale'] = 0;
-			else $this->data['good']['sale'] = $this->Othertables_model->GetByID("sales", "sale", $this->data['good']['sale']);
 		}
 
 

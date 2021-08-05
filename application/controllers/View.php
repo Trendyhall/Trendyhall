@@ -115,8 +115,6 @@ class View extends MY_Controller {
 
 		foreach ($this->data['goods'] as $key => $value) {
 			$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
-			if ($this->data['goods'][$key]['sale'] == 1) $this->data['goods'][$key]['sale'] = 0;
-			else $this->data['goods'][$key]['sale'] = $this->Othertables_model->GetByID("sales", "sale", $value['sale']);
 			$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
 		}
 		
@@ -208,7 +206,7 @@ class View extends MY_Controller {
 		$this->data['active_name'] = 6;
 
 		$addition_where[0] = 'sale!';
-		$addition_where[1] = array(1);
+		$addition_where[1] = array(0);
 
 		$this->BuildFilters($offset, $addition_where);
 	}
@@ -231,8 +229,6 @@ class View extends MY_Controller {
 			foreach ($this->data['goods'] as $key => $value) {
 				$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
 				$this->data['goods'][$key]['size'] = $this->Othertables_model->GetByID("sizes", "size", $value['size']);
-				if ($this->data['goods'][$key]['sale'] == 1) $this->data['goods'][$key]['sale'] = 0;
-				else $this->data['goods'][$key]['sale'] = $this->Othertables_model->GetByID("sales", "sale", $value['sale']);
 				$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
 			}
 		}
@@ -256,8 +252,6 @@ class View extends MY_Controller {
 
 		foreach ($this->data['goods'] as $key => $value) {
 			$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
-			if ($this->data['goods'][$key]['sale'] == 1) $this->data['goods'][$key]['sale'] = 0;
-			else $this->data['goods'][$key]['sale'] = $this->Othertables_model->GetByID("sales", "sale", $value['sale']);
 			$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
 		}
 

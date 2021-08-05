@@ -95,7 +95,6 @@ class Admin extends MY_Controller {
 			$row[10] = $this->Othertables_model->FindID("providers", "name", $row[10]);
 			$row[11] = $this->Othertables_model->FindID("manufactures", "name", $row[11]);
 			$row[12] = $this->Othertables_model->FindID("countries", "name", $row[12]);
-			$row[15] = $this->Othertables_model->FindID("sales", "sale", $row[15]);
 			$row[17] = $this->Othertables_model->FindID("adddates", "date", $row[17]);
 			$row[18] = $this->Othertables_model->FindID("seasons", "name", $row[18]);
 			$row[19] = $this->Othertables_model->FindID("descriptions", "description", $row[19]);
