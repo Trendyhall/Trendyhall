@@ -64,5 +64,5 @@
 		<button type="submit" class="btn btn-outline-dark" disabled id="submitBtn">Зарегестрироваться</button>
 	</form>
 	<script src="https://cdn.jsdelivr.net/npm/uuid@latest/dist/umd/uuidv4.min.js"></script>
-	<script src="/assets/js/signup.js"></script>
+	<script src="/assets/js/signup.min.js"></script>
 </div>

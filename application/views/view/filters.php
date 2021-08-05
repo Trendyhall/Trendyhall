@@ -91,5 +91,5 @@
 						<button class="submitbtn btn btn-outline-dark" type="submit">Применить</button>
 					</div>
 				</form>
-				<script src="/assets/js/filters.js"></script>
+				<script src="/assets/js/filters.min.js"></script>
 			</div>
