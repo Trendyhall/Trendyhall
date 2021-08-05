@@ -95,6 +95,11 @@
                     </div>
                 </div>
               <button type="submit" class="btn btn-outline-dark justify-content-center w-50 p-3 fs-4">Оформить</button>
+
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+              <link href="https://cdn.jsdelivr.net/npm/suggestions-jquery@21.6.0/dist/css/suggestions.min.css" rel="stylesheet" />
+              <script src="https://cdn.jsdelivr.net/npm/suggestions-jquery@21.6.0/dist/js/jquery.suggestions.min.js"></script>
+              <script>$("#floatingA").suggestions({token: "30eb4b7fb5e5da4f0791e4768e1a7c23e1a4130e",type: "ADDRESS"});</script>
             </form>
           </div>
         </div>

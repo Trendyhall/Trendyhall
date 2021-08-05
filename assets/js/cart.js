@@ -244,6 +244,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	/*===========  CART PAGE INIT  ===============*/
 	if (document.getElementById("cartCardsContainer")) {
+
+
+
 	    let cart = JSON.parse(localStorage.getItem('cart'));
 	    if (cart == null) cart = {};
 	    let a = false;
@@ -347,6 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	    //set order form
 	    let order = document.forms.order;
+
 
 	    document.querySelectorAll('input[type=radio]').forEach((obj) => {
 	    	obj.onclick = () => {
