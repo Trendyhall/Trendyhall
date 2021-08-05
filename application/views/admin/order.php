@@ -1,7 +1,12 @@
 <div class="d-flex">
   <a class="btn btn-outline-dark mb-2 rounded-0" href="/admin/orders"><-- Назад</a>
-  <a class="btn btn-success mb-2 rounded-0 ms-auto" href="/admin/order/<?php echo $order['id']; ?>/delete">Выполнить заказ</a>
-  <a class="btn btn-danger mb-2 rounded-0" href="/admin/order/<?php echo $order['id']; ?>/cancel">Отменить заказ</a>
+  <label class="ms-auto mt-1" for="confirmCheck">Управление заказом</label>
+  <input class="form-check-input m-1 mt-2" type="checkbox" id="confirmCheck" onclick="this.parentNode.querySelector('div').classList.toggle('d-none');">
+ 
+  <div class="d-none">
+    <a class="btn btn-success mb-2 rounded-0" href="/admin/order/<?php echo $order['id']; ?>/delete">Выполнить заказ</a>
+    <a class="btn btn-danger mb-2 rounded-0" href="/admin/order/<?php echo $order['id']; ?>/cancel">Отменить заказ</a>
+  </div>
 </div>
 
 
@@ -44,17 +49,8 @@
   </tbody>
 </table>
 
-<!--
-<div class="card border mb-3">
-  <div class="card-body text-start">
-    <h5>Комментарий заказчика:</h5>
-    <p class="m-0"><?php echo $order['comment']; ?></p>
-  </div>
-</div>
--->
-
 <button class="btn btn-outline-dark w-100" type="button" data-bs-toggle="collapse" data-bs-target="#cartCollapse" aria-expanded="false" aria-controls="cartCollapse">
-  Список товаров
+  Показать список товаров
 </button>
 <div class="collapse" id="cartCollapse">
     <table class="table table-hover">
