@@ -22,6 +22,7 @@
       <th scope="col">#</th>
       <th scope="col">Номер заказа</th>
       <th scope="col">Дата заказа</th>
+      <th scope="col">Телефон</th>
       <th scope="col">Тип заказа</th>
     </tr>
   </thead>
@@ -31,6 +32,7 @@
         <th scope="row"><?php echo $key+1; ?></th>
         <th scope="row" ><?php echo $value['id']; ?></th>
         <td><?php echo $value['ordertime']; ?></td>
+        <td><?php echo $value['phone']; ?></td>
         <td><?php if ($value['deliverytype'] == 1) echo 'Доставка'; if ($value['deliverytype'] == 2) echo 'Самовывоз'; ?></td>
       </tr>
     <?php endforeach ?>

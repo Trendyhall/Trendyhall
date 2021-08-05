@@ -6,13 +6,13 @@ class Orders_model extends CI_Model {
 	}
 
 	public function GetOrdersList() {
-		$query = $this->db->query("SELECT id, ordertime, deliverytype FROM orders WHERE 1");
+		$query = $this->db->query("SELECT id, phone, ordertime, deliverytype FROM orders WHERE 1");
 		if ($query->result_array() != null) return $query->result_array();
 		else return FALSE;
 	}
 
 	public function GetOrderByID($id) {
-		$query = $this->db->query("SELECT * FROM orders WHERE id = '".$id."' LIMIT 1");
+		$query = $this->db->query("SELECT * FROM orders WHERE id = '".$id."' OR phone = '".$id."' LIMIT 1");
 		if ($query->row_array() != null) return $query->row_array();
 		else return FALSE;
 	}
