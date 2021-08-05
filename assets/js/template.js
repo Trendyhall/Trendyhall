@@ -1,3 +1,5 @@
+DtabseInit();
+
 /* general logic such as login, database init and cookie func*/
 document.addEventListener("DOMContentLoaded", () => {
 	class Database {
@@ -40,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	let database = new Database();
 
-	DtabseInit();
 
 	IfUser();
 
@@ -170,23 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		}, false);
 	}
 
-	function DtabseInit(){
-		// Your web app's Firebase configuration
-		// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-		const firebaseConfig = {
-			apiKey: "AIzaSyBk0QIQKsrOwNwbjrClrS0kinGEY_I4YzE",
-			authDomain: "trendyhall-37f5c.firebaseapp.com",
-			databaseURL: "https://trendyhall-37f5c-default-rtdb.europe-west1.firebasedatabase.app",
-			projectId: "trendyhall-37f5c",
-			storageBucket: "trendyhall-37f5c.appspot.com",
-			messagingSenderId: "1035638959257",
-			appId: "1:1035638959257:web:2b871ccf8c8162750e9c08",
-			measurementId: "G-9WZXTDWNGS"
-		};
-		// Initialize Firebase
-		firebase.initializeApp(firebaseConfig);
-		firebase.analytics();
-	}
 
 	function IfUser(){
 		document.querySelector('.icon-cart').setAttribute('data-qty', localStorage.getItem('user-cart-count'));
@@ -245,4 +229,22 @@ function getCookie(name) {
     "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
   ));
   return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function DtabseInit(){
+	// Your web app's Firebase configuration
+	// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+	const firebaseConfig = {
+		apiKey: "AIzaSyBk0QIQKsrOwNwbjrClrS0kinGEY_I4YzE",
+		authDomain: "trendyhall-37f5c.firebaseapp.com",
+		databaseURL: "https://trendyhall-37f5c-default-rtdb.europe-west1.firebasedatabase.app",
+		projectId: "trendyhall-37f5c",
+		storageBucket: "trendyhall-37f5c.appspot.com",
+		messagingSenderId: "1035638959257",
+		appId: "1:1035638959257:web:2b871ccf8c8162750e9c08",
+		measurementId: "G-9WZXTDWNGS"
+	};
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+	firebase.analytics();
 }

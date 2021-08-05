@@ -18,7 +18,7 @@ class MY_Controller extends CI_Controller {
 	}
 
 	public function allow_access(){
-		if (!$this->data['IsAdmin']) show_404();
+		if (!$this->data['IsAdmin']) $this->redirect('/404');
 	}
 
 	public function redirect($url, $statusCode = 303)

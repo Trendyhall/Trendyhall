@@ -310,7 +310,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	        	// remove from cart
 	        	document.querySelectorAll('[data-delete-id]').forEach((obj) => {
-	        		removeFromCart(btn.getAttribute('data-delete-id'));
+	        		removeFromCart(obj.getAttribute('data-delete-id'));
+	        		obj.remove();
 	        	});
 
 	        	// set close btn onclick

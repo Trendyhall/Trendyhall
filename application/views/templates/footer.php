@@ -45,7 +45,7 @@
               +7(495)225-73-90
             </a>
 
-            <?php if ($IsAdmin) echo '<a href="/admin" class="d-block">ADMIN PAGE</a>' ?>
+            <?php if ($IsAdmin): ?><a href="/admin" class="d-block">ADMIN PAGE</a><?php endif; ?>
           </div>
         </div>
       </div>
@@ -71,6 +71,7 @@
 
     <script src="/assets/js/template.js"></script>
     <script src="/assets/js/cart.js"></script>
+    <?php if ($IsAdmin): ?><script src="/assets/js/admin.js"></script><?php endif; ?>
 
   </body>
 </html>
