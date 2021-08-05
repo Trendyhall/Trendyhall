@@ -359,31 +359,81 @@ document.addEventListener("DOMContentLoaded", () => {
 	    	};
         });
 
+		order.name.oninput = () => {
+			let input = order.name;
+			input.parentNode.classList.add('was-validated');
+			if(/[^a-zA-Zа-яА-Я ]/.test(input.value)) {
+				let Selection = input.selectionStart-1;
+				input.value = input.value.replace(/[^a-zA-Zа-яА-Я ]/g,'');
+				input.setSelectionRange(Selection, Selection);
+			}
+		}
+
+		let NumberSave = order.phone.value;
+		order.phone.oninput = () => {
+			let input = order.phone;
+
+			if(/[^0-9+]/.test(input.value)) {
+				let Selection = input.selectionStart-1;
+				input.value = input.value.replace(/[^0-9+]/g,'');
+				input.setSelectionRange(Selection, Selection);
+			}
+
+			if (input.value[0] == '+') {
+				if (input.value.length <= 12) NumberSave = input.value;
+			}
+			else {
+				if (input.value.length <= 11) NumberSave = input.value;
+			}
+
+
+			input.value = NumberSave;
+
+
+			let re = /\+7\d{10}|8\d{10}/;
+			
+			if (re.test(input.value) & ((input.value[0] == '8' & input.value.length == 11) | (input.value[0] == '+' & input.value.length == 12))) {
+				input.classList.add('is-valid');
+				input.classList.remove('is-invalid');
+			}
+			else {
+				input.classList.add('is-invalid');
+				input.classList.remove('is-valid');
+			}
+		}
+
+
 
         order.addEventListener('submit', function (event) {
         	event.preventDefault();
 			event.stopPropagation();
 
-			function GetFormattedDate() {
-				var date = new Date();
-			    var month = ("0" + (date.getMonth() + 1)).slice(-2);
-			    var day  = ("0" + (date.getDate())).slice(-2);
-			    var year = date.getFullYear();
-			    var hour =  ("0" + (date.getHours())).slice(-2);
-			    var min =  ("0" + (date.getMinutes())).slice(-2);
-			    var seg = ("0" + (date.getSeconds())).slice(-2);
-			    return year + "-" + month + "-" + day + " " + hour + ":" +  min + ":" + seg;
+			if (/[a-zA-Zа-яА-Я ]/.test(order.name.value)) {
+				let re = /\+7\d{10}|8\d{10}/;
+				let input = order.phone;
+				if (re.test(input.value) & ((input.value[0] == '8' & input.value.length == 11) | (input.value[0] == '+' & input.value.length == 12))) {
+					function GetFormattedDate() {
+						var date = new Date();
+					    var month = ("0" + (date.getMonth() + 1)).slice(-2);
+					    var day  = ("0" + (date.getDate())).slice(-2);
+					    var year = date.getFullYear();
+					    var hour =  ("0" + (date.getHours())).slice(-2);
+					    var min =  ("0" + (date.getMinutes())).slice(-2);
+					    var seg = ("0" + (date.getSeconds())).slice(-2);
+					    return year + "-" + month + "-" + day + " " + hour + ":" +  min + ":" + seg;
+					}
+
+
+					let passcode = new Uint16Array(1);
+					while (passcode[0] < 1000) window.crypto.getRandomValues(passcode);
+
+
+					order.ordertime.value = GetFormattedDate();
+					order.passcode.value = passcode[0];
+
+					order.submit();
+				}
 			}
-
-
-			let passcode = new Uint16Array(1);
-			while (passcode[0] < 1000) window.crypto.getRandomValues(passcode);
-
-
-			order.ordertime.value = GetFormattedDate();
-			order.passcode.value = passcode[0];
-
-			order.submit();
 		});
 	}
 
