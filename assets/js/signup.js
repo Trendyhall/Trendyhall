@@ -162,38 +162,42 @@ document.addEventListener("DOMContentLoaded", () => {
 	function Signup() {
 		let uuid = uuidv4();
 		let form = document.signup;
-		const dbRef = firebase.database().ref();
-		dbRef.child("Users").child(uuid).get().then((snapshot) => {
-		    if (snapshot.exists()) {
-		  		Signup();
-		    } else {
-				if (form.rememberme1.checked)
-					setCookie('user-id', uuid, {'max-age': 864000});
-				else
-					setCookie('user-id', uuid);
+		fetch("/orders/new-order", {
+				    method: 'POST',
+				    headers: {
+				      'Content-Type': 'application/json;charset=utf-8'
+				    },
+				    body: JSON.stringify({phone: phone})
+				})
+		    .then(response => {
+		    	if (response.ok) return response.text();
+		    	else error_callback(response.text());
+		    })
+	        .then(result => {
+		      	if (result == false) {
+		      		let cart = JSON.parse(localStorage.getItem('cart'));
+					if (cart == null) cart = {};
+		      		if (form.rememberme1.checked)
+						setCookie('user-id', uuid, {'max-age': 864000});
+					else
+						setCookie('user-id', uuid);
 
-				writeUserData(uuid, form.firstname.value, form.secondname.value, form.patronymic.value, form.phone1.value, form.password1.value);
-		  	
-		  		window.location.replace('/');
-		    }
-		}).catch((error) => {
-		    console.error(error);
-		    
-		});	
+					writeUserData(uuid, form.firstname.value, form.secondname.value, form.patronymic.value, form.phone1.value, form.password1.value, cart);
+			  	
+			  		window.location.replace('/');
+		      	}
+		      	else Signup();
+	        });
 	}
 
-	function writeUserData(userId, name, secondname, patronymic, phone, password) {
-
-		firebase.database().ref('Phones/').child(phone).child(password).set(userId);
-
-		firebase.database().ref('Users/' + userId + '/Data').set({
-			Name: name,
-			Password: password,
-			Patronymic: patronymic,
-			Phone: phone,
-			Secondname: secondname
-		});
+	function writeUserData(userId, name, secondname, patronymic, phone, password, cart) {
+		fetch("/user/signup", {
+				    method: 'POST',
+				    headers: {
+				      'Content-Type': 'application/json;charset=utf-8'
+				    },
+				    body: JSON.stringify({uuid: userId, name: name, password: password, patronymic: patronymic, phone: phone, secondname: secondname, cart: cart})
+				});
 	}
-
 
 });
