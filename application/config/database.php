@@ -94,3 +94,26 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => FALSE
 );
+
+
+$db['profreehost'] = array(
+	'dsn'	=> '',
+	'hostname' => 'sql206.ezyro.com',
+	'username' => 'ezyro_29334395',
+	'password' => 'g8gzh7y',
+	'database' => 'ezyro_29334395_trendyhall',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => FALSE
+);

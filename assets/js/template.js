@@ -86,16 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (ufl != null) {
 			document.querySelector('.icon-cart').setAttribute('data-qty', ufl);
 		} else {
-			/*dbRef.child("Users").child(userid).child("CartCount").get().then((snapshot) => {
-			  if (snapshot.exists()) {
-			  	document.querySelector('.icon-cart').setAttribute('data-qty', snapshot.val());
-			  	localStorage.setItem('user-cart-count', snapshot.val());
-			  } else {
-			  	localStorage.setItem('user-cart-count', '');
-			  }
-			}).catch((error) => {
-			  console.error(error);
-			});*/
+			document.querySelector('.icon-cart').setAttribute('data-qty', "");
+			localStorage.setItem('user-cart-count', "");
 		}
 	}
 
