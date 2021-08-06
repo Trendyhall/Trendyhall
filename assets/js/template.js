@@ -176,7 +176,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			SetUserTemplateData(userid);
 		}
-		else LoginInit();
+		else {
+			LoginInit();
+			let ufl = localStorage.getItem('user-cart-count');
+			if (ufl != null) {
+				document.querySelector('.icon-cart').setAttribute('data-qty', ufl);
+			} else {
+				document.querySelector('.icon-cart').setAttribute('data-qty', "");
+				localStorage.setItem('user-cart-count', "");
+			}
+		}
 	}
 
 });
