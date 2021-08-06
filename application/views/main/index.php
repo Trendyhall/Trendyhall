@@ -15,6 +15,7 @@
           <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="80vh" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: Первый слайд" preserveAspectRatio="xMidYMid slice" focusable="false" font-size="calc(1.475rem + 2.7vw)" text-anchor="middle">
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="#eee"></rect>
+            
             <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
           </svg>
           <div class="carousel-caption d-none d-md-block">
