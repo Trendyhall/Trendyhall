@@ -23,7 +23,7 @@ class Users_model extends CI_Model {
 	}
 
 	public function SetNewUser($data) {
-		$this->db->query("INSERT INTO `users` (`id`, `uuid`, `phone`, `password`, `name`, `secondname`, `patronymic`, `cart`) VALUES (NULL, ".$this->db->escape($data['uuid']).", ".$this->db->escape($data['phone']).", ".$this->db->escape($data['password']).", ".$this->db->escape($data['name']).", ".$this->db->escape($data['secondname']).", ".$this->db->escape($data['patronymic']).", ".$this->db->escape($data['patronymic']).")");
+		$this->db->query("INSERT INTO `users` (`id`, `uuid`, `phone`, `password`, `name`, `secondname`, `patronymic`, `cart`) VALUES (NULL, ".$this->db->escape($data['uuid']).", ".$this->db->escape($data['phone']).", ".$this->db->escape($data['password']).", ".$this->db->escape($data['name']).", ".$this->db->escape($data['secondname']).", ".$this->db->escape($data['patronymic']).", ".$this->db->escape($data['cart']).")");
 	}
 
 }

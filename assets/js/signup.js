@@ -162,21 +162,21 @@ document.addEventListener("DOMContentLoaded", () => {
 	function Signup() {
 		let uuid = uuidv4();
 		let form = document.signup;
-		fetch("/orders/new-order", {
+		fetch("/user/exsist", {
 				    method: 'POST',
 				    headers: {
 				      'Content-Type': 'application/json;charset=utf-8'
 				    },
-				    body: JSON.stringify({phone: phone})
+				    body: JSON.stringify({phone: form.phone1.value})
 				})
 		    .then(response => {
 		    	if (response.ok) return response.text();
-		    	else error_callback(response.text());
 		    })
 	        .then(result => {
+	        	console.log(result);
 		      	if (result == false) {
-		      		let cart = JSON.parse(localStorage.getItem('cart'));
-					if (cart == null) cart = {};
+		      		let cart = localStorage.getItem('cart');
+					if (cart == null) cart = "{}";
 		      		if (form.rememberme1.checked)
 						setCookie('user-id', uuid, {'max-age': 864000});
 					else
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 					writeUserData(uuid, form.firstname.value, form.secondname.value, form.patronymic.value, form.phone1.value, form.password1.value, cart);
 			  	
-			  		window.location.replace('/');
+			  		//window.location.replace('/');
 		      	}
 		      	else Signup();
 	        });
@@ -197,7 +197,10 @@ document.addEventListener("DOMContentLoaded", () => {
 				      'Content-Type': 'application/json;charset=utf-8'
 				    },
 				    body: JSON.stringify({uuid: userId, name: name, password: password, patronymic: patronymic, phone: phone, secondname: secondname, cart: cart})
-				});
+				}).then(response => {
+		    	window.location.replace('/');
+		    	//console.log(response.text());
+		    });
 	}
 
 });

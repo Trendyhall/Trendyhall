@@ -21,7 +21,7 @@ class Background extends MY_Controller {
 		echo $this->Users_model->GetUUIDByPhonePassword($post_json['phone'], $post_json['password']);
 	}
 
-	public function user_exist() {
+	public function user_exsist() {
 		$postData = file_get_contents('php://input');
 		$post_json = json_decode($postData, true);
 		if (!array_key_exists('phone', $post_json)) show_404();
@@ -36,7 +36,8 @@ class Background extends MY_Controller {
 		if (!array_key_exists('uuid', $post_json) || !array_key_exists('phone', $post_json) || !array_key_exists('password', $post_json)) show_404();
 		
 		$this->load->model('Users_model');
-		$this->Users_model->GetUUIDByPhonePassword($post_json);
+		$this->Users_model->SetNewUser($post_json);
+		echo true;
 	}
 
 

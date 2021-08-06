@@ -117,7 +117,7 @@ $route['admin/databasedebug'] = 'admin/databasedebug';
 //========= BACKGROUND =============
 
 $route['user/login']['post'] = 'background/user_login';
-$route['user/exist']['post'] = 'background/user_exist';
+$route['user/exsist']['post'] = 'background/user_exsist';
 $route['user/signup']['post'] = 'background/user_signup';
 
 $route['user/get-user-name']['post'] = 'background/get_user_name';
