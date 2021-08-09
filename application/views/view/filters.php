@@ -1,6 +1,6 @@
 		<div class="row">
 			<div class="col col-12 col-md-3">
-				<h3>Фильтры</h3>
+				
 				
 				<form action="" method="put" class="filters" name="filters">
 					<div class="sort mb-2 black-border">
@@ -40,7 +40,7 @@
 						
 						<div class="black-border mb-2">
 							<button class="sortbtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGroup" aria-expanded="false">
-							    Тип<span class="arrow">&#10095;</span>
+							    Группа<span class="arrow">&#10095;</span>
 							</button>
 
 							<div class="collapse" id="collapseGroup">
