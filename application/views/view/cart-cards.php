@@ -13,7 +13,7 @@ function get_price($price, $sale = 0){
             <div class="card mb-3">
               <div class="row g-0">
                 <div class="col-md-3">
-                  <a href="/goods/<?php echo $value['modelcode'].'_'.$value['colour']; ?>"><img src="<?php if ($value['imagecount'] == 0) { echo "/assets/img/general/noimage.webp"; } else { echo "https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/id".$value['id'].".webp"; }?>" class="img-fluid" alt="..."></a>
+                  <a href="/goods/<?php echo $value['modelcode'].'_'.$value['colour']; ?>"><img src="<?php if ($value['imagecount'] == 0) { echo "/assets/img/general/noimage.webp"; } else { echo "https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/".$value['modelcode'].'_'.$value['colour'].".webp"; }?>" class="img-fluid" alt="..."></a>
                 </div>
                 <div class="col-md-9 text-md-start ps-md-4">
                     <a href="/goods/<?php echo $value['modelcode'].'_'.$value['colour']; ?>"><div class="card-name"><?php echo $value['name']; ?></div></a>

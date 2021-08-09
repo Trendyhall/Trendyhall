@@ -135,7 +135,8 @@ class Main extends MY_Controller {
 		//data change
 		{
 			$this->data['good']['brand'] = $this->Othertables_model->GetByID("brands", "name", $this->data['good']['brand']);
-			$this->data['good']['colour'] = $this->Othertables_model->GetByID("colours", "runame", $this->data['good']['colour']);
+			$this->data['good']['rucolour'] = $this->Othertables_model->GetByID("colours", "runame", $this->data['good']['colour']);
+			$this->data['good']['colour'] = $this->Othertables_model->GetByID("colours", "colourcode", $this->data['good']['colour']);
 			$this->data['good']['provider'] = $this->Othertables_model->GetByID("providers", "name", $this->data['good']['provider']);
 			$this->data['good']['manufacturer'] = $this->Othertables_model->GetByID("manufactures", "name", $this->data['good']['manufacturer']);
 			$this->data['good']['country'] = $this->Othertables_model->GetByID("countries", "name", $this->data['good']['country']);

@@ -66,7 +66,7 @@
       <?php foreach ($cart as $key => $value): ?>
         <tr onclick="this.classList.toggle('table-dark');">
           <th scope="row"><?php echo $key; ?></th>
-          <th><img src="<?php if ($value['imagecount'] == 0) { echo "/assets/img/general/noimage.webp"; } else { echo "https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/id".$value['id'].".webp"; }?>" style="    max-width: 100px;" alt="..."></th>
+          <th><img src="<?php if ($value['imagecount'] == 0) { echo "/assets/img/general/noimage.webp"; } else { echo "https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/".$value['modelcode'].'_'.$value['colour'].".webp"; }?>" style="    max-width: 100px;" alt="..."></th>
           <td><?php echo $value['articule']; ?></td>
           <td><?php echo $cart_json[$value['id']]; ?></td>
         </tr>
