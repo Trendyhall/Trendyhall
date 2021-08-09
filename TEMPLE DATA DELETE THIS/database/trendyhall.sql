@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Авг 05 2021 г., 09:55
--- Версия сервера: 10.4.19-MariaDB
--- Версия PHP: 8.0.6
+-- Время создания: Авг 09 2021 г., 15:14
+-- Версия сервера: 10.4.13-MariaDB
+-- Версия PHP: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -121,7 +121,7 @@ INSERT INTO `colours` (`id`, `colourcode`, `engname`, `runame`) VALUES
 --
 
 CREATE TABLE `countries` (
-  `id` smallint(5) UNSIGNED NOT NULL,
+  `id` tinyint(3) UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -946,7 +946,17 @@ ALTER TABLE `descriptions`
 -- Индексы таблицы `goods`
 --
 ALTER TABLE `goods`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `colour` (`colour`),
+  ADD KEY `size` (`size`),
+  ADD KEY `brand` (`brand`),
+  ADD KEY `itemgroup` (`itemgroup`),
+  ADD KEY `provider` (`provider`),
+  ADD KEY `manufacturer` (`manufacturer`),
+  ADD KEY `description` (`description`),
+  ADD KEY `adddate` (`adddate`),
+  ADD KEY `season` (`season`),
+  ADD KEY `country` (`country`);
 
 --
 -- Индексы таблицы `groups`
@@ -1016,7 +1026,7 @@ ALTER TABLE `colours`
 -- AUTO_INCREMENT для таблицы `countries`
 --
 ALTER TABLE `countries`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `descriptions`
@@ -1071,6 +1081,25 @@ ALTER TABLE `sizes`
 --
 ALTER TABLE `users`
   MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `goods`
+--
+ALTER TABLE `goods`
+  ADD CONSTRAINT `goods_ibfk_1` FOREIGN KEY (`colour`) REFERENCES `colours` (`id`),
+  ADD CONSTRAINT `goods_ibfk_10` FOREIGN KEY (`country`) REFERENCES `countries` (`id`),
+  ADD CONSTRAINT `goods_ibfk_2` FOREIGN KEY (`size`) REFERENCES `sizes` (`id`),
+  ADD CONSTRAINT `goods_ibfk_3` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`),
+  ADD CONSTRAINT `goods_ibfk_4` FOREIGN KEY (`itemgroup`) REFERENCES `groups` (`id`),
+  ADD CONSTRAINT `goods_ibfk_5` FOREIGN KEY (`provider`) REFERENCES `providers` (`id`),
+  ADD CONSTRAINT `goods_ibfk_6` FOREIGN KEY (`manufacturer`) REFERENCES `manufactures` (`id`),
+  ADD CONSTRAINT `goods_ibfk_7` FOREIGN KEY (`adddate`) REFERENCES `adddates` (`id`),
+  ADD CONSTRAINT `goods_ibfk_8` FOREIGN KEY (`description`) REFERENCES `descriptions` (`id`),
+  ADD CONSTRAINT `goods_ibfk_9` FOREIGN KEY (`season`) REFERENCES `seasons` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
