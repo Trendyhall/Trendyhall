@@ -27,7 +27,7 @@ class Goods_model extends CI_Model {
 			$query = $this->db;
 		}
 
-		$where = 'firstsize = 0 AND (0';
+		$where = 'firstsize = 0 AND count != 255 AND (0';
 		foreach ($IDs_array as $key => $value) {
 			$where .= " OR id = '$value'";
 		}
@@ -65,7 +65,7 @@ class Goods_model extends CI_Model {
 				$query = $query->where("firstsize", 0);
 			}
 
-			$where = "1";
+			$where = "count != 255";
 			foreach ($where_array as $key => $value) {
 				$where .= " AND (0";
 				foreach ($value as $key1 => $value1) {
@@ -99,7 +99,7 @@ class Goods_model extends CI_Model {
 
 	
 	public function getGoodWithSameItemgroup($itemgroup) {
-		$query = $this->db->query("SELECT * FROM goods WHERE firstsize = 0 AND itemgroup = $itemgroup ORDER BY RAND() LIMIT 5");
+		$query = $this->db->query("SELECT * FROM goods WHERE firstsize = 0 AND count != 255 AND itemgroup = $itemgroup ORDER BY RAND() LIMIT 5");
 		return $query->result_array();
 	}
 
@@ -114,7 +114,7 @@ class Goods_model extends CI_Model {
 	}
 
 	public function getAllColoursByCode($ModelCode) {
-		$query = $this->db->query("SELECT id, modelcode, colour FROM goods WHERE modelcode = '$ModelCode' AND firstsize = 0");
+		$query = $this->db->query("SELECT id, modelcode, colour FROM goods WHERE modelcode = '$ModelCode' AND firstsize = 0 AND count != 255");
 		$result_array = $query->result_array();
 		foreach ($result_array as $key => $value) {
 			$query1 = $this->db->query("SELECT colourcode FROM colours WHERE id = '".$value['colour']."' LIMIT 1");

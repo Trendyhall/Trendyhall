@@ -1,11 +1,12 @@
 <link href="/assets/css/homepage-style.css" rel="stylesheet">
 
 <div class="col col-12 home">
-
-<video loop autoplay muted style="max-width:100%; height:85vh;">
-  <source src="/assets/video/back-to-school.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+  <a href="/junior-republic-event">
+    <video loop autoplay muted style="max-width:100%; height:85vh;">
+      <source src="/assets/video/back-to-school.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </a>
     <!-- Carusel -->
     <!--
     <div id="homeCarousel" class="carousel carousel-dark slide mb-3" data-bs-ride="carousel" data-bs-interval="false">
