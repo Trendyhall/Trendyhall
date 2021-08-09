@@ -97,9 +97,9 @@ function get_price($price, $sale = 0){
 			<hr class="m-0">
 		        <div class="list-group list-group-flush" id="sizeList" data-lt-target="-1">
 		        	<?php foreach ($sizes as $key => $value): ?>
-				    <button class="list-group-item list-group-item-actio d-flex justify-content-between align-items-center"<?php if ($value['count'] == 0) echo ' disabled';?> data-lt-id="<?php echo $value['id'] ?>">
+				    <button class="list-group-item list-group-item-actio d-flex justify-content-between align-items-center"<?php if ($value['count'] == 0 || $value['count'] == 255) echo ' disabled';?> data-lt-id="<?php echo $value['id'] ?>">
 				    	<?php echo $value['size'] ?>
-				    	<span class="badge rounded-pill bg-<?php if ($value['count'] == 0) echo 'danger'; else echo 'dark'?>"><?php echo $value['count'] ?></span>
+				    	<span class="badge rounded-pill bg-<?php if ($value['count'] == 0 || $value['count'] == 255) echo 'danger'; else echo 'dark'?>"><?php echo $value['count'] ?></span>
 				    </button>
 				<?php endforeach ?>
 			</div >
