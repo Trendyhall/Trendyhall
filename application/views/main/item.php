@@ -88,14 +88,21 @@ function get_price($price, $sale = 0){
 		    <div>
 		      Выбирите какого размера вещь вам нужна
 		    </div>
+		    	<div class="list-group list-group-flush" data-lt-target="-1">
+		        	<div class="list-group-item d-flex justify-content-between align-items-center">
+				    	Размер
+				    	<span>Количество</span>
+				</div>
+			</div >
+			<hr class="m-0">
 		        <div class="list-group list-group-flush" id="sizeList" data-lt-target="-1">
 		        	<?php foreach ($sizes as $key => $value): ?>
-					    <button class="list-group-item list-group-item-actio d-flex justify-content-between align-items-center"<?php if ($value['count'] == 0) echo ' disabled';?> data-lt-id="<?php echo $value['id'] ?>">
-					    	<?php echo $value['size'] ?>
-					    	<span class="badge rounded-pill bg-<?php if ($value['count'] == 0) echo 'danger'; else echo 'dark'?>"><?php echo $value['count'] ?></span>
-					    </button>
-					<?php endforeach ?>
-				</div >
+				    <button class="list-group-item list-group-item-actio d-flex justify-content-between align-items-center"<?php if ($value['count'] == 0) echo ' disabled';?> data-lt-id="<?php echo $value['id'] ?>">
+				    	<?php echo $value['size'] ?>
+				    	<span class="badge rounded-pill bg-<?php if ($value['count'] == 0) echo 'danger'; else echo 'dark'?>"><?php echo $value['count'] ?></span>
+				    </button>
+				<?php endforeach ?>
+			</div >
 		  </div>
 		</div>
 

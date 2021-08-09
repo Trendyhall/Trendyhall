@@ -136,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (document.getElementById("sizeOffcanvasBtn")) {
 		let sizeList = document.getElementById("sizeList");
 		let cartSelect = document.getElementById("cartSelect");
+		let sizeOffcanvas = new bootstrap.Offcanvas(document.getElementById('SizeOffcanvas'));
 
 
 		//set select if this good in cart
@@ -177,6 +178,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			//chouse size event
 	        sizeList.children[i].onclick = (event) => {
+	        	//hide offcanvas
+	        	sizeOffcanvas.hide();
+
 	        	//change size select offCanvas
 	        	if (sizeList.getAttribute("data-lt-target") > -1){
 		      		sizeList.children[sizeList.getAttribute("data-lt-target")].classList.remove('active');
