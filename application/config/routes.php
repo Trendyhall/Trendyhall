@@ -97,6 +97,10 @@ $route['cart-cards'] = 'view/cart_cards';
 $route['like'] = 'main/like';
 $route['like-cards'] = 'view/like_cards';
 
+//====== ADDITION ==========
+$route['junior-republic-event'] = 'addition/junior_republic_event';
+
+
 //===== ADMIN =====
 
 $route['admin'] = 'admin';

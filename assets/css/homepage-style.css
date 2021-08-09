@@ -4,10 +4,6 @@
     width: 100%;
 }
 
-.col-margin {
-    margin-top: 20px;
-}
-
 .home h1 {
 	color: #000;
 	font-size: 28px;
@@ -23,7 +19,7 @@
 
 a.look {
     color: #000;
-    font-size: 12px;
+    font-size: 1rem;
     letter-spacing: 1.6px;
     line-height: 20px;
     text-decoration: none;

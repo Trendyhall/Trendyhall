@@ -1,3 +1,5 @@
+
+
 /* all logi response for manipulation with cart and like */
 document.addEventListener("DOMContentLoaded", () => {
 	// ============ DATABASE CLASS DEFINE ===================
