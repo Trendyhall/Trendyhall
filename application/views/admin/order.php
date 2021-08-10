@@ -46,6 +46,10 @@
         <td>Комментарий заказчика:</td>
         <td><?php echo $order['comment']; ?></td>
       </tr>
+      <tr>
+        <td>Сумма заказа:</td>
+        <td></td>
+      </tr>
   </tbody>
 </table>
 

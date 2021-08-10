@@ -5,8 +5,8 @@ defined('BASEPATH') OR exit('No direc script access allowed');
 class Api extends MY_Controller {
 	private const API_KEY = 'a8b8aaea-07e2-489b-8449-f35408a1e3f5';
 
-	public function __constract() {
-		parent::__constract();
+	public function __construct() {
+		parent::__construct();
 	}
 
 

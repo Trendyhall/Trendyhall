@@ -1,8 +1,3 @@
-<?php 
-function get_price($price, $sale = 0){
-        return number_format($price * (0.01 * (100 - $sale)), 0,"."," ");
-    }
-?>
 <?php if (isset($goods)): ?>
     <?php foreach ($goods as $key => $value): ?>
         

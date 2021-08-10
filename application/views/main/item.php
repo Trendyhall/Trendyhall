@@ -1,8 +1,3 @@
-<?php 
-function get_price($price, $sale = 0){
-        return number_format($price * (0.01 * (100 - $sale)), 0,"."," ");
-    }
-?>
 <div class="row mb-5">
 	<div class="col col-12 col-sm-7 mb-3">
 		<!-- Carusel -->

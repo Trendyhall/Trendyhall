@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direc script access allowed');
 
 class Admin extends MY_Controller {
 
-	public function __constract() {
-		parent::__constract();
+	public function __construct() {
+		parent::__construct();
 	}
 
 

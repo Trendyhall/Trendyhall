@@ -4,8 +4,10 @@ defined('BASEPATH') OR exit('No direc script access allowed');
 
 class View extends MY_Controller {
 
-	public function __constract() {
-		parent::__constract();
+	public function __construct() {
+		parent::__construct();
+		
+		$this->load->helper('price');
 	}
 
 	public function p_init() {
@@ -173,6 +175,7 @@ class View extends MY_Controller {
 	public function boys($offset = 0) {
 		$this->data['title'] = "Мальчики";
 		$this->data['active_name'] = 3;
+
 
 		$addition_where[0] = 'gender';
 		$addition_where[1] = array(1, 3);

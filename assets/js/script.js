@@ -1,11 +1,27 @@
-//================== GLOBAL CLASES =======================
+//========================================================================
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+//============================= GLOBAL CLASES ============================
 
 class Cart {
+	#onChanged = [];
+
 	constructor(){
 		if (localStorage.getItem('cart') == null) {
 			localStorage.setItem('cart', JSON.stringify({}));
 		}
-		
+		addOnChangedHandler(() =>{
+			setCartCount();
+			showToast();
+			animationPlay();
+		});
+	}
+
+	callOnChanged() {
+		for (k in this.#onChanged) this.#onChanged[k]();
+	}
+
+	addOnChangedHandler(f){
+		this.#onChanged.push(f);
 	}
 
 	// support f
@@ -40,9 +56,7 @@ class Cart {
 		}
 		
 		localStorage.setItem('cart', JSON.stringify(cart));
-		setCartCount();
-		showToast();
-		animationPlay();
+		callOnChanged();
 	}
 
 	remove(goodID) {
@@ -51,9 +65,7 @@ class Cart {
 			delete cart[goodID];
 		}
 		localStorage.setItem('cart', JSON.stringify(cart));
-		setCartCount();
-		showToast();
-		animationPlay()
+		callOnChanged();
 	}
 
 	check(goodID) {
@@ -69,13 +81,23 @@ class Cart {
 
 	delete() {
 		localStorage.setItem('cart', JSON.stringify({}));
-		setCartCount();
+		callOnChanged();
 	}
 };
 
 class Like {
+	#onChanged = [];
+
 	constructor(){
 		if (localStorage.getItem('cart') == null) localStorage.setItem('cart', JSON.stringify({}));
+	}
+
+	callOnChanged() {
+		for (k in this.#onChanged) this.#onChanged[k]();
+	}
+
+	addOnChangedHandler(f){
+		this.#onChanged.push(f);
 	}
 
     add(goodID) {
@@ -100,16 +122,76 @@ class Like {
 class User {
 	constructor() {
 		this.cart = new Cart();
+
 		this.like = new Like();
 		this.uuid = getCookie('uuid');
 
 
 	}
 
-
-
 	hasUUID() {
-		return this.uuid != null;
+		return this.uuid != undefined;
+	}
+
+	init() {
+		function setLeter() {
+			let iconProfile = document.querySelector('.icon-profile');
+			iconProfile.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>';
+			iconProfile.removeAttribute('data-bs-toggle');
+			iconProfile.removeAttribute('data-bs-target');
+			iconProfile.setAttribute('onclick', 'location.href="/profile"');
+
+			document.querySelector('.icon-profile').setAttribute('data-qty', localStorage.getItem('user-first-leter'));
+		};
+
+		let ufl = localStorage.getItem('user-first-leter');
+		if (ufl != null) {
+			setLeter();
+		} else {
+			post('/user/get-user-name',
+				JSON.stringify({uuid: this.uuid}), 
+				(result) => {
+				  	localStorage.setItem('user-first-leter', result);
+				  	setLeter();
+				}, 
+				(error) => {
+				    setLeter();
+				  	console.error(error);
+				});
+		}
+	}
+
+
+	userCartSync() {
+
+	}
+
+	userLikeSync() {
+		
+	}
+
+
+	Login(phone, password) {
+		let form = document.forms['login'];
+		post('/user/login', 
+			JSON.stringify({phone: form['phone'].value, password: form['password'].value}), 
+			(result) => {
+				if (result) {
+					if (form['rememberme'].checked)
+						setCookie('uuid', snapshot, {'max-age': 864000});
+					else
+						setCookie('uuid', snapshot);
+
+					form.submit();
+				}
+				else {
+					alert("Неправильный телефон или пароль");
+				}
+			}, 
+			(error) => {
+				console.error(error);
+				alert("Что-то пошло не так, попробуйте повторить позже");
+			});
 	}
 
 	Logout() {
@@ -121,8 +203,9 @@ class User {
 
 };
 
-
-//================== GLOBAL FUNCTIONS =======================
+//========================================================================
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+//============================ GLOBAL FUNCTIONS ==========================
 function setCookie(name, value, options = {}) {
 
   options = {
@@ -155,7 +238,23 @@ function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-//================== MAIN|POIN OF ENTER =======================
+function post(URI, BODY, success_callback, error_callback) {
+  	fetch(URI, {
+	    method: 'POST',
+	    headers: {
+	      'Content-Type': 'application/json;charset=utf-8'
+	    },
+	    body: BODY
+	})
+	.then(response => {
+    	if (response.ok) success_callback(response.text());
+    	else error_callback(response.text());
+    });
+}
+
+//========================================================================
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+//========================== MAIN|POIN OF ENTER ==========================
 const user = new User();
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -174,9 +273,17 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Initialize Firebase
 	firebase.initializeApp(firebaseConfig);
 	firebase.analytics();
-	//===========================================
 
+	//========================================================================
+	//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+	//========================================================================
 
+	if (user.hasUUID()) {
+		user.init();	
+	}
+	else {
+		LoginInit();
+	}
 
 
 

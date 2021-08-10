@@ -1,8 +1,3 @@
-<?php 
-function get_price($price, $sale = 0){
-        return number_format($price * (0.01 * (100 - $sale)), 0,"."," ");
-    }
-?>
 <?php foreach ($goods as $key => $value): ?>
     <div class="col position-relative">
         <button class="btn like" data-likeid="<?php echo $value['id']; ?>"></button>

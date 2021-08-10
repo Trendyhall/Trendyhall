@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direc script access allowed');
 
 class Main extends MY_Controller {
 
-	public function __constract() {
-		parent::__constract();
+	public function __construct() {
+		parent::__construct();
 	}
 
 	public function index() {
@@ -54,7 +54,7 @@ class Main extends MY_Controller {
 
 	public function cart() {
 		$this->data['title'] = "Корзина";
-
+		
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('view/cart', $this->data);
 		$this->load->view('templates/footer');
@@ -111,6 +111,7 @@ class Main extends MY_Controller {
 		$this->load->model('Goods_model');
 		$this->load->model('Colour_model');
 		$this->load->model('Othertables_model');
+		$this->load->helper('price');
 		$this->data['Othertables_model'] = $this->Othertables_model;
 
 		$this->data['title'] = "";
