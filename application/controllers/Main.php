@@ -46,6 +46,10 @@ class Main extends MY_Controller {
 
 	public function profile() {
 		$this->data['title'] = "Профиль";
+		$this->load->model('Users_model');
+
+		$this->data['user'] = $this->Users_model->GetUserByUUID($this->data['UUID']);
+
 
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/profile', $this->data);

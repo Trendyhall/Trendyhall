@@ -12,9 +12,9 @@ class MY_Controller extends CI_Controller {
 		$this->data['active_name'] = -1;
 
 		$this->load->helper('cookie');
-		$this->data['UserID'] = get_cookie('user-id');
+		$this->data['UUID'] = get_cookie('uuid');
 		
-		$this->data['IsAdmin'] = $this->data['UserID'] == self::ADMIN_UUID;
+		$this->data['IsAdmin'] = $this->data['UUID'] == self::ADMIN_UUID;
 	}
 
 	public function allow_access(){

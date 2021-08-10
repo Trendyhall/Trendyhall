@@ -69,7 +69,7 @@
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
 
 
-    <script src="/assets/js/template.js"></script>
+    <script src="/assets/js/script.js"></script>
     <script src="/assets/js/cart.js"></script>
     <?php if ($IsAdmin): ?><script src="/assets/js/admin.js"></script><?php endif; ?>
 

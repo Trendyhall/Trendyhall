@@ -247,6 +247,7 @@ class View extends MY_Controller {
 
 		$postData = file_get_contents('php://input');
 		$like_ids_json = json_decode($postData, true);
+		$like_ids = array();
 		foreach ($like_ids_json as $key => $value) {
 			$like_ids[] = $key;
 		}

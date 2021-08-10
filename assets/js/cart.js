@@ -27,90 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	let database = new Database();
 
 	/*===================== FUNCTIONS DEFINE =============================*/
-	/* cart */
-	function setToCart(goodID, count) {
-		let cart = JSON.parse(localStorage.getItem('cart'));
-		if (cart == null) cart = {};
-		if (cart[goodID] == undefined) {
-			localStorage.setItem('user-cart-count', Number(localStorage.getItem('user-cart-count'))+1);
-			document.querySelector('.icon-cart').setAttribute('data-qty', localStorage.getItem('user-cart-count'));
-			cart[goodID] = count;
-		}
-		else {
-			cart[goodID] = count;
-		}
-		
-		localStorage.setItem('cart', JSON.stringify(cart));
-		showToast();
-		cartAnimation()
-	}
-
-	function removeFromCart(goodID) {
-		let cart = JSON.parse(localStorage.getItem('cart'));
-		if (cart == null) cart = {};
-		if (cart[goodID] != undefined) {
-			localStorage.setItem('user-cart-count', Number(localStorage.getItem('user-cart-count'))-1);
-			document.querySelector('.icon-cart').setAttribute('data-qty', localStorage.getItem('user-cart-count'));
-			delete cart[goodID];
-		}
-		localStorage.setItem('cart', JSON.stringify(cart));
-		showToast();
-		cartAnimation()
-	}
-
-	function checkInCart(goodID) {
-		let cart = JSON.parse(localStorage.getItem('cart'));
-		if (cart == null) cart = {};
-		return cart[goodID] != undefined;
-	}
-
-	function getFromCart(goodID) {
-		let cart = JSON.parse(localStorage.getItem('cart'));
-		if (cart == null) cart = {};
-		if (cart[goodID] != undefined) return cart[goodID];
-		else return 0;
-	}
-
-	function DeleteCart() {
-		localStorage.setItem('cart', JSON.stringify({}));
-		localStorage.setItem('user-cart-count', '');
-		document.querySelector('.icon-cart').setAttribute('data-qty', localStorage.getItem('user-cart-count'));
-	}
-
-	/* like */
-	function addToLike(goodID) {
-		let like = JSON.parse(localStorage.getItem('like'));
-		if (like == null) like = {};
-		like[goodID] = "";
-		localStorage.setItem('like', JSON.stringify(like));
-	}
-
-	function removeFromLike(goodID) {
-		let like = JSON.parse(localStorage.getItem('like'));
-		if (like == null) like = {};
-		delete like[goodID];
-		localStorage.setItem('like', JSON.stringify(like));
-	}
-
-	function checkInLike(goodID) {
-		let like = JSON.parse(localStorage.getItem('like'));
-		if (like == null) like = {};
-		return like[goodID] != undefined;
-	}
-
-
-	/* support func */
-	function cartAnimation()  {
-		document.querySelector(".icon-cart svg").classList.add('add-to-cart-animation');	
-		setTimeout(() => {
-			document.querySelector(".icon-cart svg").classList.remove('add-to-cart-animation');
-		}, 2100);
-	}
-
-	function showToast()  {
-		let a = new bootstrap.Toast(document.getElementById('cartChangeToast'));
-	    a.show();
-	}
+	
 
 	function likeButtonsInit() {
 		let likeButtons = document.querySelectorAll('[data-likeid]:not(#addToLike)');
@@ -143,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		//set select if this good in cart
 		function setSelect() {
-	    	if (checkInCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"))) {
+	    	if (user.cart.check(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"))) {
 	    		for (var i = 2; i < cartSelect.children.length; i++) {
 	    			cartSelect.children[i].remove();
 	    		}
@@ -151,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	    		for (var i = 2; i <= Number(sizeList.children[sizeList.getAttribute("data-lt-target")].children[0].textContent); i++) {
 	    			cartSelect.insertAdjacentHTML('beforeend', '<option value="'+i+'">'+i+'</option>');
 	    		}
-	    		cartSelect.value = getFromCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"));
+	    		cartSelect.value = user.cart.get(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"));
 
 	    		cartSelect.classList.remove('d-none');
 	    		document.getElementById("addToCart").classList.add('d-none');
@@ -167,11 +84,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		cartSelect.onchange = () => {
 		    let goodID = sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id");
 		    if (cartSelect.value == 0) {
-		    	removeFromCart(goodID);
+		    	user.cart.remove(goodID);
 		    	setSelect(); 
 		    }
 
-		    if (cartSelect.value > 0) setToCart(goodID, cartSelect.value);
+		    if (cartSelect.value > 0) user.cart.set(goodID, cartSelect.value);
 		}
 
 		/*Size select*/
@@ -199,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		    	//click to button event
 		    	document.getElementById("addToCart").onclick = () => {
-		    		setToCart(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"), 1); 
+		    		user.cart.set(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"), 1); 
 
 		    		setSelect();
 		    	};
@@ -232,14 +149,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	/*===========  LIKE PAGE INIT  ===============*/
 	if (document.getElementById("likeCardsContainer")) {
-	    let like = JSON.parse(localStorage.getItem('like'));
-	    if (like == null) like = {};
 		fetch("/like-cards", {
 			    method: 'POST',
 			    headers: {
 			      'Content-Type': 'application/json;charset=utf-8'
 			    },
-			    body: JSON.stringify(like)
+			    body: user.like.str_like		
 			})
 	        .then(response => response.text())
 	        .then(card => {
@@ -251,37 +166,21 @@ document.addEventListener("DOMContentLoaded", () => {
 	/*===========  CART PAGE INIT  ===============*/
 	if (document.getElementById("cartCardsContainer")) {
 
-
-
-	    let cart = JSON.parse(localStorage.getItem('cart'));
-	    if (cart == null) cart = {};
-	    let a = false;
-    	for (let k in cart) {
-    		a = true;
-    		break;
-    	}
-    	if (a)
+    	if (user.cart.countCart() > 0)
 		fetch("/cart-cards", {
 			    method: 'POST',
 			    headers: {
 			      'Content-Type': 'application/json;charset=utf-8'
 			    },
-			    body: JSON.stringify(cart)
+			    body: user.cart.str_cart
 			})
 	        .then(response => response.text())
 	        .then(card => {
 	        	function countOverview(){
-	        		cart = JSON.parse(localStorage.getItem('cart'));
-	    			if (cart == null) cart = {};
 	        		// set overview information
 		        	let overview = document.getElementById("cartOverview");
 		        	overview.innerHTML = "";
-		        	let a = false;
-		        	for (let k in cart) {
-		        		a = true;
-		        		break;
-		        	}
-		        	if (a) {
+		        	if (user.cart.countCart() > 0) {
 		        		document.getElementById("BuyBtn").parentNode.classList.remove('d-none');
 
 			        	for (obj of document.getElementById("cartCardsContainer").children){
@@ -305,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		            	overview.parentNode.querySelector('h4').innerHTML = 'Сумма: '+k+' ₽';
 
 		            	// set buy button
-			    		document.forms.order.orderBody.value = localStorage.getItem('cart');
+			    		document.forms.order.orderBody.value = user.cart.str_cart;
 			    	}
 			    	else {
 			    		document.getElementById("BuyBtn").parentNode.classList.add('d-none');
@@ -319,24 +218,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	        	// remove from cart
 	        	document.querySelectorAll('[data-delete-id]').forEach((obj) => {
-	        		removeFromCart(obj.getAttribute('data-delete-id'));
+	        		user.cart.remove(obj.getAttribute('data-delete-id'));
 	        		obj.remove();
 	        	});
 
 	        	// set close btn onclick
 	        	for (let btn of document.querySelectorAll("[data-closeid]")) {
 	        		btn.onclick = () => {
-	        			removeFromCart(btn.getAttribute('data-closeid'));
+	        			user.cart.remove(btn.getAttribute('data-closeid'));
 	        			btn.parentNode.parentNode.parentNode.remove();
 	        			countOverview();
-	        		};removeFromCart
+	        		};
 	        	}
 	        	// set select options
 	        	document.querySelectorAll('select').forEach((obj) => {
-					obj.value = getFromCart(obj.parentNode.parentNode.querySelector('[data-closeid]').getAttribute('data-closeid'));
+					obj.value = user.cart.get(obj.parentNode.parentNode.querySelector('[data-closeid]').getAttribute('data-closeid'));
 					obj.onchange = (e) => {
 					    let goodID = e.currentTarget.parentNode.parentNode.querySelector('[data-closeid]').getAttribute('data-closeid');
-					    setToCart(goodID, e.currentTarget.value);
+					    user.cart.set(goodID, e.currentTarget.value);
 					    countOverview();
 					}
 			    });
