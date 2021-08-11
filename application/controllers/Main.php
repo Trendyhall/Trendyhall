@@ -115,7 +115,7 @@ class Main extends MY_Controller {
 		$this->load->model('Goods_model');
 		$this->load->model('Colour_model');
 		$this->load->model('Othertables_model');
-		$this->load->helper('price');
+		$this->load->helper('goodsview');
 		$this->data['Othertables_model'] = $this->Othertables_model;
 
 		$this->data['title'] = "";
