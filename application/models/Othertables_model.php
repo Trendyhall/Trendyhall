@@ -42,5 +42,19 @@ class Othertables_model extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function FindORInsertID($TableName, $Value){
+		$Value = $this->db->escape($Value);
+
+		$query = $this->db->query("SELECT id FROM $TableName WHERE input = $Value LIMIT 1");
+		$row = $query->row();
+		if ($row) return $row->id;
+		else {
+			$this->db->query("INSERT INTO $TableName (id, input) VALUES (null, $Value)");
+			$query = $this->db->query("SELECT id FROM $TableName WHERE input = $Value LIMIT 1");
+			$row = $query->row();
+			return $row->id;
+		}
+	}
+
 
 }

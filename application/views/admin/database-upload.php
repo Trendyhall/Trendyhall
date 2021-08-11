@@ -1,5 +1,5 @@
 <!-- Тип кодирования данных, enctype, ДОЛЖЕН БЫТЬ указан ИМЕННО так -->
-<form enctype="multipart/form-data" action="http://trendyhall.ru/special/database-upload1" method="POST">
+<form enctype="multipart/form-data" action="http://trendyhall.ru/admin/database-upload1" method="POST">
     <!-- Поле MAX_FILE_SIZE должно быть указано до поля загрузки файла -->
     <input type="hidden" name="MAX_FILE_SIZE" value="105000000" />
     <!-- Название элемента input определяет имя в массиве $_FILES 

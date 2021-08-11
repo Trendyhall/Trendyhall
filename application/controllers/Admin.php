@@ -130,5 +130,50 @@ class Admin extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 	
+	public function database_upload() {
+		$this->allow_access();
+		$this->data['title'] = "Загрузка базы данных";
+
+		$this->load->view('templates/header', $this->data);
+		$this->load->view('admin/database-upload', $this->data);
+		$this->load->view('templates/footer');
+	}
+
+	public function database_upload1() {
+		$this->allow_access();
+		$this->data['title'] = "Загрузка базы данных";
+		
+		$this->load->model('Goods_model');
+		$this->load->model('Othertables_model');
+
+		$uploaddir = 'C:\xampp\tmp';
+		$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+		if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+		    $is_ok = true;
+		} else {
+		    $is_ok = false;
+		}
+		if ($is_ok) foreach (explode("\n", file_get_contents($uploadfile)) as $key => $value) {
+			$row = explode(";", $value);
+			var_dump($row);
+			echo "<br>";
+			
+			$row[3] = $this->Othertables_model->FindORInsertID("colours",       $row[3] );
+			$row[4] = $this->Othertables_model->FindORInsertID("sizes",         $row[4] );
+			$row[7] = $this->Othertables_model->FindORInsertID("brands",        $row[7] );
+			$row[8] = $this->Othertables_model->FindORInsertID("groups",        $row[8] );
+			$row[11] = $this->Othertables_model->FindORInsertID("providers",    $row[11]);
+			$row[12] = $this->Othertables_model->FindORInsertID("manufactures", $row[12]);
+			$row[13] = $this->Othertables_model->FindORInsertID("countries",    $row[13]);
+			$row[18] = $this->Othertables_model->FindORInsertID("seasons",      $row[18]);
+			
+
+			$this->Goods_model->InsertGood($row);
+		} 
+
+		/*$this->load->view('templates/header', $this->data);
+		$this->load->view('admin/database-upload1', $this->data);
+		$this->load->view('templates/footer');*/
+	}
 
 }

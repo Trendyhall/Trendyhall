@@ -178,9 +178,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		      		let cart = localStorage.getItem('cart');
 					if (cart == null) cart = "{}";
 		      		if (form.rememberme1.checked)
-						setCookie('user-id', uuid, {'max-age': 864000});
+						setCookie('uuid', uuid, {'max-age': 864000});
 					else
-						setCookie('user-id', uuid);
+						setCookie('uuid', uuid);
 
 					writeUserData(uuid, form.firstname.value, form.secondname.value, form.patronymic.value, form.phone1.value, form.password1.value, cart);
 			  	

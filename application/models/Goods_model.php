@@ -157,10 +157,10 @@ class Goods_model extends CI_Model {
 	}
 
 	public function InsertGood($goods) {
-		$sql = "INSERT INTO goods (id, articule, modelcode, colour, size, firstsize, gender, brand, itemgroup, name, consist, provider, manufacturer, contry, imagecount, price, sale, count, adddate, season, description) VALUES (null";
+		$sql = "INSERT INTO goods (id, articule, modelcode, colour, size, firstsize, gender, brand, itemgroup, name, consist, provider, manufacturer, country, imagecount, price, sale, count, season, description) VALUES (";
 		foreach ($goods as $key => $value) {
-			if ($key == 0) $sql.$this->db->escape($value);
-			else $sql = $sql.$this->db->escape($value);
+			if ($key == 0) $sql = $sql.$this->db->escape($value);
+			else $sql = $sql.", ".$this->db->escape($value);
 		}
 		$sql = $sql.")";
 		$this->db->query($sql);
