@@ -131,7 +131,9 @@ class Goods_model extends CI_Model {
 	}
 
 
-	public function updateGoodCountByID($ID, $value) {
+
+
+	public function update_good_count_by_id($ID, $value) {
 		$this->db->query("UPDATE goods SET count = count + $value WHERE id = '$ID'");
 	}
 
@@ -140,23 +142,7 @@ class Goods_model extends CI_Model {
 
 
 
-
-
-
-	/*Special and for 1C*/
-
-	public function Special1() {
-		$sql = "SELECT id, articule FROM goods";
-		$goods = $this->db->query($sql)->result_array();
-
-		
-		/*foreach ($goods as $key => $value) {
-			$sql = "UPDATE goods SET modelcode = $this->db->escape(explode('*', $value['articule'])[0]) WHERE id = $this->db->escape($value['id']);
-			$this->db->query($sql);
-		}*/
-	}
-
-	public function InsertGood($goods) {
+	public function insert_goods($goods) {
 		$sql = "INSERT INTO goods (id, articule, modelcode, colour, size, firstsize, gender, brand, itemgroup, name, consist, provider, manufacturer, country, imagecount, price, sale, count, season, description) VALUES (";
 		foreach ($goods as $key => $value) {
 			if ($key == 0) $sql = $sql.$this->db->escape($value);

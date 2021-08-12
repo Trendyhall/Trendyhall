@@ -66,13 +66,17 @@ $route['new/(:num)'] = 'view/new/$1';
 $route['sale'] = 'view/sale';
 $route['sale/(:num)'] = 'view/sale/$1';
 
+$route['goods/(:any)'] = 'main/item/$1';
+
+$route['like-cards'] = 'view/like_cards';
+$route['cart-cards'] = 'view/cart_cards';
+
+
 $route['brands'] = 'view/brands';
-$route['brand/(:any)'] = 'view/brand/$1';
-$route['brand/(:any)/(:num)'] = 'view/brand/$1/$2';
+$route['brands/(:any)'] = 'view/brand/$1';
+$route['brands/(:any)/(:num)'] = 'view/brand/$1/$2';
 
 //======= MAIN ==========
-$route['goods/(:any)'] = 'main/item/$1';
- 
 $route['news'] = 'main/news';
 $route['news'] = 'main/news/$1';
 
@@ -91,11 +95,8 @@ $route['profile'] = 'main/profile';
 
 $route['cart']['get'] = 'main/cart';
 $route['cart']['post'] = 'main/buy';
-$route['cart-cards'] = 'view/cart_cards';
-
 
 $route['like'] = 'main/like';
-$route['like-cards'] = 'view/like_cards';
 
 //====== ADDITION ==========
 $route['junior-republic-event'] = 'addition/junior_republic_event';

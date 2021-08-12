@@ -158,22 +158,13 @@ class Admin extends MY_Controller {
 			var_dump($row);
 			echo "<br>";
 			
-			$row[3] = $this->Othertables_model->FindORInsertID("colours",       $row[3] );
-			$row[4] = $this->Othertables_model->FindORInsertID("sizes",         $row[4] );
-			$row[7] = $this->Othertables_model->FindORInsertID("brands",        $row[7] );
-			$row[8] = $this->Othertables_model->FindORInsertID("groups",        $row[8] );
-			$row[11] = $this->Othertables_model->FindORInsertID("providers",    $row[11]);
-			$row[12] = $this->Othertables_model->FindORInsertID("manufactures", $row[12]);
-			$row[13] = $this->Othertables_model->FindORInsertID("countries",    $row[13]);
-			$row[18] = $this->Othertables_model->FindORInsertID("seasons",      $row[18]);
+			$this->config->load('databaseequals');
+			foreach ($this->config->item('foreign_column_numb_to_table_name') as $key => $value) {
+				$row[$key] = $this->Othertables_model->find_or_insert_id($value, $row[$key]);
+			}
 			
-
-			$this->Goods_model->InsertGood($row);
-		} 
-
-		/*$this->load->view('templates/header', $this->data);
-		$this->load->view('admin/database-upload1', $this->data);
-		$this->load->view('templates/footer');*/
+			$this->Goods_model->insert_goods($row);
+		}
 	}
 
 }

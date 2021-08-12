@@ -5,12 +5,12 @@ class Brands_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function getBrands() {
+	public function get_brands() {
 		$query = $this->db->get('brands');
 		return $query->result_array();
 	}
 
-	public function getBrand($slug) {
+	public function get_brand($slug) {
 		$query = $this->db->get_where('brands', array('slug' => $slug));
 		return $query->row_array();
 	}

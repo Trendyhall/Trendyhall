@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // номре столбца в его имя
-$numb_to_name = array(
+$config['numb_to_name'] = array(
 	0  => 'id',
 	1  => 'articule',
 	2  => 'modelcode',
@@ -25,7 +25,7 @@ $numb_to_name = array(
 	19 => 'description'
 );
 
-$name_to_numb = array(
+$config['name_to_numb'] = array(
 	'id'           => 0,
 	'articule'     => 1,
 	'modelcode'    => 2,
@@ -49,7 +49,7 @@ $name_to_numb = array(
 );
 
 
-$foreign_column_numb_to_table_name = array(
+$config['foreign_column_numb_to_table_name'] = array(
 	3  => 'colours',
 	4  => 'sizes',
 	7  => 'brands',
@@ -61,7 +61,7 @@ $foreign_column_numb_to_table_name = array(
 	19 => 'descriptions'
 );
 
-$foreign_column_name_to_table_name = array(
+$config['foreign_column_name_to_table_name'] = array(
 	'colour'       => 'colours',
 	'size'         => 'sizes',
 	'brand'        => 'brands',
