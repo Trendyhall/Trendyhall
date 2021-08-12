@@ -26,12 +26,3 @@
 			<?php endforeach ?>
 		</div>
 	</div>
-</div>
-
-
-
-<div class="col col-xs-12 pagination-div">
-	<nav aria-label="Page navigation example">
-	  <?php echo $pagination; ?>
-	</nav>
-</div>

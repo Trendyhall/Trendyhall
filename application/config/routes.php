@@ -57,6 +57,9 @@ $route['translate_uri_dashes'] = FALSE;
 
 //====== VIEW ==========
 
+$route['view'] = 'view';
+$route['view/(:num)'] = 'view/index/$1';
+
 $route['boys'] = 'view/boys';
 $route['boys/(:num)'] = 'view/boys/$1';
 $route['girls'] = 'view/girls';

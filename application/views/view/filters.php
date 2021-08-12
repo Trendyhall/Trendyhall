@@ -1,4 +1,4 @@
-		<div class="row">
+		<!--
 			<div class="col col-12 col-md-3">
 				
 				
@@ -45,12 +45,12 @@
 
 							<div class="collapse" id="collapseGroup">
 							    <div class="list-group">
-								  	<?php foreach ($Othertables_model->GetTable('groups') as $key => $value): ?>
+								  	 foreach ($Othertables_model->GetTable('groups') as $key => $value): ?>
 										<label class="list-group-item">
-										    <input name="itemgroup[]" class="form-check-input me-1" type="checkbox" value="<?php echo $value['name'] ?>">
-										    <?php echo $value['name'] ?>
+										    <input name="itemgroup[]" class="form-check-input me-1" type="checkbox" value=" echo $value['name'] ?>">
+										     echo $value['name'] ?>
 										</label>
-									<?php endforeach ?>
+									 endforeach ?>
 								</div>
 							</div>
 						</div>
@@ -62,12 +62,12 @@
 
 							<div class="collapse" id="collapseColour">
 							    <div class="list-group">
-								  	<?php foreach ($Othertables_model->GetUniqueColumn('colours', 'runame') as $key => $value): ?>
+								  	 foreach ($Othertables_model->GetUniqueColumn('colours', 'runame') as $key => $value): ?>
 										<label class="list-group-item">
-										    <input name="colour[]" class="form-check-input me-1" type="checkbox" value="<?php echo $value['runame'] ?>">
-										    <?php echo $value['runame'] ?>
+										    <input name="colour[]" class="form-check-input me-1" type="checkbox" value=" echo $value['runame'] ?>">
+										     echo $value['runame'] ?>
 										</label>
-									<?php endforeach ?>
+									 endforeach ?>
 								</div>
 							</div>
 						</div>
@@ -79,12 +79,12 @@
 
 							<div class="collapse" id="collapseSize">
 							    <div class="list-group">
-								  	<?php foreach ($Othertables_model->GetTable('sizes') as $key => $value): ?>
+								  	 foreach ($Othertables_model->GetTable('sizes') as $key => $value): ?>
 										<label class="list-group-item">
-										    <input name="size[]" class="form-check-input me-1" type="checkbox" value="<?php echo $value['size'] ?>">
-										    <?php echo $value['size'] ?>
+										    <input name="size[]" class="form-check-input me-1" type="checkbox" value=" echo $value['size'] ?>">
+										     echo $value['size'] ?>
 										</label>
-									<?php endforeach ?>
+									 endforeach ?>
 								</div>
 							</div>
 						</div>
@@ -93,3 +93,4 @@
 				</form>
 				<script src="/assets/js/filters.js"></script>
 			</div>
+			-->

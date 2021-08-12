@@ -10,4 +10,3 @@ if ( ! function_exists('get_price'))
         return number_format($price * (0.01 * (100 - $sale)), 0,"."," ");
     }
 }
-
