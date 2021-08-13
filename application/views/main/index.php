@@ -4,7 +4,7 @@
   <div class="mb-5" >
       <a href="/junior-republic-event">
         <video loop autoplay muted style="height: 85vh; max-width: 100%;" class="d-block d-md-none">
-          <source src="/assets/video/back-to-school-portrait2.mp4" type="video/mp4">
+          <source src="/assets/video/back-to-school-portrait.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
         <video loop autoplay muted style="height: 85vh; max-width: 100%;" class="d-none d-md-block">

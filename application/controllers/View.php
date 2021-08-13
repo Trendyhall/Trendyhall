@@ -10,50 +10,31 @@ class View extends MY_Controller {
 		$this->load->helper('goodsview');
 	}
 
-	public function p_init() {
+	public function create_pagination($count, $row_count) {
 		//pagination bootstrap
 		$p_config['reuse_query_string'] = TRUE;
-		$p_config['full_tag_open'] = "<ul class='pagination'>";
-		$p_config['full_tag_close'] ="</ul>";
+		$p_config['full_tag_open'] = '<ul class="pagination">';
+		$p_config['full_tag_close'] ='</ul>';
 		$p_config['num_tag_open'] = '<li class="page-item"><span class="page-link">';
 		$p_config['num_tag_close'] = '</span></li>';
 		$p_config['cur_tag_open'] = '<li class="page-item active" aria-current="page"><span class="page-link">';
-		$p_config['cur_tag_close'] = "</span></li>";
+		$p_config['cur_tag_close'] = '</span></li>';
 		$p_config['next_tag_open'] = '<li class="page-item"><span class="page-link">';
 		$config['next_link'] = '<span aria-hidden="true">&raquo;</span>';
-		$p_config['next_tagl_close'] = "</span></li>";
+		$p_config['next_tagl_close'] = '</span></li>';
 		$p_config['prev_tag_open'] = '<li class="page-item"><span class="page-link">';
 		$config['prev_link'] = '<span aria-hidden="true">&laquo;</span>';
-		$p_config['prev_tagl_close'] = "</span></li>";
+		$p_config['prev_tagl_close'] = '</span></li>';
 
 		$config['first_link'] = 'Первая';
 		$p_config['first_tag_open'] = '<li class="page-item"><span class="page-link">';
-		$p_config['first_tagl_close'] = "</span></li>";
+		$p_config['first_tagl_close'] = '</span></li>';
 		$config['last_link'] = 'Последняя';
 		$p_config['last_tag_open'] = '<li class="page-item"><span class="page-link">';
-		$p_config['last_tagl_close'] = "</span></li>";
+		$p_config['last_tagl_close'] = '</span></li>';
 
 		$p_config['base_url'] = '/'.$this->uri->segment(1).'/';
-		if ($this->uri->segment(1)=="brands") $p_config['base_url'] .= $this->uri->segment(2).'/';
-
-		return $p_config;
-	}
-
-	
-	public function index($offset = 0) {
-		$this->load->model('Goods_model');
-		$this->load->model('Othertables_model');
-		$this->data['Othertables_model'] = $this->Othertables_model;
-
-		$offset = (int) $offset;
-		$row_count = 42;
-
-
-		$count = (int) $this->Goods_model->get_goods_count();	
-		$this->data['goods'] = $this->Goods_model->get_goods($row_count, $offset);
-
-		//pagination config
-		$p_config = $this->p_init();
+		if ($this->uri->segment(1)=='brands') $p_config['base_url'] .= $this->uri->segment(2).'/';
 
 		$p_config['total_rows'] = $count;
 		$p_config['per_page'] = $row_count;
@@ -61,21 +42,50 @@ class View extends MY_Controller {
 		//init pagination
 		$this->load->library('pagination');
 		$this->pagination->initialize($p_config);
-		$pagination = $this->pagination->create_links();
+
+		return $this->pagination->create_links();
+	}
+
+	public function view($offset = 0, $where = FALSE) {
+		$this->load->model('Goods_model');
+		$this->load->model('Othertables_model');
+
+
+		$offset = (int) $offset;
+		$row_count = 42;// количество товара на странице
+		$sort_type = 0;
+
+		if (isset($where['sort-type'])){
+			$sort_type = $where['sort-type'];
+			unset($where['sort-type']);
+		}
+		
+
+		$where_sql = $this->Goods_model->build_get_goods_where($where);
+		$count = (int) $this->Goods_model->get_goods_count($where_sql);
+		$this->data['goods'] = $this->Goods_model->get_goods($row_count, $offset, $sort_type, $where_sql);
+
+		$pagination = $this->create_pagination($count, $row_count);
 
 
 		$this->load->view('templates/header', $this->data);
 
-		if ($this->uri->segment(1)=="brands") $this->load->view('brands/view', $this->data);
+		if ($this->uri->segment(1)=='brands') $this->load->view('brands/view', $this->data);
 
-		$this->load->view('templates/echo', array("echo" => "<div class='row'>"));
+		view_echo($this->load, "<div class='row'>");
 		$this->load->view('view/filters', $this->data);
 		$this->load->view('view/view', $this->data);
-		$this->load->view('templates/echo', array("echo" =>  "</div>"));
+		view_echo($this->load, "</div>");
 
-		$this->load->view('templates/echo', array("echo" =>  "<div class='col col-xs-12 pagination-div'><nav>$pagination</nav></div>"));
+		view_echo($this->load, "<div class='col col-xs-12 pagination-div'><nav>$pagination</nav></div>");
 
 		$this->load->view('templates/footer');
+	}
+
+	
+	public function index($offset = 0) {
+		$this->data['title'] = "TSET";
+		$this->view($offset, $_GET);
 	}
 
 	
