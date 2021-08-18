@@ -45,7 +45,7 @@
               +7(495)225-73-90
             </a>
 
-            <?php if ($IsAdmin): ?><a href="/admin" class="d-block">ADMIN PAGE</a><?php endif; ?>
+            <?php if ($is_admin): ?><a href="/admin" class="d-block">ADMIN PAGE</a><?php endif; ?>
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@
 
     <script src="/assets/js/script.js"></script>
     <script src="/assets/js/cart.js"></script>
-    <?php if ($IsAdmin): ?><script src="/assets/js/admin.js"></script><?php endif; ?>
+    <?php if ($is_admin): ?><script src="/assets/js/admin.js"></script><?php endif; ?>
 
   </body>
 </html>

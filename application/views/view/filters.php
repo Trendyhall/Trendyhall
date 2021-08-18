@@ -1,6 +1,6 @@
-		<!--
+		
 			<div class="col col-12 col-md-3">
-				
+				<!--
 				
 				<form action="" method="put" class="filters" name="filters">
 					<div class="sort mb-2 black-border">
@@ -91,6 +91,6 @@
 						<button class="submitbtn btn btn-outline-dark" type="submit">Применить</button>
 					</div>
 				</form>
-				<script src="/assets/js/filters.js"></script>
+				<script src="/assets/js/filters.js"></script>-->
 			</div>
-			-->
+			

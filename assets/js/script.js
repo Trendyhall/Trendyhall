@@ -115,7 +115,9 @@ class Like {
 	#onChanged = [];
 
 	constructor(){
-		if (localStorage.getItem('cart') == null) localStorage.setItem('cart', JSON.stringify({}));
+		if (localStorage.getItem('like') == null) {
+			localStorage.setItem('like', JSON.stringify({}));
+		}
 	}
 
 	get like() {
@@ -134,7 +136,7 @@ class Like {
 		this.#onChanged.push(f);
 	}
 
-    add(goodID) {
+  add(goodID) {
 		let like = JSON.parse(localStorage.getItem('like'));
 		like[goodID] = "";
 		localStorage.setItem('like', JSON.stringify(like));
@@ -162,7 +164,6 @@ class Like {
 class User {
 	constructor() {
 		this.cart = new Cart();
-
 		this.like = new Like();
 		this.uuid = getCookie('uuid');
 

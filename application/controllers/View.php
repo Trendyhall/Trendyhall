@@ -50,27 +50,34 @@ class View extends MY_Controller {
 		$this->load->model('Goods_model');
 		$this->load->model('Othertables_model');
 
-
 		$offset = (int) $offset;
-		$row_count = 42;// количество товара на странице
-		$sort_type = 0;
+		$row_count = $this->config->item('cards_of_good_on_page');
+		$sort_type = 0;// тип сортировки по умолчанию
 
 		if (isset($where['sort-type'])){
 			$sort_type = $where['sort-type'];
 			unset($where['sort-type']);
 		}
-		
 
+		foreach ($where as $key => $value) {
+			// code...
+		}
+		
+		// ====== DATA ======
 		$where_sql = $this->Goods_model->build_get_goods_where($where);
+
 		$count = (int) $this->Goods_model->get_goods_count($where_sql);
 		$this->data['goods'] = $this->Goods_model->get_goods($row_count, $offset, $sort_type, $where_sql);
+		foreach ($this->data['goods'] as $key => $value) {
+			$this->data['goods'][$key]['brand'] = $this->Othertables_model->get('brands', $value['brand']);
+		}
 
 		$pagination = $this->create_pagination($count, $row_count);
 
-
+		// ====== VIEW =======
 		$this->load->view('templates/header', $this->data);
 
-		if ($this->uri->segment(1)=='brands') $this->load->view('brands/view', $this->data);
+		if ($this->uri->segment(1)=='brands') $this->load->view('brand/view', $this->data);
 
 		view_echo($this->load, "<div class='row'>");
 		$this->load->view('view/filters', $this->data);
@@ -84,7 +91,7 @@ class View extends MY_Controller {
 
 	
 	public function index($offset = 0) {
-		$this->data['title'] = "TSET";
+		$this->data['title'] = "TEST";
 		$this->view($offset, $_GET);
 	}
 
@@ -109,32 +116,30 @@ class View extends MY_Controller {
         $this->data['active_name'] = -1;
         $this->data['addBrandDescription'] = TRUE;
 
+        $where = $_GET;
+        $where['brand'] = array($this->data['brand']['id']);
 
-        $addition_where[0] = 'brand';
-		$addition_where[1] = array($this->data['brand']['id']);
-
-		$this->BuildFilters($offset, $addition_where);
+		$this->view($offset, $where);
     }
 
 	public function boys($offset = 0) {
 		$this->data['title'] = "Мальчики";
 		$this->data['active_name'] = 3;
 
+		$where = $_GET;
+        $where['gender'] = array(1, 3);
 
-		$addition_where[0] = 'gender';
-		$addition_where[1] = array(1, 3);
-
-		$this->BuildFilters($offset, $addition_where);
+		$this->view($offset, $where);
 	}
 
 	public function girls($offset = 0) {
 		$this->data['title'] = "Девочки";
 		$this->data['active_name'] = 4;
 
-		$addition_where[0] = 'gender';
-		$addition_where[1] = array(2, 3);
+		$where = $_GET;
+        $where['gender'] = array(2, 3);
 
-		$this->BuildFilters($offset, $addition_where);
+		$this->view($offset, $where);
 	}
 
 
@@ -142,64 +147,63 @@ class View extends MY_Controller {
 		$this->data['title'] = "Новинки";
 		$this->data['active_name'] = 5;
 
-		$addition_where[0] = 'season';
-		$addition_where[1] = array(2);
+		$this->load->model('Othertables_model');
+		
+		$where = $_GET;
+        $where['season'] = $this->Othertables_model->get_sorting_keys('seasons_sort', $this->config->item('actual_season'));
 
-		$this->BuildFilters($offset, $addition_where);
+		$this->view($offset, $where);
 	}
 
 	public function sale($offset = 0) {
 		$this->data['title'] = "Скидки";
 		$this->data['active_name'] = 6;
 
-		$addition_where[0] = 'sale!';
-		$addition_where[1] = array(0);
+		$where = $_GET;
+		$where['sale!'] = array(0);
 
-		$this->BuildFilters($offset, $addition_where);
+		$this->view($offset, $where);
 	}
 
 	public function item($good_code = NULL) {
 		$this->load->model('Goods_model');
-		$this->load->model('Colour_model');
 		$this->load->model('Othertables_model');
 		$this->load->helper('goodsview');
-		$this->data['Othertables_model'] = $this->Othertables_model;
 
 		$this->data['title'] = "";
 
-		$good_code = explode('_', $good_code);
-		$good_code[1] = $this->Colour_model->getIDByCode($good_code[1]);
-		$this->data['good'] = $this->Goods_model->getGoodByCodeColour($good_code[0], $good_code[1]);
+		$good_id = $good_code;
+		/*$good_id = explode('|', $good_code);
+		if (isset($good_id[0])) $good_id = $good_id[0];
+		else show_404();*/
+
+		$this->data['good'] = $this->Goods_model->get_good($good_id);
 		if (empty($this->data['good'])) {
 			show_404();
 		}
 
-		$this->data['sizes'] = $this->Goods_model->getAllSizesByCodeColour($good_code[0], $good_code[1]);
-		$this->data['colours'] = $this->Goods_model->getAllColoursByCode($good_code[0]);
-		$this->data['other_goods'] = $this->Goods_model->getGoodWithSameItemgroup($this->data['good']['itemgroup']);
+		$this->data['sizes'] = $this->Goods_model->get_all_sizes($this->data['good']['modelcode'], $this->data['good']['colour']);
+		$this->data['colours'] = $this->Goods_model->get_all_colors($this->data['good']['modelcode']);
+		$this->data['other_goods'] = $this->Goods_model->get_similar_good($this->data['good']['itemgroup']);
 
 		foreach ($this->data['other_goods'] as $key => $value) {
-			$this->data['other_goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
-			$this->data['other_goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
+			$this->data['other_goods'][$key]['brand'] = $this->Othertables_model->get("brands", $value['brand']);
 		}
 		
 
 		//data change
 		{
-			$this->data['good']['brand'] = $this->Othertables_model->GetByID("brands", "name", $this->data['good']['brand']);
-			$this->data['good']['rucolour'] = $this->Othertables_model->GetByID("colours", "runame", $this->data['good']['colour']);
-			$this->data['good']['colour'] = $this->Othertables_model->GetByID("colours", "colourcode", $this->data['good']['colour']);
-			$this->data['good']['provider'] = $this->Othertables_model->GetByID("providers", "name", $this->data['good']['provider']);
-			$this->data['good']['manufacturer'] = $this->Othertables_model->GetByID("manufactures", "name", $this->data['good']['manufacturer']);
-			$this->data['good']['country'] = $this->Othertables_model->GetByID("countries", "name", $this->data['good']['country']);
-			$this->data['good']['description'] = $this->Othertables_model->GetByID("descriptions", "description", $this->data['good']['description']);
+			$this->config->load('databaseequals');
+			foreach ($this->config->item('foreign_column_name_to_table_name') as $key => $value) {
+				$this->data['good'][$key] = $this->Othertables_model->get($value, $this->data['good'][$key]);
+			}
 		}
 
 
 		$this->data['title'] = $this->data['good']['name'];
 
 		$this->load->view('templates/header', $this->data);
-		$this->load->view('main/item', $this->data);
+		$this->load->view('view/item', $this->data);
 		$this->load->view('templates/footer');
 	}
 

@@ -3,10 +3,13 @@
 defined('BASEPATH') OR exit('No direc script access allowed');
 
 class Api extends MY_Controller {
-	private const API_KEY = 'a8b8aaea-07e2-489b-8449-f35408a1e3f5';
 
 	public function __construct() {
 		parent::__construct();
+	}
+
+	public function test_api_key($key) {
+		return $key == $this->config->item('api_key');
 	}
 
 
@@ -14,7 +17,7 @@ class Api extends MY_Controller {
 		$postData = file_get_contents('php://input');
 		$post_json = json_decode($postData, true);
 		if (!array_key_exists('api-key', $post_json)) show_404();
-		if ($post_json['api-key'] == self::API_KEY) 
+		if ($this->test_api_key($post_json['api-key'])) 
 		{
 			echo "Your api key is right"."<br>";
 			var_dump($post_json['data']);

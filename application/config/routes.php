@@ -69,7 +69,7 @@ $route['new/(:num)'] = 'view/new/$1';
 $route['sale'] = 'view/sale';
 $route['sale/(:num)'] = 'view/sale/$1';
 
-$route['goods/(:any)'] = 'main/item/$1';
+$route['goods/(:any)'] = 'view/item/$1';
 
 $route['like-cards'] = 'view/like_cards';
 $route['cart-cards'] = 'view/cart_cards';

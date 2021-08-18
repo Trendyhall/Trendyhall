@@ -290,6 +290,21 @@ button.btn.like.active {
       
 }
 
+#addToLike svg path.active {
+    display: none;
+}
+
+#addToLike svg path.notactive {
+    display: block;
+}
+
+#addToLike.active svg path.active {
+    display: block;
+}
+
+#addToLike.active svg path.notactive {
+    display: none;
+}
 
 /* sign up */
 

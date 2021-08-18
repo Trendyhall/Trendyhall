@@ -11,32 +11,68 @@ if ( ! function_exists('get_price'))
     }
 }
 
+if ( ! function_exists('get_price_text'))
+{
+    function get_price_text($good){
+        if ($good['sale'] == 0): ?>
+            <div class="card-price"><?php echo get_price($good['price']); ?> ₽</div>
+        <?php endif; ?>
+        <?php if ($good['sale'] > 0): ?>
+            <div style="font-size: 1rem; text-decoration: line-through;"><?php echo get_price($good['price']); ?> ₽</div>
+            <div class="card-price" style="color: #f00;"><?php echo get_price($good['price'], $good['sale']); ?> ₽</div>
+        <?php endif; 
+    }
+}
+
+
 if ( ! function_exists('get_card'))
 {
-    function get_card($value){?>
+    function get_card($good){?>
                 <div class="col position-relative">
-                    <button class="btn like" data-like-id="<?php echo $value['id']; ?>"></button>
-                    <a href="/goods/<?php echo $value['modelcode'].'_'.$value['colour']; ?>">
+                    <button class="btn like" data-like-id="<?php echo $good['id']; ?>"></button>
+                    <a href="/goods/<?php echo $good['id']/*.'|'.$good['name']*/; ?>">
                         <div class="card h-100">
-                            <img src="<?php if ($value['imagecount'] == 0) { echo "/assets/img/general/noimage.webp"; } else { echo "https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/".$value['modelcode'].'_'.$value['colour'].".webp"; }?>" class="card-img-top" alt="<?php echo $value['name']; ?>">
-                            <?php if ($value['sale'] != 0): ?>
-                                <div class="sale-lable">-<?php echo $value['sale'] ?>%</div>
+                            <img src="<?php get_image_href($good);?>" class="card-img-top" alt="<?php echo $good['name']; ?>">
+                            <?php if ($good['sale'] != 0): ?>
+                                <div class="sale-lable">-<?php echo $good['sale'] ?>%</div>
                             <?php endif; ?>
                             <div class="card-body">
-                                <div class="card-name"><?php echo $value['name']; ?></div>
-                                <div class="card-brand"><?php echo $value['brand']; ?></div>
-                                <?php if ($value['sale'] == 0): ?>
-                                    <div class="card-price"><?php echo get_price($value['price']); ?> ₽</div>
-                                <?php endif; ?>
-                                <?php if ($value['sale'] > 0): ?>
-                                    <div style="font-size: 1rem; text-decoration: line-through;"><?php echo get_price($value['price']); ?> ₽</div>
-                                    <div class="card-price" style="color: #f00;"><?php echo get_price($value['price'], $value['sale']); ?> ₽</div>
-                                <?php endif; ?>
+                                <div class="card-name"><?php echo $good['name']; ?></div>
+                                <div class="card-brand"><?php echo $good['brand']; ?></div>
+                                <?php get_price_text($good); ?>
                             </div>
                         </div>
                     </a>
                 </div>
                 <?php 
+    }
+}
+
+if ( ! function_exists('get_image_href'))
+{
+    function get_image_href($good, $number = FALSE){
+        if ($number !== FALSE)
+        { // ALTERNATE
+            if ($good['imagecount'] == 0) 
+                { 
+                    echo "/assets/img/general/noimage.webp"; 
+                } 
+                else 
+                { 
+                    echo "https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Alternate/".$good['id']."_$number.webp"; 
+                }
+        }
+        else
+        { // MAIN
+            if ($good['imagecount'] == 0) 
+                { 
+                    echo "/assets/img/general/noimage.webp"; 
+                } 
+                else 
+                { 
+                    echo "https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/".$good['id'].".webp"; 
+                }
+        }
     }
 }
 
