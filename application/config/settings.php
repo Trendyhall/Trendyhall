@@ -1,7 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-//=========== UNCANGEBLE ===============
+$config['changeble_items'] = array(// ALL MUST BE 'FALSE'
+	'order_statuses_visability' => FALSE
+);
+
+
 $config['actual_season'] = 1;
 $config['cards_of_good_on_page'] = 48;
 
@@ -22,7 +26,6 @@ $config['order_statuses_classes'] = array(
 	3 => 'text-secondary', 
 	4 => 'text-success', 
 );
-//============ CANGEBLE ===============
 
 $config['order_statuses_visability'] = array(
 	0 => TRUE, 

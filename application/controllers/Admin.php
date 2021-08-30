@@ -44,15 +44,14 @@ class Admin extends MY_Controller {
 				foreach ($conf as $key => $value) $conf[$key] = FALSE;
 				$post_data = explode('&', $post_data);
 				foreach ($post_data as $key => $value) $conf[explode('=', $value)[0]] = TRUE;
-				$this->config->set_item('order_statuses_visability', $conf);
-				var_dump($conf);
+				$this->config_m->set_item('order_statuses_visability', $conf);
 				break;
 			
 			default:
 				// code...
 				break;
 		}
-		//$this->redirect('/admin/settings');
+		$this->redirect('/admin/settings');
 	}
 
 	public function orders($id = false) {
@@ -85,11 +84,9 @@ class Admin extends MY_Controller {
 		}
 	}
 
-	public function order_delete($id) {
-		$this->data['title'] = "Заказы";
-
+	public function set_order_status($id) {
 		$this->load->model('Orders_model');
-		$this->Orders_model->DeleteOrderByID($id);
+		
 
 		$this->redirect('/admin/orders');
 	}
@@ -105,7 +102,6 @@ class Admin extends MY_Controller {
 			$this->Goods_model->updateGoodCountByID($key, $value);
 		}
 
-		$this->Orders_model->DeleteOrderByID($id);
 
 		$this->redirect('/admin/orders');
 	}

@@ -13,6 +13,7 @@ class MY_Controller extends CI_Controller {
 		$this->data['UUID'] = get_cookie('uuid');
 		
 		$this->data['is_admin'] = $this->data['UUID'] == $this->config->item('admin_uuid');
+
 	}
 
 	public function allow_access(){
