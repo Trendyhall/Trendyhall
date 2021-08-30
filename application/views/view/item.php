@@ -59,10 +59,13 @@
 		<!-- first three line -->
         <h3><?php echo $good['name']; ?></h3>
 		<div style="font-size: 1.2rem;"><?php echo $good['brand']; ?></div>
+		<style>
+			.card-price {font-size: 1.2rem;} .card-price-red {font-size: 1.2rem; color: #f00;} .card-price-lined {font-size: 1rem; text-decoration: line-through;}
+		</style>
 		<?php get_price_text($good); ?>
 
 	    <!-- size couse -->
-	    <button id="sizeOffcanvasBtn" class="btn btn-outline-dark mb-3 w-100 d-flex justify-content-between" type="button" data-bs-toggle="offcanvas" data-bs-target="#SizeOffcanvas" aria-controls="SizeOffcanvas">
+	    <button id="sizeOffcanvasBtn" class="btn btn-outline-dark mt-2 mb-3 w-100 d-flex justify-content-between" type="button" data-bs-toggle="offcanvas" data-bs-target="#SizeOffcanvas" aria-controls="SizeOffcanvas">
 			Выбрать размер<span>&#10095;</span>
 		</button>
 
@@ -75,7 +78,7 @@
 		    <div>
 		      Выбирите какого размера вещь вам нужна
 		    </div>
-		    	<div class="list-group list-group-flush" data-lt-target="-1">
+		    	<div class="list-group list-group-flush">
 		        	<div class="list-group-item d-flex justify-content-between align-items-center">
 				    	Размер
 				    	<span>Количество</span>
@@ -84,9 +87,9 @@
 			<hr class="m-0">
 		        <div class="list-group list-group-flush" id="sizeList" data-lt-target="-1">
 		        	<?php foreach ($sizes as $key => $value): ?>
-				    <button class="list-group-item list-group-item-actio d-flex justify-content-between align-items-center"<?php if ($value['count'] == 0 || $value['count'] == 255) echo ' disabled';?> data-lt-id="<?php echo $value['id'] ?>">
+				    <button class="list-group-item list-group-item-actio d-flex justify-content-between align-items-center"<?php if ($value['count'] == 0) echo ' disabled';?> data-lt-id="<?php echo $value['id'] ?>">
 				    	<?php echo $value['size'] ?>
-				    	<span class="badge rounded-pill bg-<?php if ($value['count'] == 0 || $value['count'] == 255) echo 'danger'; else echo 'dark'?>"><?php echo $value['count'] ?></span>
+				    	<span class="badge rounded-pill bg-<?php if ($value['count'] == 0) echo 'danger'; else echo 'dark'?>"><?php echo $value['count'] ?></span>
 				    </button>
 				<?php endforeach ?>
 			</div >
@@ -122,9 +125,7 @@
 	    		<a href="/goods/<?php echo $value['id']; ?>" class="ps-1 pe-1">
 	    			<img src="<?php get_image_href($value);?>" class="w-100 scaleup-on-hover" alt="цвет">
 	    		</a>
-	    		
 	    	<?php endforeach ?>
-	    	
 	    </div>
 
 	    <!-- Discription -->

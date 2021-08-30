@@ -19,6 +19,16 @@ class Admin extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	public function tests() {
+		$this->allow_access();
+		$this->data['title'] = "Страница тестирования";
+
+
+		$this->load->view('templates/header', $this->data);
+		$this->load->view('admin/tests', $this->data);  
+		$this->load->view('templates/footer');
+	}
+
 	public function settings() {
 		$this->allow_access();
 		$this->data['title'] = "Настройки";

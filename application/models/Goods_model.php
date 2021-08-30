@@ -61,6 +61,17 @@ class Goods_model extends CI_Model {
 
 	//==================================================
 
+	public function get_goods_by_ids($ids) {
+		$query = $this->make_sort();
+		$where_sql = '0';
+		foreach ($ids as $key => $value) {
+			$where_sql .= " OR id = '$value'";
+		}
+	 	$query = $query->where($where_sql);
+		$query = $query->get('goods');
+		return $query->result_array();
+	}
+
 	public function get_good($ID) {
 		$query = $this->db->query("SELECT * FROM goods WHERE id = $ID LIMIT 1");
 		return $query->row_array();

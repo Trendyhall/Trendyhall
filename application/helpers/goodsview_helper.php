@@ -18,8 +18,8 @@ if ( ! function_exists('get_price_text'))
             <div class="card-price"><?php echo get_price($good['price']); ?> ₽</div>
         <?php endif; ?>
         <?php if ($good['sale'] > 0): ?>
-            <div style="font-size: 1rem; text-decoration: line-through;"><?php echo get_price($good['price']); ?> ₽</div>
-            <div class="card-price" style="color: #f00;"><?php echo get_price($good['price'], $good['sale']); ?> ₽</div>
+            <div class="card-price-lined"><?php echo get_price($good['price']); ?> ₽</div>
+            <div class="card-price-red"><?php echo get_price($good['price'], $good['sale']); ?> ₽</div>
         <?php endif; 
     }
 }

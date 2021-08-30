@@ -1,6 +1,6 @@
 		
 			<div class="col col-12 col-md-3">
-				<!--
+				
 				
 				<form action="" method="put" class="filters" name="filters">
 					<div class="sort mb-2 black-border">
@@ -37,60 +37,29 @@
 
 					<div class="filters mb-3">
 						
+						<?php foreach ($sorting as $key => $value): ?>
+							<div class="black-border mb-2">
+								<button class="sortbtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $key; ?>" aria-expanded="false">
+								    <?php echo $value[1]; ?><span class="arrow">&#10095;</span>
+								</button>
+
+								<div class="collapse" id="collapse<?php echo $key; ?>">
+								    <div class="list-group">
+									  	<?php foreach ($value[0] as $key1 => $value1): ?>
+											<label class="list-group-item">
+											    <input name="<?php echo $key; ?>[]" class="form-check-input me-1" type="checkbox" value="<?php echo $value1['id']; ?>">
+											    <?php echo $value1['name']; ?>
+											</label>
+										<?php endforeach ?>
+									</div>
+								</div>
+							</div>
+						<?php endforeach ?>	
+
 						
-						<div class="black-border mb-2">
-							<button class="sortbtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGroup" aria-expanded="false">
-							    Группа<span class="arrow">&#10095;</span>
-							</button>
-
-							<div class="collapse" id="collapseGroup">
-							    <div class="list-group">
-								  	 foreach ($Othertables_model->GetTable('groups') as $key => $value): ?>
-										<label class="list-group-item">
-										    <input name="itemgroup[]" class="form-check-input me-1" type="checkbox" value=" echo $value['name'] ?>">
-										     echo $value['name'] ?>
-										</label>
-									 endforeach ?>
-								</div>
-							</div>
-						</div>
-
-						<div class="black-border mb-2">
-							<button class="sortbtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseColour" aria-expanded="false">
-							    Цвет<span class="arrow">&#10095;</span>
-							</button>
-
-							<div class="collapse" id="collapseColour">
-							    <div class="list-group">
-								  	 foreach ($Othertables_model->GetUniqueColumn('colours', 'runame') as $key => $value): ?>
-										<label class="list-group-item">
-										    <input name="colour[]" class="form-check-input me-1" type="checkbox" value=" echo $value['runame'] ?>">
-										     echo $value['runame'] ?>
-										</label>
-									 endforeach ?>
-								</div>
-							</div>
-						</div>
-
-						<div class="black-border mb-2">
-							<button class="sortbtn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSize" aria-expanded="false">
-							    Размер<span class="arrow">&#10095;</span>
-							</button>
-
-							<div class="collapse" id="collapseSize">
-							    <div class="list-group">
-								  	 foreach ($Othertables_model->GetTable('sizes') as $key => $value): ?>
-										<label class="list-group-item">
-										    <input name="size[]" class="form-check-input me-1" type="checkbox" value=" echo $value['size'] ?>">
-										     echo $value['size'] ?>
-										</label>
-									 endforeach ?>
-								</div>
-							</div>
-						</div>
 						<button class="submitbtn btn btn-outline-dark" type="submit">Применить</button>
 					</div>
 				</form>
-				<script src="/assets/js/filters.js"></script>-->
+				<script src="/assets/js/filters.js"></script>
 			</div>
 			

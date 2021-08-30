@@ -49,18 +49,32 @@ class View extends MY_Controller {
 	public function view($offset = 0, $where = FALSE) {
 		$this->load->model('Goods_model');
 		$this->load->model('Othertables_model');
+		$this->config->load('databaseequals');
 
 		$offset = (int) $offset;
 		$row_count = $this->config->item('cards_of_good_on_page');
 		$sort_type = 0;// тип сортировки по умолчанию
 
+		// ====== WHERE =====
 		if (isset($where['sort-type'])){
 			$sort_type = $where['sort-type'];
 			unset($where['sort-type']);
 		}
 
+
+
 		foreach ($where as $key => $value) {
-			// code...
+			$conf = $this->config->item('foreign_column_name_to_table_name');
+			if (isset($conf[$key])) {
+				$table_name = $conf[$key];
+				$wheres = array();
+				foreach ($value as $key1 => $value1) {
+					$keysarr = $this->Othertables_model->get_sorting_keys($table_name.'_sort', $value1);
+					$wheres = array_merge($wheres, $keysarr);
+				}
+				$where[$key] = $wheres;
+			}
+			
 		}
 		
 		// ====== DATA ======
@@ -73,6 +87,17 @@ class View extends MY_Controller {
 		}
 
 		$pagination = $this->create_pagination($count, $row_count);
+
+		// ====== FILTERS =======
+		$this->data['sorting'] = array('itemgroup' => 'Группа', 'size' => 'Размер', 'colour' => 'Цвет', 'season' => 'Сезон');
+
+		foreach ($this->data['sorting'] as $key => $value) {
+			$table_name = $this->config->item('foreign_column_name_to_table_name')[$key];
+			$this->data['sorting'][$key] = array();
+			$this->data['sorting'][$key][1] = $value;
+			$this->data['sorting'][$key][0] = $this->Othertables_model->get_sorting_table($table_name.'_sort');
+			if ($this->data['sorting'][$key][0] === FALSE) unset($this->data['sorting'][$key]);
+		}
 
 		// ====== VIEW =======
 		$this->load->view('templates/header', $this->data);
@@ -168,7 +193,6 @@ class View extends MY_Controller {
 	public function item($good_code = NULL) {
 		$this->load->model('Goods_model');
 		$this->load->model('Othertables_model');
-		$this->load->helper('goodsview');
 
 		$this->data['title'] = "";
 
@@ -221,12 +245,12 @@ class View extends MY_Controller {
 			$cart_ids[] = $key;
 		}
 		if (isset($cart_ids)) {
-			$this->data['goods'] = $this->Goods_model->getGoodsByOnlyID($cart_ids);
+			$this->data['goods'] = $this->Goods_model->get_goods_by_ids($cart_ids);
 
 			foreach ($this->data['goods'] as $key => $value) {
-				$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
-				$this->data['goods'][$key]['size'] = $this->Othertables_model->GetByID("sizes", "size", $value['size']);
-				$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
+				$this->data['goods'][$key]['brand'] = $this->Othertables_model->get("brands", $value['brand']);
+				$this->data['goods'][$key]['size'] = $this->Othertables_model->get("sizes", $value['size']);
+				$this->data['goods'][$key]['colour'] = $this->Othertables_model->get("colours", $value['colour']);
 			}
 		}
 		$this->load->view('view/cart-cards', $this->data);
@@ -237,7 +261,6 @@ class View extends MY_Controller {
 		$this->load->model('Goods_model');
 		$this->load->model('Colour_model');
 		$this->load->model('Othertables_model');
-		$this->data['Othertables_model'] = $this->Othertables_model;
 
 		$postData = file_get_contents('php://input');
 		$like_ids_json = json_decode($postData, true);
@@ -246,11 +269,10 @@ class View extends MY_Controller {
 			$like_ids[] = $key;
 		}
 
-		$this->data['goods'] = $this->Goods_model->getGoodsByOnlyID($like_ids);
+		$this->data['goods'] = $this->Goods_model->get_goods_by_ids($like_ids);
 
 		foreach ($this->data['goods'] as $key => $value) {
-			$this->data['goods'][$key]['brand'] = $this->Othertables_model->GetByID("brands", "name", $value['brand']);
-			$this->data['goods'][$key]['colour'] = $this->Colour_model->GetCodeByID($value['colour']);
+			$this->data['goods'][$key]['brand'] = $this->Othertables_model->get("brands", $value['brand']);
 		}
 
 		//$this->data['good'] = $this->Goods_model->getGood($goodID);

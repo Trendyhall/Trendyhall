@@ -65,27 +65,7 @@ class Main extends MY_Controller {
 	}
 
 	public function buy() {
-		$this->data['title'] = "Корзина";
-
-		$post_json['passcode'] = $this->input->post('passcode');
-		$post_json['name'] = $this->input->post('name');
-		$post_json['phone'] = $this->input->post('phone');
-		$post_json['address'] = $this->input->post('address');
-		$post_json['orderbody'] = $this->input->post('orderBody');
-		$post_json['comment'] = $this->input->post('comment');
-		$post_json['deliverytype'] = $this->input->post('DeliveryType');
-		$post_json['ordertime'] = $this->input->post('ordertime');
-		
-		$this->load->model('Orders_model');
-		$this->load->model('Goods_model');
-		$this->data['id'] = $this->Orders_model->SetNewOrder($post_json);
-		
-		$order_body = json_decode($post_json['orderbody']);
-		foreach ($order_body as $key => $value) {
-			$this->Goods_model->updateGoodCountByID($key, -$value);
-		}
-
-		$this->data['passcode'] = $post_json['passcode'];
+		$this->data['title'] = "ВАЖНО|Заказ";
 
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/buy', $this->data);

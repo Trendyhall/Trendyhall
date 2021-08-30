@@ -1,36 +1,51 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-	SignupInit();
 	/* logic response for signup*/
+	let btn = document.getElementById('vercodeBtn');
+	btn.onclick = SendVercode;
 
-	function SignupInit(){
-		let btn = document.getElementById('vercodeBtn');
-		btn.onclick = SendVercode;
+	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  		return new bootstrap.Tooltip(tooltipTriggerEl)
+	})
 
-		var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-		var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-	  		return new bootstrap.Tooltip(tooltipTriggerEl)
-		})
+	InitInputRules();
 
-		InitInputRules();
+	document.signup.accept.onclick = () => {
+		if (document.signup.accept.checked) document.getElementById('submitBtn').removeAttribute("disabled");
+		else document.getElementById('submitBtn').setAttribute("disabled", '');
+	}
 
-		document.signup.accept.onclick = () => {
-			if (document.signup.accept.checked) document.getElementById('submitBtn').removeAttribute("disabled");
-			else document.getElementById('submitBtn').setAttribute("disabled", '');
+	document.signup.addEventListener("submit", (event) => {
+		let form = document.signup;
+		event.preventDefault();
+		event.stopPropagation();
+
+		if (/[a-zA-Zа-яА-Я]/.test(form.firstname.value) & /[a-zA-Zа-яА-Я]/.test(form.secondname.value))
+			if (/\+7\d{10}|8\d{10}/.test(form.phone1.value) & ((form.phone1.value[0] == '8' & form.phone1.value.length == 11) | (form.phone1.value[0] == '+' & form.phone1.value.length == 12)))
+				if (/[0-9a-zA-Zа-яА-Я_]/.test(form.password1.value) & form.password1.value.length >= 6 & form.password1.value.length <= 16)
+					if (form.passcode.value.length == 6) {
+						user.Signup();
+					}
+	});
+	
+
+	function SendVercode(event) {
+		event.preventDefault();
+		event.stopPropagation();
+
+		let form = document.signup;
+	    let	input = form.phone1;
+		let re = /\+7\d{10}|8\d{10}/;
+		if (re.test(input.value) & ((input.value[0] == '8' & input.value.length == 11) | (input.value[0] == '+' & input.value.length == 12))) {
+			console.log('Succes');
+			document.getElementById('vercodeInput').removeAttribute("style");
+			input.classList.add('is-valid');
+			input.classList.remove('is-invalid');
 		}
-
-		document.signup.addEventListener("submit", (event) => {
-			let form = document.signup;
-			event.preventDefault();
-			event.stopPropagation();
-
-			if (/[a-zA-Zа-яА-Я]/.test(form.firstname.value) & /[a-zA-Zа-яА-Я]/.test(form.secondname.value))
-				if (/\+7\d{10}|8\d{10}/.test(form.phone1.value) & ((form.phone1.value[0] == '8' & form.phone1.value.length == 11) | (form.phone1.value[0] == '+' & form.phone1.value.length == 12)))
-					if (/[0-9a-zA-Zа-яА-Я_]/.test(form.password1.value) & form.password1.value.length >= 6 & form.password1.value.length <= 16)
-						if (form.passcode.value.length == 6) {
-							Signup();
-						}
-		});
+		else {
+			input.classList.add('is-invalid');
+			input.classList.remove('is-valid');
+		}
 	}
 
 	function InitInputRules() {
@@ -137,70 +152,4 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		}
 	}
-
-
-
-	function SendVercode(event) {
-		event.preventDefault();
-		event.stopPropagation();
-
-		let form = document.signup;
-	    let	input = form.phone1;
-		let re = /\+7\d{10}|8\d{10}/;
-		if (re.test(input.value) & ((input.value[0] == '8' & input.value.length == 11) | (input.value[0] == '+' & input.value.length == 12))) {
-			console.log('Succes');
-			document.getElementById('vercodeInput').removeAttribute("style");
-			input.classList.add('is-valid');
-			input.classList.remove('is-invalid');
-		}
-		else {
-			input.classList.add('is-invalid');
-			input.classList.remove('is-valid');
-		}
-	}
-
-	function Signup() {
-		let uuid = uuidv4();
-		let form = document.signup;
-		fetch("/user/exsist", {
-				    method: 'POST',
-				    headers: {
-				      'Content-Type': 'application/json;charset=utf-8'
-				    },
-				    body: JSON.stringify({phone: form.phone1.value})
-				})
-		    .then(response => {
-		    	if (response.ok) return response.text();
-		    })
-	        .then(result => {
-	        	console.log(result);
-		      	if (result == false) {
-		      		let cart = localStorage.getItem('cart');
-					if (cart == null) cart = "{}";
-		      		if (form.rememberme1.checked)
-						setCookie('uuid', uuid, {'max-age': 864000});
-					else
-						setCookie('uuid', uuid);
-
-					writeUserData(uuid, form.firstname.value, form.secondname.value, form.patronymic.value, form.phone1.value, form.password1.value, cart);
-			  	
-			  		//window.location.replace('/');
-		      	}
-		      	else Signup();
-	        });
-	}
-
-	function writeUserData(userId, name, secondname, patronymic, phone, password, cart) {
-		fetch("/user/signup", {
-				    method: 'POST',
-				    headers: {
-				      'Content-Type': 'application/json;charset=utf-8'
-				    },
-				    body: JSON.stringify({uuid: userId, name: name, password: password, patronymic: patronymic, phone: phone, secondname: secondname, cart: cart})
-				}).then(response => {
-		    	window.location.replace('/');
-		    	//console.log(response.text());
-		    });
-	}
-
 });

@@ -171,6 +171,15 @@ a .card:hover {
     font-size: 1.2rem;
 }
 
+.card .card-price-red {
+    font-size: 1.2rem;
+    color: #f00;
+}
+
+.card .card-price-lined {
+    font-size: 1rem; 
+    text-decoration: line-through;
+}
 
 
 

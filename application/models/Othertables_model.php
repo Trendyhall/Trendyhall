@@ -14,6 +14,27 @@ class Othertables_model extends CI_Model {
 		else return FALSE;
 	}
 
+	public function find_or_insert_id($TableName, $Value){
+		$Value = $this->db->escape($Value);
+
+		$query = $this->db->query("SELECT id FROM $TableName WHERE input = $Value LIMIT 1");
+		$row = $query->row();
+		if ($row) return $row->id;
+		else {
+			$this->db->query("INSERT INTO $TableName (id, input) VALUES (null, $Value)");
+			$query = $this->db->query("SELECT id FROM $TableName WHERE input = $Value LIMIT 1");
+			$row = $query->row();
+			return $row->id;
+		}
+	}
+
+	public function get_sorting_table($TableName){
+		$query = $this->db->query("SELECT * FROM $TableName WHERE 1");
+		$result = $query->result_array();
+		if ($result) return $result;
+		else return FALSE;
+	}
+
 	public function get_sorting_keys($TableName, $ID){
 		$Value = $this->db->escape($ID);
 
@@ -30,20 +51,6 @@ class Othertables_model extends CI_Model {
 		$row = $query->row_array();
 		if ($row) return $row['name'];
 		else return FALSE;
-	}
-
-	public function find_or_insert_id($TableName, $Value){
-		$Value = $this->db->escape($Value);
-
-		$query = $this->db->query("SELECT id FROM $TableName WHERE input = $Value LIMIT 1");
-		$row = $query->row();
-		if ($row) return $row->id;
-		else {
-			$this->db->query("INSERT INTO $TableName (id, input) VALUES (null, $Value)");
-			$query = $this->db->query("SELECT id FROM $TableName WHERE input = $Value LIMIT 1");
-			$row = $query->row();
-			return $row->id;
-		}
 	}
 
 

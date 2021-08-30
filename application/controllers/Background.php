@@ -36,7 +36,7 @@ class Background extends MY_Controller {
 		if (!array_key_exists('uuid', $post_json) || !array_key_exists('phone', $post_json) || !array_key_exists('password', $post_json)) show_404();
 		
 		$this->load->model('Users_model');
-		$this->Users_model->SetNewUser($post_json);
+		$this->Users_model->set_new_user($post_json);
 		echo true;
 	}
 
@@ -55,10 +55,16 @@ class Background extends MY_Controller {
 		$post_json = json_decode($postData, true);
 		if (!array_key_exists('orderbody', $post_json)) show_404();
 		
+		$this->load->model('Orders_model');
+		$this->load->model('Goods_model');
+		$id = $this->Orders_model->set_new_order($post_json);
 		
-		$this->load->model('Users_model');
-		$this->Users_model->SetNewOrder($post_json);
-		var_dump($post_json);
+		$order_body = json_decode($post_json['orderbody']);
+		foreach ($order_body as $key => $value) {
+			$this->Goods_model->update_good_count($key, -$value);
+		}
+		
+		echo $id;
 	}
 
 }

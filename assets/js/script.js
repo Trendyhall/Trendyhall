@@ -281,7 +281,7 @@ class User {
 //========================================================================
 function err_log(error) {
 	console.error(error);
-	alert("Что-то пошло не так, попробуйте повторить позже");
+	alert("Кажеться что-то пошло не так, попробуйте повторить позже...");
 }
 
 function setCookie(name, value, options = {}) {
@@ -328,6 +328,38 @@ function post(URI, BODY, success_callback, error_callback) {
     	if (response.ok) response.text().then(result => success_callback(result));
     	else response.text().then(result => error_callback(result), error => error_callback(error));
     });
+}
+
+function encrypt(text, passphrase) {
+	return CryptoJS.AES.encrypt(text, passphrase);
+}
+
+function decrypt(encription, passphrase) {
+	return CryptoJS.AES.decrypt(encription, passphrase).toString(CryptoJS.enc.Utf8);
+}
+
+//========================================================================
+//|||||||||||||||||||| GLOBAL SPECIAL FUNCTIONS ||||||||||||||||||||||||||
+//========================================================================
+
+//============== Like Buttons Init ==========================
+function likeButtonsInit() {
+	let likeButtons = document.querySelectorAll('[data-like-id]'); //[data-like-id]:not(#addToLike)
+	for (let likeBtn of likeButtons) {
+	    if (user.like.check(likeBtn.getAttribute("data-like-id"))) {
+	    	likeBtn.classList.add('active');
+	    }
+	    likeBtn.onclick = () => {
+	    	if (user.like.check(likeBtn.getAttribute("data-like-id"))) {
+	    		likeBtn.classList.remove('active');
+		    	user.like.remove(likeBtn.getAttribute("data-like-id"));
+		    }	
+		    else {
+		    	likeBtn.classList.add('active');
+		    	user.like.add(likeBtn.getAttribute("data-like-id"));
+		    }
+	    }
+	}
 }
 
 //========================================================================
@@ -412,8 +444,96 @@ document.addEventListener("DOMContentLoaded", () => {
 					}
 		}, false);
 	}
-	//============== Login Input Rules Init ==========================
 
+
+//========================================================================
+//|||||||||||||||||||||||  DEFINE OTHER FUNCTIONS ||||||||||||||||||||||||
+//========================================================================
+
+	function likePageInit() {
+		post("/like-cards", 
+			user.like.str_like, 
+			(cards) => {
+	        	document.getElementById("likeCardsContainer").innerHTML = cards;
+	        	likeButtonsInit();
+	        },
+	    (error) => {
+	    			err_log(error);
+	    			document.getElementById("likeCardsContainer").innerHTML = "<h4>Кажеться что-то пошло не так, попробуйте повторить позже...</h4>";
+	        });
+	}
+
+	function itemPageInit() {
+		let sizeList = document.getElementById("sizeList");
+		let cartSelect = document.getElementById("cartSelect");
+		let sizeOffcanvas = new bootstrap.Offcanvas(document.getElementById('SizeOffcanvas'));
+
+
+		//set select if this good in cart
+		function setSelect() {
+	    	if (user.cart.check(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"))) {
+	    		for (var i = 2; i < cartSelect.children.length; i++) {
+	    			cartSelect.children[i].remove();
+	    		}
+	    		
+	    		for (var i = 2; i <= Number(sizeList.children[sizeList.getAttribute("data-lt-target")].children[0].textContent); i++) {
+	    			cartSelect.insertAdjacentHTML('beforeend', '<option value="'+i+'">'+i+'</option>');
+	    		}
+	    		cartSelect.value = user.cart.get(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"));
+
+	    		cartSelect.classList.remove('d-none');
+	    		document.getElementById("addToCart").classList.add('d-none');
+	    	}
+	    	else {
+	    		document.getElementById("cartSelect").classList.add('d-none');
+	    		document.getElementById("addToCart").classList.remove('d-none');
+	    	}
+		}
+
+
+		/*add To Cart Select*/
+		cartSelect.onchange = () => {
+		    let goodID = sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id");
+		    if (cartSelect.value == 0) {
+		    	user.cart.remove(goodID);
+		    	setSelect(); 
+		    }
+
+		    if (cartSelect.value > 0) user.cart.set(goodID, cartSelect.value);
+		}
+
+		/*Size select*/
+		for (var i = 0; i < sizeList.children.length; i++) {
+			sizeList.children[i].setAttribute("data-lt-index", i);
+
+			//chouse size event
+	        sizeList.children[i].onclick = (event) => {
+	        	//hide offcanvas
+	        	sizeOffcanvas.hide();
+
+	        	//change size select offCanvas
+	        	if (sizeList.getAttribute("data-lt-target") > -1){
+		      		sizeList.children[sizeList.getAttribute("data-lt-target")].classList.remove('active');
+		      	}
+		      	else {
+	        		document.getElementById("addToCart").removeAttribute("disabled");
+	        		document.getElementById("addToCartBadge").remove();
+		      	}
+		      	sizeList.children[event.currentTarget.getAttribute("data-lt-index")].classList.add('active');
+		      	sizeList.setAttribute("data-lt-target", event.currentTarget.getAttribute("data-lt-index"));
+		      	document.getElementById("sizeOffcanvasBtn").innerHTML = sizeList.children[event.currentTarget.getAttribute("data-lt-index")].firstChild.textContent + "<span>&#10095;</span>";
+		    	
+		    	setSelect();
+
+		    	//click to button event
+		    	document.getElementById("addToCart").onclick = () => {
+		    		user.cart.set(sizeList.children[sizeList.getAttribute("data-lt-target")].getAttribute("data-lt-id"), 1); 
+
+		    		setSelect();
+		    	};
+		    }
+	    }
+	}
 
 
 
@@ -446,6 +566,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		LoginInputRulesInit();
 	}
 
-
+	switch (window.location.pathname.split('/')[1]) {
+		case "like": likePageInit();
+			break;
+		case "goods": itemPageInit();
+			break;
+		default: console.log(window.location.pathname.split('/')[1]); 
+			break;
+	}
 
 });

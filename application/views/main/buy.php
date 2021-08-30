@@ -1,5 +1,3 @@
-<script>
-document.addEventListener("DOMContentLoaded",()=>{localStorage.setItem('cart',JSON.stringify({}));localStorage.setItem('user-cart-count','');document.querySelector('.icon-cart').setAttribute('data-qty',localStorage.getItem('user-cart-count'));firebase.database().ref('NewOrders').set(1);});</script>
 <div class="d-flex justify-content-center">
   <div class="card border rounded-3 shadow mb-3" style="max-width: 500px;">
 	  <div class="card-header">Данные по заказу</div>
@@ -16,11 +14,11 @@ document.addEventListener("DOMContentLoaded",()=>{localStorage.setItem('cart',JS
 	    	<tbody>
 	    		<tr>
 	    			<td>Номер заказа:</td>
-	    			<th class="ps-1"><?php echo $id ?></th>
+	    			<th class="ps-1"><?php echo $_GET['id']; ?></th>
 	    		</tr>
 	    		<tr>
 	    			<td>Код подтверждения:</td>
-	    			<th class="ps-1"><?php echo $passcode ?></th>
+	    			<th class="ps-1"><?php echo $_GET['passcode']; ?></th>
 	    		</tr>
 	    	</tbody>
 	    </table>

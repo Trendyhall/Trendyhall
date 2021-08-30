@@ -36,7 +36,14 @@
             <h5 class="modal-title" id="staticBackdropLabel">Заказ</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body d-none" id="modalBodySpinner">
+            <div class="w-100 d-flex justify-content-center align-content-center">
+                <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+          </div>
+          <div class="modal-body" id="modalBody">
             <form name="order" class="needs-validation" method="post" action="/cart" accept-charset="utf-8" novalidate>
                 <input name="orderBody" type="text" hidden>
                 <input name="passcode" type="text" hidden>
@@ -120,3 +127,5 @@
         </div>
       </div>
     </div>
+
+    <script src="/assets/js/cart.js"></script>

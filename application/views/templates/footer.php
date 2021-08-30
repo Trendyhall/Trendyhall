@@ -68,9 +68,10 @@
     
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+
 
     <script src="/assets/js/script.js"></script>
-    <script src="/assets/js/cart.js"></script>
     <?php if ($is_admin): ?><script src="/assets/js/admin.js"></script><?php endif; ?>
 
   </body>

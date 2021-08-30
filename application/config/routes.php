@@ -96,8 +96,8 @@ $route['signup'] = 'main/signup';
 $route['reset-password'] = 'main/reset_password';
 $route['profile'] = 'main/profile';
 
-$route['cart']['get'] = 'main/cart';
-$route['cart']['post'] = 'main/buy';
+$route['cart'] = 'main/cart';
+$route['buy']= 'main/buy';
 
 $route['like'] = 'main/like';
 
@@ -108,6 +108,7 @@ $route['junior-republic-event'] = 'addition/junior_republic_event';
 //===== ADMIN =====
 
 $route['admin'] = 'admin';
+$route['admin/tests'] = 'admin/tests';
 $route['admin/settings'] = 'admin/settings';
 $route['admin/orders'] = 'admin/orders';
 $route['admin/orders/(:num)'] = 'admin/orders/$1';
@@ -128,6 +129,9 @@ $route['user/login']['post'] = 'background/user_login';
 $route['user/exsist']['post'] = 'background/user_exsist';
 $route['user/signup']['post'] = 'background/user_signup';
 $route['user/get-user-name']['post'] = 'background/get_user_name';
+$route['user/get-user-data']['post'] = 'background/get_user_data';
+$route['user/set-user-like']['post'] = 'background/set_user_like';
+$route['user/set-user-cart']['post'] = 'background/set_user_cart';
 
 $route['orders/new-order']['post'] = 'background/new_order';
 
