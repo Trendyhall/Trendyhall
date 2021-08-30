@@ -78,7 +78,7 @@ class Goods_model extends CI_Model {
 	}
 
 	public function get_all_sizes($modelcode, $colour) {
-		$query = $this->db->query("SELECT id, size, count FROM goods WHERE modelcode = '$modelcode' AND colour = '$colour' ORDER BY size");
+		$query = $this->db->query("SELECT id, size, count FROM goods WHERE modelcode = '$modelcode' AND colour = '$colour'/* ORDER BY size*/");
 		$result_array = $query->result_array();
 		foreach ($result_array as $key => $value) {
 			$query1 = $this->db->query("SELECT output FROM sizes WHERE id = '".$value['size']."' LIMIT 1");

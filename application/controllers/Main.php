@@ -48,7 +48,7 @@ class Main extends MY_Controller {
 		$this->data['title'] = "Профиль";
 		$this->load->model('Users_model');
 
-		$this->data['user'] = $this->Users_model->GetUserByUUID($this->data['UUID']);
+		$this->data['user'] = $this->Users_model->get_user_by_uuid($this->data['UUID']);
 
 
 		$this->load->view('templates/header', $this->data);

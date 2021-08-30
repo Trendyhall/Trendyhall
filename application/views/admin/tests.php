@@ -35,3 +35,12 @@ Full working sample actually is:
         document.getElementById("demo3").innerHTML = decrypted.toString(CryptoJS.enc.Utf8);
     }
 </script>
+
+<br>
+<br>
+<br>
+<br>
+
+<?php 
+var_dump(json_decode("{\"jdvbno\":\"jhyfjhf\"}"))
+ ?>

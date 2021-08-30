@@ -6,11 +6,11 @@ class Admin extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
+		$this->allow_access();
 	}
 
 
 	public function index() {
-		$this->allow_access();
 		$this->data['title'] = "Страница администратора";
 
 
@@ -20,7 +20,6 @@ class Admin extends MY_Controller {
 	}
 
 	public function tests() {
-		$this->allow_access();
 		$this->data['title'] = "Страница тестирования";
 
 
@@ -30,7 +29,6 @@ class Admin extends MY_Controller {
 	}
 
 	public function settings() {
-		$this->allow_access();
 		$this->data['title'] = "Настройки";
 
 		$this->load->view('templates/header', $this->data);
@@ -38,13 +36,31 @@ class Admin extends MY_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	public function set_setting($item_name) {
+		$post_data = file_get_contents('php://input');
+		switch ($item_name) {
+			case 'order_statuses_visability':
+				$conf = $this->config->item('order_statuses_visability');
+				foreach ($conf as $key => $value) $conf[$key] = FALSE;
+				$post_data = explode('&', $post_data);
+				foreach ($post_data as $key => $value) $conf[explode('=', $value)[0]] = TRUE;
+				$this->config->set_item('order_statuses_visability', $conf);
+				var_dump($conf);
+				break;
+			
+			default:
+				// code...
+				break;
+		}
+		//$this->redirect('/admin/settings');
+	}
+
 	public function orders($id = false) {
-		$this->allow_access();
 		$this->data['title'] = "Заказы";
 
 		$this->load->model('Orders_model');
 		if (!$id) {
-			$this->data['orders'] = $this->Orders_model->GetOrdersList();
+			$this->data['orders'] = $this->Orders_model->get_orders();
 
 			$this->load->view('templates/header', $this->data);
 			$this->load->view('admin/orders', $this->data);
@@ -52,7 +68,7 @@ class Admin extends MY_Controller {
 		} else {
 			$this->load->model('Goods_model');
 
-			$this->data['order'] = $this->Orders_model->GetOrderByID($id);
+			$this->data['order'] = $this->Orders_model->get_order_by_id($id);
 			if ($this->data['order'] === FALSE) {
 				
     			echo "<script type='text/javascript'>alert('Заказ с номером $id не был найден'); window.location = '/admin/orders';</script>";
@@ -61,7 +77,7 @@ class Admin extends MY_Controller {
 			foreach ($this->data['cart_json'] as $key => $value) {
 				$ids[] = $key;
 			}
-			$this->data['cart'] = $this->Goods_model->getGoodsByOnlyID($ids);
+			$this->data['cart'] = $this->Goods_model->get_goods_by_ids($ids);
 
 			$this->load->view('templates/header', $this->data);
 			$this->load->view('admin/order', $this->data);
@@ -70,7 +86,6 @@ class Admin extends MY_Controller {
 	}
 
 	public function order_delete($id) {
-		$this->allow_access();
 		$this->data['title'] = "Заказы";
 
 		$this->load->model('Orders_model');
@@ -80,7 +95,6 @@ class Admin extends MY_Controller {
 	}
 
 	public function order_cancel($id) {
-		$this->allow_access();
 		$this->data['title'] = "Заказы";
 
 		$this->load->model('Orders_model');
@@ -101,7 +115,6 @@ class Admin extends MY_Controller {
 	//================
 
 	public function headers1() {
-		$this->allow_access();
 		$this->data['title'] = "Заголовки";
 
 		$this->load->view('templates/header', $this->data);
@@ -110,7 +123,6 @@ class Admin extends MY_Controller {
 	}
 
 	public function databasedebug() {
-		$this->allow_access();
 		$this->data['title'] = "Заголовки";
 
 		$this->input->post('tablename');
@@ -128,7 +140,6 @@ class Admin extends MY_Controller {
 
 
 	public function fillucode() {
-		$this->allow_access();
 		$this->data['title'] = "Fill ucode";
 
 		$this->load->model('Goods_model');
@@ -141,7 +152,6 @@ class Admin extends MY_Controller {
 	}
 	
 	public function database_upload() {
-		$this->allow_access();
 		$this->data['title'] = "Загрузка базы данных";
 
 		$this->load->view('templates/header', $this->data);
@@ -150,7 +160,6 @@ class Admin extends MY_Controller {
 	}
 
 	public function database_upload1() {
-		$this->allow_access();
 		$this->data['title'] = "Загрузка базы данных";
 		
 		$this->load->model('Goods_model');

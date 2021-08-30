@@ -5,13 +5,20 @@ class Orders_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function GetOrdersList() {
-		$query = $this->db->query("SELECT id, phone, ordertime, deliverytype FROM orders WHERE 1");
+	public function get_orders() {
+		$conf = $this->config->item('order_statuses_visability');
+		$where = "0";
+		foreach ($conf as $key => $value) {
+			if ($value) $where.= " OR status = $key";
+		}
+
+
+		$query = $this->db->query("SELECT id, phone, ordertime, deliverytype, status FROM orders WHERE $where");
 		if ($query->result_array() != null) return $query->result_array();
 		else return FALSE;
 	}
 
-	public function GetOrderByID($id) {
+	public function get_order_by_id($id) {
 		$query = $this->db->query("SELECT * FROM orders WHERE id = '".$id."' OR phone = '".$id."' LIMIT 1");
 		if ($query->row_array() != null) return $query->row_array();
 		else return FALSE;
@@ -23,8 +30,8 @@ class Orders_model extends CI_Model {
 		return $query->row()->id;
 	}
 
-	public function DeleteOrderByID($id) {
-		$query = $this->db->query("DELETE FROM orders WHERE id = ".$this->db->escape($id));
+	public function set_order_status_by_id($id, $status) {
+		$query = $this->db->query("UPDATE orders SET status = $status WHERE id = ".$this->db->escape($id));
 	}
 
 }

@@ -110,6 +110,7 @@ $route['junior-republic-event'] = 'addition/junior_republic_event';
 $route['admin'] = 'admin';
 $route['admin/tests'] = 'admin/tests';
 $route['admin/settings'] = 'admin/settings';
+$route['admin/set-setting/(:any)']['post'] = 'admin/set_setting/$1';
 $route['admin/orders'] = 'admin/orders';
 $route['admin/orders/(:num)'] = 'admin/orders/$1';
 $route['admin/order/(:num)/delete'] = 'admin/order_delete/$1';

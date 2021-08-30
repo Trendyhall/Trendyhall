@@ -234,7 +234,6 @@ class View extends MY_Controller {
 
 	public function cart_cards() {
 		$this->load->model('Goods_model');
-		$this->load->model('Colour_model');
 		$this->load->model('Othertables_model');
 		$this->data['Othertables_model'] = $this->Othertables_model;
 
@@ -259,7 +258,6 @@ class View extends MY_Controller {
 
 	public function like_cards() {
 		$this->load->model('Goods_model');
-		$this->load->model('Colour_model');
 		$this->load->model('Othertables_model');
 
 		$postData = file_get_contents('php://input');

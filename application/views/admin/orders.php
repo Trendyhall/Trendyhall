@@ -16,10 +16,31 @@
   </div>
 </div>
 
+<?php 
+class GetStatus {
+  function __construct($config)
+  {
+    $this->statuses = $config->item('order_statuses');
+    $this->statuses_classes = $config->item('order_statuses_classes');
+  }
+
+  function get_status($st){
+    echo $this->statuses[$st];
+  }
+
+  function get_d_class($st){
+    if (array_key_exists($st, $this->statuses_classes)) echo "class='".$this->statuses_classes[$st]."'";
+  }
+}
+
+$get_st = new GetStatus($this->config);
+ ?>
+
 <table class="table table-hover">
   <thead>
     <tr>
       <th scope="col">#</th>
+      <th scope="col">Статус</th>
       <th scope="col">Номер заказа</th>
       <th scope="col">Дата заказа</th>
       <th scope="col">Телефон</th>
@@ -30,6 +51,7 @@
     <?php foreach ($orders as $key => $value): ?>
       <tr onclick="document.location = '/admin/orders/<?php echo $value['id']; ?>';">
         <th scope="row"><?php echo $key+1; ?></th>
+        <th scope="row"<?php $get_st->get_d_class($value['status']); ?>><?php $get_st->get_status($value['status']); ?></th>
         <th scope="row" ><?php echo $value['id']; ?></th>
         <td><?php echo $value['ordertime']; ?></td>
         <td><?php echo $value['phone']; ?></td>
