@@ -42,5 +42,5 @@ Full working sample actually is:
 <br>
 
 <?php 
-var_dump(json_decode("{\"jdvbno\":\"jhyfjhf\"}"))
+var_dump(strtotime("2021-08-28 17:11:42"))
  ?>

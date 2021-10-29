@@ -13,7 +13,7 @@ class Orders_model extends CI_Model {
 		}
 
 
-		$query = $this->db->query("SELECT id, phone, ordertime, deliverytype, status FROM orders WHERE $where");
+		$query = $this->db->query("SELECT id, phone, ordertime, deliverytype, status FROM orders WHERE $where ORDER BY status");
 		if ($query->result_array() != null) return $query->result_array();
 		else return FALSE;
 	}
@@ -30,8 +30,16 @@ class Orders_model extends CI_Model {
 		return $query->row()->id;
 	}
 
+	public function count_orders_with_status($status) {
+		$query = $this->db->where("status = '$status'");
+		$query = $query->from('orders');
+		return $query->count_all_results();
+	}
+
 	public function set_order_status_by_id($id, $status) {
 		$query = $this->db->query("UPDATE orders SET status = $status WHERE id = ".$this->db->escape($id));
 	}
+
+
 
 }

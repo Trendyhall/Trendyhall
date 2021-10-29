@@ -49,7 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
 					JSON.stringify(data),
 					(result) => {
 						user.cart.delete();
-						firebase.database().ref('NewOrders').set(1);
+						let randomV = new Uint16Array(1);
+						window.crypto.getRandomValues(randomV);
+						firebase.database().ref('NewOrders').set(randomV[0]);
 						document.location = "/buy?id="+result+"&passcode="+passcode[0];
 				    },
 		        	(err) => {

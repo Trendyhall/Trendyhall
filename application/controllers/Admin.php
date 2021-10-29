@@ -12,11 +12,27 @@ class Admin extends MY_Controller {
 
 	public function index() {
 		$this->data['title'] = "Страница администратора";
+		$this->load->model('Orders_model');
+
+		$this->Automatizations_processes();
+		$this->data['new_orders'] = $this->Orders_model->count_orders_with_status(0);
+		$this->data['notdone_orders'] = $this->Orders_model->count_orders_with_status(1);
+		$this->data['overtime_orders'] = $this->Orders_model->count_orders_with_status(2);
+		
 
 
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('admin/index', $this->data);  
 		$this->load->view('templates/footer');
+	}
+
+	public function Automatizations_processes() {
+		// MARK ALL OVERTIME ORDERS
+		$orders = $this->Orders_model->get_orders();
+		foreach ($orders as $key => $value) {
+			if (time() > (strtotime($value['ordertime'])+(24 * 60 * 60))) $this->set_order_status($value['id'], 2);
+		}
+
 	}
 
 	public function tests() {
@@ -84,26 +100,25 @@ class Admin extends MY_Controller {
 		}
 	}
 
-	public function set_order_status($id) {
+	public function set_order_status($id, $status) {
 		$this->load->model('Orders_model');
-		
+		if ($status == 3) {
+			$this->order_cancel($id);
+		}
+
+		$this->Orders_model->set_order_status_by_id($id, $status);
 
 		$this->redirect('/admin/orders');
 	}
 
 	public function order_cancel($id) {
-		$this->data['title'] = "Заказы";
-
 		$this->load->model('Orders_model');
 		$this->load->model('Goods_model');
 
-		$order_body = json_decode($this->Orders_model->GetOrderByID($id)['orderbody']);
+		$order_body = json_decode($this->Orders_model->get_order_by_id($id)['orderbody']);
 		foreach ($order_body as $key => $value) {
-			$this->Goods_model->updateGoodCountByID($key, $value);
+			$this->Goods_model->update_good_count($key, $value);
 		}
-
-
-		$this->redirect('/admin/orders');
 	}
 
 

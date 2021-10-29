@@ -533,7 +533,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		    	};
 		    }
 	    }
-	}
+	    likeButtonsInit();
+		}
 
 
 
@@ -570,6 +571,16 @@ document.addEventListener("DOMContentLoaded", () => {
 		case "like": likePageInit();
 			break;
 		case "goods": itemPageInit();
+			break;
+		case "boys": likeButtonsInit();
+			break;
+		case "girls": likeButtonsInit();
+			break;
+		case "new": likeButtonsInit();
+			break;
+		case "sale": likeButtonsInit();
+			break;
+		case "brands": likeButtonsInit();
 			break;
 		default: console.log(window.location.pathname.split('/')[1]); 
 			break;

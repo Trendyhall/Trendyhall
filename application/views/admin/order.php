@@ -1,14 +1,50 @@
-<div class="d-flex">
+<?php 
+class GetStatus {
+  function __construct($config)
+  {
+    $this->statuses = $config->item('order_statuses');
+    $this->statuses_classes = $config->item('order_statuses_classes');
+  }
+
+  function get_status($st){
+    echo $this->statuses[$st];
+  }
+
+  function get_d_class($st){
+    if (array_key_exists($st, $this->statuses_classes)) echo "class='".$this->statuses_classes[$st]."'";
+  }
+}
+
+$get_st = new GetStatus($this->config);
+ ?>
+
+ <div class="d-flex justify-content-between">
   <a class="btn btn-outline-dark mb-2 rounded-0" href="/admin/orders"><-- Назад</a>
-  <label class="ms-auto mt-1" for="confirmCheck">Управление заказом</label>
-  <input class="form-check-input m-1 mt-2" type="checkbox" id="confirmCheck" onclick="this.parentNode.querySelector('div').classList.toggle('d-none');">
- 
-  <div class="d-none">
-    <a class="btn btn-success mb-2 rounded-0" href="/admin/order/<?php echo $order['id']; ?>/delete">Выполнить заказ</a>
-    <a class="btn btn-danger mb-2 rounded-0" href="/admin/order/<?php echo $order['id']; ?>/cancel">Отменить заказ</a>
+
+  <div class="btn-group mb-2">
+    <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <line <?php $get_st->get_d_class($order['status']); ?>><?php $get_st->get_status($order['status']); ?></line>
+    </button>
+    <ul class="dropdown-menu">
+      <?php if ($order['status'] == 0): ?>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/1">Пометить как <b>просмотренное</b></a></li>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/4">Пометить как <b class="text-success">выполненое</b></a></li>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/2">Пометить как <b class="text-warning">просроченное</b></a></li>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/3">Пометить как <b class="text-danger">отменённое и вернуть товар на сайт</b></a></li>
+      <?php endif ?>
+      <?php if ($order['status'] == 1): ?>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/0">Пометить как <b>непросмотренное</b></a></li>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/4">Пометить как <b class="text-success">выполненое</b></a></li>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/2">Пометить как <b class="text-warning">просроченное</b></a></li>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/3">Пометить как <b class="text-danger">отменённое и вернуть товар на сайт</b></a></li>
+      <?php endif ?>
+      <?php if ($order['status'] == 2): ?>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/4">Пометить как <b class="text-success">выполненое</b></a></li>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/3">Пометить как <b class="text-danger">отменённое и вернуть товар на сайт</b></a></li>
+      <?php endif ?>
+    </ul>
   </div>
 </div>
-
 
 <table class="table">
   <tbody>
@@ -45,10 +81,6 @@
       <tr>
         <td>Комментарий заказчика:</td>
         <td><?php echo $order['comment']; ?></td>
-      </tr>
-      <tr>
-        <td>Сумма заказа:</td>
-        <td></td>
       </tr>
   </tbody>
 </table>

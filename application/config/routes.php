@@ -113,11 +113,10 @@ $route['admin/settings'] = 'admin/settings';
 $route['admin/set-setting/(:any)']['post'] = 'admin/set_setting/$1';
 $route['admin/orders'] = 'admin/orders';
 $route['admin/orders/(:num)'] = 'admin/orders/$1';
-$route['admin/order/(:num)/delete'] = 'admin/order_delete/$1';
-$route['admin/order/(:num)/cancel'] = 'admin/order_cancel/$1';
+$route['admin/order/(:num)/set-status/(:num)'] = 'admin/set_order_status/$1/$2';
 
 
-
+	
 $route['admin/database-upload'] = 'admin/database_upload';
 $route['admin/database-upload1'] = 'admin/database_upload1';
 $route['admin/headers'] = 'admin/headers1';
