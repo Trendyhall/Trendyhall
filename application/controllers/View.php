@@ -62,19 +62,22 @@ class View extends MY_Controller {
 		}
 
 
+		$conf = $this->config->item('foreign_column_name_to_table_name');
+		$conf1 = $this->config->item('foreign_column_numb_that_has_sort_table');
 
 		foreach ($where as $key => $value) {
-			$conf = $this->config->item('foreign_column_name_to_table_name');
 			if (isset($conf[$key])) {
-				$table_name = $conf[$key];
-				$wheres = array();
-				foreach ($value as $key1 => $value1) {
-					$keysarr = $this->Othertables_model->get_sorting_keys($table_name.'_sort', $value1);
-					$wheres = array_merge($wheres, $keysarr);
+				if ($conf1[$key]) {
+					$table_name = $conf[$key];
+					$wheres = array();
+					foreach ($value as $key1 => $value1) {
+
+						$keysarr = $this->Othertables_model->get_sorting_keys($table_name.'_sort', $value1);
+						$wheres = array_merge($wheres, $keysarr);
+					}
+					$where[$key] = $wheres;
 				}
-				$where[$key] = $wheres;
 			}
-			
 		}
 		
 		// ====== DATA ======
@@ -89,7 +92,7 @@ class View extends MY_Controller {
 		$pagination = $this->create_pagination($count, $row_count);
 
 		// ====== FILTERS =======
-		$this->data['sorting'] = array('itemgroup' => 'Группа', 'size' => 'Размер', 'colour' => 'Цвет', 'season' => 'Сезон');
+		if (!isset($this->data['sorting'])) $this->data['sorting'] = array('itemgroup' => 'Группа', 'size' => 'Размер', 'colour' => 'Цвет', 'season' => 'Сезон');
 
 		foreach ($this->data['sorting'] as $key => $value) {
 			$table_name = $this->config->item('foreign_column_name_to_table_name')[$key];
@@ -172,10 +175,12 @@ class View extends MY_Controller {
 		$this->data['title'] = "Новинки";
 		$this->data['active_name'] = 5;
 
+		$this->data['sorting'] = array('itemgroup' => 'Группа', 'size' => 'Размер', 'colour' => 'Цвет');
+
 		$this->load->model('Othertables_model');
 		
 		$where = $_GET;
-        $where['season'] = $this->Othertables_model->get_sorting_keys('seasons_sort', $this->config->item('actual_season'));
+        $where['season'] = array($this->config->item('actual_season'));
 
 		$this->view($offset, $where);
 	}

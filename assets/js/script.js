@@ -204,7 +204,7 @@ class User {
 
 
 	userCartSync() {
-
+		
 	}
 
 	userLikeSync() {
@@ -582,7 +582,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			break;
 		case "brands": likeButtonsInit();
 			break;
-		default: console.log(window.location.pathname.split('/')[1]); 
+		default: /*console.log(window.location.pathname.split('/')[1]); */
 			break;
 	}
 

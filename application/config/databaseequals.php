@@ -72,3 +72,15 @@ $config['foreign_column_name_to_table_name'] = array(
 	'season'       => 'seasons',
 	'description'  => 'descriptions'
 );
+
+$config['foreign_column_numb_that_has_sort_table'] = array(
+	'colour'       => TRUE,
+	'size'         => TRUE,
+	'brand'        => FALSE,
+	'itemgroup'    => TRUE,
+	'provider'     => FALSE,
+	'manufacturer' => FALSE,
+	'country'      => FALSE,
+	'season'       => TRUE,
+	'description'  => FALSE
+);

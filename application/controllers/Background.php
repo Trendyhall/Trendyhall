@@ -63,4 +63,6 @@ class Background extends MY_Controller {
 		echo $id;
 	}
 
+	
+
 }
