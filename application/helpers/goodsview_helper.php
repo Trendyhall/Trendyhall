@@ -19,7 +19,7 @@ if ( ! function_exists('get_price_text'))
         <?php endif; ?>
         <?php if ($good['sale'] > 0): ?>
             <div class="card-price-lined"><?php echo get_price($good['price']); ?> ₽</div>
-            <div class="card-price-red"><?php echo get_price($good['price'], $good['sale']); ?> ₽</div>
+            <div class="card-price card-price-red"><?php echo get_price($good['price'], $good['sale']); ?> ₽</div>
         <?php endif; 
     }
 }

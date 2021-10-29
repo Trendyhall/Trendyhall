@@ -63,6 +63,46 @@ class Background extends MY_Controller {
 		echo $id;
 	}
 
-	
 
+	public function get_user_cart() {
+		$this->load->helper('cookie');
+		$uuid = get_cookie('uuid');
+		if ($uuid != null) {
+			$this->load->model('Users_model');
+			echo $this->Users_model->get_user_by_uuid($uuid)['cart'];
+		}
+	}
+
+	public function get_user_like() {
+		$this->load->helper('cookie');
+		$uuid = get_cookie('uuid');
+		if ($uuid != null) {
+			$this->load->model('Users_model');
+			echo $this->Users_model->get_user_by_uuid($uuid)['likes'];
+		}
+	}
+
+	public function set_user_cart() {
+		$this->load->helper('cookie');
+		$uuid = get_cookie('uuid');
+		if ($uuid != null) {
+			$post_json = get_post_json();
+			if ($post_json != null) {
+				$this->load->model('Users_model');
+				$this->Users_model->set_user_cart_by_uuid($uuid, $post_json['data']);
+			}
+		}
+	}
+
+	public function set_user_like() {
+		$this->load->helper('cookie');
+		$uuid = get_cookie('uuid');
+		if ($uuid != null) {
+			$post_json = get_post_json();
+			if ($post_json != null) {
+				$this->load->model('Users_model');
+				$this->Users_model->set_user_like_by_uuid($uuid, $post_json['data']);
+			}
+		}
+	}
 }

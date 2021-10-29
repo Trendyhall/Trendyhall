@@ -1,20 +1,28 @@
 <link href="/assets/css/homepage-style.css" rel="stylesheet">
 
 <div class="col col-12 home">
-  <div class="mb-5" >
+  <div class="" >
       <a href="/junior-republic-event">
-        <video loop autoplay muted style="height: 85vh; max-width: 100%;" class="d-block d-md-none">
+        <video loop autoplay muted style="height: calc(100vh - 54px); max-width: 100%;" class="d-block d-md-none">
           <source src="/assets/video/back-to-school-portrait.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-        <video loop autoplay muted style="height: 85vh; max-width: 100%;" class="d-none d-md-block">
+        <video loop autoplay muted style="height: calc(100vh - 54px); max-width: 100%;" class="d-none d-md-block">
           <source src="/assets/video/back-to-school-landscape.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </a>
   </div>
 
-  <div class="">Если вы прошли регистрацию на нашем сайте, то в дальнейшем при любой покупке новой коллекции вам будет предоставляться скидка в размере 15%</div>
+
+  <!--<div class="row mb-5">
+    <div class="col p-3" style="background-color: #ff2b29;color: #fff900;font-size: 1.25rem;font-family: cursive;">
+      <div style="font-size: 2.25rem;">Скидка 15%</div>
+      <div>Если вы прошли регистрацию на нашем сайте, то в дальнейшем при любой покупке новой коллекции вам будет предоставляться скидка в размере 10%</div>
+      <div><a href="signup" style="color: #ffff00;text-decoration: underline;font-size: 1.5rem;">Зарегестрироваться</a></div>
+    </div>
+  </div>-->
+
   <div class="row">
     <div class="col col-12 col-md-8">
       <a href="/junior-republic-event">

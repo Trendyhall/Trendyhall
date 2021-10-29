@@ -1,7 +1,7 @@
 let isFirstCall = true;
 
 document.addEventListener("DOMContentLoaded", () => {
-	firebase.database().ref('NewOrders').on('value', (snapshot) => {
+	/*firebase.database().ref('NewOrders').on('value', (snapshot) => {
 		if (isFirstCall){
 			isFirstCall = false;
 		}
@@ -12,5 +12,5 @@ document.addEventListener("DOMContentLoaded", () => {
 	  	    audio.play();
 	  	    audio.addEventListener("ended", function() {location.reload()});
 		}
-	});
+	});*/
 });

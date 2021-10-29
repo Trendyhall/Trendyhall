@@ -13,6 +13,7 @@
                 <div class="col-md-9 text-md-start ps-md-4">
                     <a href="/goods/<?php echo $value['modelcode'].'_'.$value['colour']; ?>"><div class="card-name"><?php echo $value['name']; ?></div></a>
                     <div class="card-brand"><?php echo $value['brand']; ?></div>
+
                     <?php if ($value['sale'] == 0): ?>
                         <div class="card-price"><?php echo get_price($value['price']); ?> ₽ </div>
                     <?php endif; ?>
@@ -20,6 +21,7 @@
                         <div style="font-size: 1rem; text-decoration: line-through;"><?php echo get_price($value['price']); ?> ₽</div>
                         <div class="card-price" style="color: #f00;"><?php echo get_price($value['price'], $value['sale']); ?> ₽</div>
                     <?php endif; ?>
+                    
                     <p class="mb-0">Размер: <?php echo $value['size'] ?></p>
                     <p class="mb-0">Количество: 
                         <select class="border-0" style="outline: none;">

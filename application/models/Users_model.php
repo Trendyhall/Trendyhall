@@ -29,7 +29,15 @@ class Users_model extends CI_Model {
 	}
 
 	public function set_new_user($data) {
-		$this->db->query("INSERT INTO `users` (`id`, `uuid`, `phone`, `password`, `name`, `secondname`, `patronymic`, `cart`, `likes`) VALUES (NULL, ".$this->db->escape($data['uuid']).", ".$this->db->escape($data['phone']).", ".$this->db->escape($data['password']).", ".$this->db->escape($data['name']).", ".$this->db->escape($data['secondname']).", ".$this->db->escape($data['patronymic']).", NULL, NULL)");
+		$this->db->query("INSERT INTO `users` (`id`, `uuid`, `phone`, `password`, `name`, `secondname`, `patronymic`, `cart`, `likes`) VALUES (NULL, ".$this->db->escape($data['uuid']).", ".$this->db->escape($data['phone']).", ".$this->db->escape($data['password']).", ".$this->db->escape($data['name']).", ".$this->db->escape($data['secondname']).", ".$this->db->escape($data['patronymic']).", ".$this->db->escape($data['cart']).", ".$this->db->escape($data['like']).")");
+	}
+
+	public function set_user_cart_by_uuid($uuid, $data) {
+		$this->db->query("UPDATE users SET cart = '$data' WHERE uuid = '$uuid'");
+	}
+
+	public function set_user_like_by_uuid($uuid, $data) {
+		$this->db->query("UPDATE users SET likes = '$data' WHERE uuid = '$uuid'");
 	}
 
 }

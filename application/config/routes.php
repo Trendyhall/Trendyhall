@@ -129,7 +129,10 @@ $route['user/login']['post'] = 'background/user_login';
 $route['user/exsist']['post'] = 'background/user_exsist';
 $route['user/signup']['post'] = 'background/user_signup';
 $route['user/get-user-name']['post'] = 'background/get_user_name';
-$route['user/get-user-data']['post'] = 'background/get_user_data';
+
+$route['user/get-user-like']['post'] = 'background/get_user_like';
+$route['user/get-user-cart']['post'] = 'background/get_user_cart';
+
 $route['user/set-user-like']['post'] = 'background/set_user_like';
 $route['user/set-user-cart']['post'] = 'background/set_user_cart';
 

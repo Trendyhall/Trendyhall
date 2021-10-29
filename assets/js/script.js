@@ -15,6 +15,7 @@ class Cart {
 		this.addOnChangedHandler(this.showToast);
 		this.addOnChangedHandler(this.animationPlay);
 		this.addOnChangedHandler(this.setCartCount);
+		this.addOnChangedHandler(this.push);
 		this.setCartCount();
 	}
 
@@ -102,7 +103,28 @@ class Cart {
 
 	delete() {
 		localStorage.setItem('cart', JSON.stringify({}));
-		this.callOnChanged();
+	}
+
+	pull(){
+		post('/user/get-user-cart',
+				JSON.stringify({}), 
+				(result) => {
+				  	localStorage.setItem('cart', JSON.stringify(JSON.parse(result)));
+				}, 
+				(error) => {
+				  	console.error(error);
+				});
+	}
+
+	push(){
+		post('/user/set-user-cart',
+				JSON.stringify({data: localStorage.getItem('cart')}), 
+				(result) => {
+					console.log("push result: "+result);
+				}, 
+				(error) => {
+				  	console.error(error);
+				});
 	}
 
 
@@ -118,6 +140,8 @@ class Like {
 		if (localStorage.getItem('like') == null) {
 			localStorage.setItem('like', JSON.stringify({}));
 		}
+
+		this.addOnChangedHandler(this.push);
 	}
 
 	get like() {
@@ -129,7 +153,7 @@ class Like {
 	}
 
 	callOnChanged() {
-		for (k in this.#onChanged) this.#onChanged[k]();
+		for (let k in this.#onChanged) this.#onChanged[k]();
 	}
 
 	addOnChangedHandler(f){
@@ -153,6 +177,31 @@ class Like {
 	check(goodID) {
 		let like = JSON.parse(localStorage.getItem('like'));
 		return like[goodID] != undefined;
+	}
+
+	delete() {
+		localStorage.setItem('like', JSON.stringify({}));
+	}
+
+	pull(){
+		post('/user/get-user-like',
+				JSON.stringify({}), 
+				(result) => {
+					localStorage.setItem('like', JSON.stringify(JSON.parse(result)));
+				}, 
+				(error) => {
+				  	console.error(error);
+				});
+	}
+
+	push(){
+		post('/user/set-user-like',
+				JSON.stringify({data: localStorage.getItem('like')}), 
+				(result) => {
+				}, 
+				(error) => {
+				  	console.error(error);
+				});
 	}
 
 };
@@ -204,7 +253,7 @@ class User {
 
 
 	userCartSync() {
-		
+
 	}
 
 	userLikeSync() {
@@ -223,7 +272,10 @@ class User {
 					else
 						setCookie('uuid', result);
 
-					form.submit();
+						this.cart.pull();
+						this.like.pull();
+
+					  form.submit();
 				}
 				else {
 					alert("Неправильный телефон или пароль");
@@ -235,6 +287,9 @@ class User {
 	Logout() {
 		setCookie('uuid', 1, {'max-age': 0});
 		localStorage.removeItem('user-first-leter');
+
+		this.cart.delete();
+		this.like.delete();
 
 		window.location.replace('/');
 	}
@@ -255,13 +310,19 @@ class User {
 								password: form.secondname.value, 
 								patronymic: form.patronymic.value, 
 								phone: form.phone1.value, 
-								secondname: form.password1.value
+								secondname: form.password1.value,
+								cart: this.cart.str_cart,
+								like: this.like.str_like
 							}),
 						(result) => {
 							if (form.rememberme1.checked)
 								setCookie('uuid', uuid, {'max-age': 864000});
 							else
 								setCookie('uuid', uuid);
+
+							this.cart.push();
+							this.like.push();
+
 							window.location.replace('/');
 						}, 
 						(error) => err_log(error));
