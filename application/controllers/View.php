@@ -195,11 +195,11 @@ class View extends MY_Controller {
 		$this->view($offset, $where);
 	}
 
-	public function search($offset = 0) {
+	public function search($query) {
 		$this->data['title'] = "Поиск";
 
-		$where = $_GET;
-		$where['sale!'] = array(0);
+		/*$where = array();0);rray(
+		$where[''] = a*/
 
 		$this->view($offset, $where);
 	}
