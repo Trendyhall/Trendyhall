@@ -46,6 +46,12 @@ $get_st = new GetStatus($this->config);
   </div>
 </div>
 
+<?php 
+
+  $order_price = 0;
+  foreach ($cart as $key => $value) $order_price += ((int)$value['price']) * ((int)$cart_json[$value['id']]) * (1 + ((float)$value['sale'])/100);
+ ?>
+
 <table class="table">
   <tbody>
       <tr>
@@ -82,6 +88,10 @@ $get_st = new GetStatus($this->config);
         <td>Комментарий заказчика:</td>
         <td><?php echo $order['comment']; ?></td>
       </tr>
+      <tr>
+        <td>Общая стоимость заказа:</td>
+        <td><?php echo $order_price ?> ₽</td>
+      </tr>
   </tbody>
 </table>
 
@@ -95,7 +105,14 @@ $get_st = new GetStatus($this->config);
         <th scope="col">#</th>
         <th scope="col">Фото</th>
         <th scope="col">Артикул</th>
+        <th scope="col">Название</th>
+        <th scope="col">Цвет</th>
+        <th scope="col">Размер</th>
+        <th scope="col">Бренд</th>
         <th scope="col">Количество</th>
+        <th scope="col">Цена</th>
+        <th scope="col">Скидка</th>
+        <th scope="col">Цена итог</th>
       </tr>
     </thead>
     <tbody>
@@ -104,7 +121,14 @@ $get_st = new GetStatus($this->config);
           <th scope="row"><?php echo $key; ?></th>
           <th><img src="<?php if ($value['imagecount'] == 0) { echo "/assets/img/general/noimage.webp"; } else { echo "https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/".$value['modelcode'].'_'.$value['colour'].".webp"; }?>" style="    max-width: 100px;" alt="..."></th>
           <td><?php echo $value['articule']; ?></td>
+          <td><?php echo $value['name']; ?></td>
+          <td><?php echo $value['colour']; ?></td>
+          <td><?php echo $value['size']; ?></td>
+          <td><?php echo $value['brand']; ?></td>
           <td><?php echo $cart_json[$value['id']]; ?></td>
+          <td><?php echo $value['price']; ?> ₽ x <?php echo $cart_json[$value['id']]; ?></td>
+          <td><?php echo $value['sale']; ?>%</td>
+          <td><?php echo ((int)$value['price']) * ((int)$cart_json[$value['id']]) * (1 + ((float)$value['sale'])/100); ?> ₽</td>
         </tr>
       <?php endforeach ?>
     </tbody>

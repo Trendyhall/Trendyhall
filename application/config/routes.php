@@ -113,6 +113,9 @@ $route['admin'] = 'admin';
 $route['admin/tests'] = 'admin/tests';
 $route['admin/settings'] = 'admin/settings';
 $route['admin/set-setting/(:any)']['post'] = 'admin/set_setting/$1';
+
+$route['admin/set-good-count']['post'] = 'admin/set_good_count';
+
 $route['admin/orders'] = 'admin/orders';
 $route['admin/orders/(:num)'] = 'admin/orders/$1';
 $route['admin/order/(:num)/set-status/(:num)'] = 'admin/set_order_status/$1/$2';

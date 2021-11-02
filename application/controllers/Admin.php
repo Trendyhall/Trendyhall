@@ -71,6 +71,21 @@ class Admin extends MY_Controller {
 		$this->redirect('/admin/settings');
 	}
 
+	public function set_good_count() {
+	    $post_json = json_decode(file_get_contents('php://input'), true);
+		$this->load->model('Goods_model');
+
+
+
+	    foreach ($post_json as $key => $value) {
+	    	$this->Goods_model->set_good_count($key, $value);
+	    }
+		var_dump($post_json);
+	}
+
+
+	
+
 	public function orders($id = false) {
 		$this->data['title'] = "Заказы";
 
@@ -95,11 +110,22 @@ class Admin extends MY_Controller {
 			}
 			$this->data['cart'] = $this->Goods_model->get_goods_by_ids($ids);
 
+			$this->load->model('Othertables_model');
+			$this->config->load('databaseequals');
+			foreach ($this->data['cart'] as $key => $value) {
+				foreach ($this->config->item('foreign_column_name_to_table_name') as $key1 => $value1) {
+					$this->data['cart'][$key][$key1] = $this->Othertables_model->get($value1, $value[$key1]);
+				}
+			}
+			
+
 			$this->load->view('templates/header', $this->data);
 			$this->load->view('admin/order', $this->data);
 			$this->load->view('templates/footer');
 		}
 	}
+
+
 
 	public function set_order_status($id, $status) {
 		$this->load->model('Orders_model');

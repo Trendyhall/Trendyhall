@@ -113,6 +113,10 @@ class Goods_model extends CI_Model {
 		$this->db->query("UPDATE goods SET count = count + $value WHERE id = '$ID'");
 	}
 
+	public function set_good_count($ID, $value) {
+		$this->db->query("UPDATE goods SET count = $value WHERE id = '$ID'");
+	}
+
 
 
 	public function insert_goods($goods) {

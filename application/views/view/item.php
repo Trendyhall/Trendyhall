@@ -78,21 +78,72 @@
 		    <div>
 		      Выбирите какого размера вещь вам нужна
 		    </div>
-		    	<div class="list-group list-group-flush">
-		        	<div class="list-group-item d-flex justify-content-between align-items-center">
-				    	Размер
-				    	<span>Количество</span>
-				</div>
-			</div >
-			<hr class="m-0">
-		        <div class="list-group list-group-flush" id="sizeList" data-lt-target="-1">
-		        	<?php foreach ($sizes as $key => $value): ?>
-				    <button class="list-group-item list-group-item-actio d-flex justify-content-between align-items-center"<?php if ($value['count'] == 0) echo ' disabled';?> data-lt-id="<?php echo $value['id'] ?>">
-				    	<?php echo $value['size'] ?>
-				    	<span class="badge rounded-pill bg-<?php if ($value['count'] == 0) echo 'danger'; else echo 'dark'?>"><?php echo $value['count'] ?></span>
-				    </button>
-				<?php endforeach ?>
-			</div >
+		    <div class="d-flex">
+		    	<div class="w-100">
+			    	<div class="list-group list-group-flush">
+			        	<div class="list-group-item d-flex justify-content-between align-items-center">
+					    	Размер
+					    	<span>Количество</span>
+						</div>
+					</div >
+					<hr class="m-0">
+				    <div class="list-group list-group-flush" id="sizeList" data-lt-target="-1">
+				        <?php foreach ($sizes as $key => $value): ?>
+						    <button class="list-group-item list-group-item-actio d-flex justify-content-between align-items-center"<?php if ($value['count'] == 0) echo ' disabled';?> data-lt-id="<?php echo $value['id'] ?>">
+						    	<?php echo $value['size'] ?>
+						    	<span class="badge rounded-pill bg-<?php if ($value['count'] == 0) echo 'danger'; else echo 'dark'?>"><?php echo $value['count'] ?></span>
+						    </button>
+						<?php endforeach ?>
+					</div >
+			    </div>
+
+			    <?php if ($is_admin): ?>
+				    <div>
+				    	<div class="list-group list-group-flush">
+				        	<div class="list-group-item d-flex justify-content-between align-items-center">
+						    	Изменить количество
+							</div>
+						</div >
+						<hr class="m-0">
+					    <div class="list-group list-group-flush">
+					        <?php foreach ($sizes as $key => $value): ?>
+							    <input class="list-group-item" type="number" data-change-id="<?php echo $value['id'] ?>" value="<?php echo $value['count'] ?>">
+							<?php endforeach ?>
+						</div >
+				    </div>
+				<?php endif ?>
+
+		    </div>
+		    
+	    	
+
+			<?php if ($is_admin): ?>
+				<button id="saveNewCount" class="btn btn-outline-dark w-100 mt-4">Сохранить</button>
+	    		<script>
+	    			document.getElementById("saveNewCount").onclick = (event) => {
+						let InputList = document.querySelectorAll("input[data-change-id]");
+						let postData = {};
+
+						for (let item of InputList) {
+							postData[item.getAttribute('data-change-id')] = item.value;
+						}
+
+						post('/admin/set-good-count',
+							JSON.stringify(postData),
+							(result) =>{
+								alert('Изменения сохранены');
+								//console.log(result);
+								location.reload();
+							},
+							(error) => {
+								alert('Произошла ошибка:\n'+error);
+							}
+							);
+
+	    			};
+
+	    		</script>
+			<?php endif ?>
 		  </div>
 		</div>
 

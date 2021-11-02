@@ -8,7 +8,7 @@
     </div>
     
     <footer>
-      <div class="container-fluide">
+      <div class="container">
         <div class="row">
           <div class="col-sm-6 text-sm-start mb-3">
             <a href="/shops" class="d-block">Магазины</a>
@@ -49,7 +49,7 @@
           </div>
         </div>
       </div>
-      <div class="container-fluide text-sm-start">
+      <div class="container text-sm-start">
         <a href="/">© TRENDYHALL 2021</a>
       </div>
     </footer>
