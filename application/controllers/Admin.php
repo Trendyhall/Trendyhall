@@ -29,10 +29,11 @@ class Admin extends MY_Controller {
 	public function Automatizations_processes() {
 		// MARK ALL OVERTIME ORDERS
 		$orders = $this->Orders_model->get_orders();
-		foreach ($orders as $key => $value) {
-			if (time() > (strtotime($value['ordertime'])+(24 * 60 * 60))) $this->set_order_status($value['id'], 2);
+		if (is_array($orders)){
+			foreach ($orders as $key => $value) {
+				if (time() > (strtotime($value['ordertime'])+(24 * 60 * 60))) $this->set_order_status($value['id'], 2);
+			}
 		}
-
 	}
 
 	public function tests() {
@@ -185,8 +186,8 @@ class Admin extends MY_Controller {
 		}
 		if ($is_ok) foreach (explode("\n", file_get_contents($uploadfile)) as $key => $value) {
 			$row = explode(";", $value);
-			var_dump($row);
-			echo "<br>";
+			/*var_dump($row);
+			echo "<br>";*/
 			
 			$this->config->load('databaseequals');
 			foreach ($this->config->item('foreign_column_numb_to_table_name') as $key => $value) {

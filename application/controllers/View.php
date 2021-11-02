@@ -195,11 +195,20 @@ class View extends MY_Controller {
 		$this->view($offset, $where);
 	}
 
+	public function search($offset = 0) {
+		$this->data['title'] = "Поиск";
+
+		$where = $_GET;
+		$where['sale!'] = array(0);
+
+		$this->view($offset, $where);
+	}
+
 	public function item($good_code = NULL) {
 		$this->load->model('Goods_model');
 		$this->load->model('Othertables_model');
 
-		$this->data['title'] = "";
+		$this->data['title'] = "Товар";
 
 		$good_id = $good_code;
 		/*$good_id = explode('|', $good_code);

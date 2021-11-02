@@ -74,6 +74,8 @@ $route['goods/(:any)'] = 'view/item/$1';
 $route['like-cards'] = 'view/like_cards';
 $route['cart-cards'] = 'view/cart_cards';
 
+$route['search/(:any)'] = 'view/search/$1';
+
 
 $route['brands'] = 'view/brands';
 $route['brands/(:any)'] = 'view/brand/$1';

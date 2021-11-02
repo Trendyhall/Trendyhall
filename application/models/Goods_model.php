@@ -102,6 +102,11 @@ class Goods_model extends CI_Model {
 		return $query->result_array();
 	}
 
+
+	public function get_recomended_good() {
+		$query = $this->db->query("SELECT * FROM goods WHERE firstsize = 0 AND firstsize IS NOT NULL ORDER BY RAND() LIMIT 10");
+		return $query->result_array();
+	}
 	//=================================================
 
 	public function update_good_count($ID, $value) {

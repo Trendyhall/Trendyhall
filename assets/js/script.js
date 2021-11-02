@@ -307,10 +307,10 @@ class User {
 							{
 								uuid: uuid, 
 								name: form.firstname.value, 
-								password: form.secondname.value, 
+								password: form.password1.value,
 								patronymic: form.patronymic.value, 
 								phone: form.phone1.value, 
-								secondname: form.password1.value,
+								secondname: form.secondname.value, 
 								cart: this.cart.str_cart,
 								like: this.like.str_like
 							}),
