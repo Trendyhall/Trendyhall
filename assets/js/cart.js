@@ -51,8 +51,14 @@ document.addEventListener("DOMContentLoaded", () => {
 						user.cart.delete();
 						let randomV = new Uint16Array(1);
 						window.crypto.getRandomValues(randomV);
-						firebase.database().ref('NewOrders').set(randomV[0]);
-						document.location = "/buy?id="+result+"&passcode="+passcode[0];
+						firebase.database().ref('NewOrders').set(randomV[0])
+						.then((v) => {
+							document.location = "/buy?id="+result+"&passcode="+passcode[0];
+						})
+						.catch((error) => {
+							document.location = "/buy?id="+result+"&passcode="+passcode[0];
+						});
+						
 				    },
 		        	(err) => {
 		        		document.getElementById("modalBody").classList.toggle('d-none');
