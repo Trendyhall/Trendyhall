@@ -6,7 +6,7 @@ $config['changeble_items'] = array(// ALL MUST BE 'FALSE'
 );
 
 
-$config['actual_season'] = 1;
+$config['actual_season'] = 5;
 $config['cards_of_good_on_page'] = 48;
 
 $config['api_key'] = 'a8b8aaea07e2489b8449f35408a1e3f58ff5a92be667c2d1';

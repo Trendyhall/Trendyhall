@@ -225,6 +225,8 @@ class Admin extends MY_Controller {
 			$row = explode(";", $value);
 			/*var_dump($row);
 			echo "<br>";*/
+
+			$row[15] = str_replace(" ", "", $row[15]);
 			
 			$this->config->load('databaseequals');
 			foreach ($this->config->item('foreign_column_numb_to_table_name') as $key => $value) {
