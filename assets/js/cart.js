@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		event.stopPropagation();
 		let order = document.forms.order;
 
+
+		order.name.parentNode.classList.add('was-validated');
+
+
+
 		if (/[a-zA-Zа-яА-Я ]/.test(order.name.value)) {
 			let re = /\+7\d{10}|8\d{10}/;
 			let input = order.phone;
@@ -45,6 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
 				document.getElementById("modalBody").classList.toggle('d-none');
 				document.getElementById("modalBodySpinner").classList.toggle('d-none');
 
+				document.forms.order.orderBody.value = user.cart.str_cart;
+
 				post("/orders/new-order", 
 					JSON.stringify(data),
 					(result) => {
@@ -65,6 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
 						document.getElementById("modalBodySpinner").classList.toggle('d-none');
 		        		err_log(err);
 		        	});
+			}
+			else{
+				input.classList.add('is-invalid');
 			}
 		}
 	}
@@ -138,12 +148,31 @@ document.addEventListener("DOMContentLoaded", () => {
     	if (user.cart.countCart() > 0) {
     		document.getElementById("BuyBtn").parentNode.classList.remove('d-none');
 
-    		let sale = user.cart.countCart();
+    		let sale = 0;
+    		for (k in user.cart.cart) sale += Number(user.cart.cart[k]);
     		if (sale > 3) sale = 3;
+    		sale *= 10;
 
-    		sale = sale * 10;
+    		let oldPrice = 0;
+    		let newPrice = 0;
 
-        	for (obj of document.getElementById("cartCardsContainer").children){
+        	for (obj of document.getElementById("cartCardsContainer").children) {
+        		let price = Number(obj.querySelector('select').value);
+        		if (obj.querySelector('.text-decoration-line-through') == null){
+        			oldPrice += Number(obj.querySelector('.card-price').innerHTML.replace(/₽| /g, '')) * price;
+        		}
+        		else{
+        			oldPrice += Number(obj.querySelector('.text-decoration-line-through').innerHTML.replace(/₽| /g, '')) * price;
+        			if (obj.querySelector('.text-decoration-line-through').getAttribute('data-changable-sale')) {
+        				obj.querySelector('.text-decoration-line-through').parentNode.innerHTML = obj.querySelector('.text-decoration-line-through').parentNode.innerHTML.replace(/\(\d{2}\%\)/g, '('+sale+'%)');
+        				obj.querySelector('.card-price').innerHTML = (Math.ceil(Number(obj.querySelector('.text-decoration-line-through').innerHTML.replace(/₽| /g, '')) * (1 - sale/100)) +'').split( /(?=(?:\d{3})+$)/ ).join(' ') + ' ₽';
+        			}
+        		}
+
+        		price = Number(obj.querySelector('.card-price').innerHTML.replace(/₽| /g, '')) * price;
+
+				newPrice += price;
+
 	        	let line =
 	        	'<div class="d-flex">'+
                 '<div class="col-2"><img src="'+obj.querySelector('img').src+'" alt="" class="w-100"></div>'+
@@ -151,23 +180,29 @@ document.addEventListener("DOMContentLoaded", () => {
             	'</div>'+
             	'<div class="col-12 p-0">'+obj.querySelector('.card-price').innerHTML+' x <span>'+
             	obj.querySelector('select').value+'</span> = <span>'+
-            	((Number(obj.querySelector('.card-price').innerHTML.replace(/₽| /g, '')) * Number(obj.querySelector('select').value))+'').split( /(?=(?:\d{3})+$)/ ).join(' ')
+            	(price+'').split( /(?=(?:\d{3})+$)/ ).join(' ')
             	+'</span> ₽</div>'+
             	'<hr class="mt-1 mb-1">';
+
             	overview.insertAdjacentHTML('beforeend', line);
         	}
-    		let k = 0;
-        	document.querySelectorAll('#cartOverview span:last-child').forEach((obj) => {
-        		k+=Number(obj.innerHTML.replace(/₽| /g, ''));
-        	});
-        	k=(k+'').split( /(?=(?:\d{3})+$)/ ).join(' ');
-        	overview.parentNode.querySelector('h4').innerHTML = 'Сумма: '+k+' ₽';
+        	
+
+        	if (newPrice == oldPrice) {
+        		newPrice=(newPrice+'').split( /(?=(?:\d{3})+$)/ ).join(' ');
+        		overview.parentNode.querySelector('h4').innerHTML = 'Сумма: '+newPrice+' ₽';
+        	}
+        	else {
+        		newPrice=(newPrice+'').split( /(?=(?:\d{3})+$)/ ).join(' ');
+        		oldPrice=(oldPrice+'').split( /(?=(?:\d{3})+$)/ ).join(' ');
+        		overview.parentNode.querySelector('h4').innerHTML = '<div class="d-flex"><div class="me-2">Сумма:</div><div><line class="text-decoration-line-through">'+oldPrice+'</line> ₽'+'<p style="color:#f00;">'+newPrice+' ₽</p></div></div>';
+        	}
 
         	// set buy button
     		document.forms.order.orderBody.value = user.cart.str_cart;
     	}
     	else {
-    		document.getElementById("BuyBtn").parentNode.classList.add('d-none');
+    		document.getElementById("BuyBtn").parentNode.innerText = "";
     		document.getElementById("cartCardsContainer").innerHTML = "<h2>Корзина пуста</h2>";
     		document.getElementById("cartOverview").innerHTML = "";
     	}

@@ -120,7 +120,7 @@ class Admin extends MY_Controller {
 			$this->config->load('databaseequals');
 
 			$this->load->helper('stock');
-			$this->data['cart'] = get_cart_after_stock($this->data['cart']);
+			$this->data['cart'] = get_cart_after_stock($this->data['cart'], $this->data['cart_json']);
 			
 
 			foreach ($this->data['cart'] as $key => $value) {

@@ -1,3 +1,6 @@
+<div class="d-flex justify-content-between">
+  <a class="btn btn-outline-dark mb-2 rounded-0" href="/admin"><-- Назад</a>
+</div>
 <div class="accordion" id="settingsAccordion">
 
   <div class="accordion-item">

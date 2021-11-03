@@ -6,9 +6,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 if ( ! function_exists('get_cart_after_stock'))
 {
-	function get_cart_after_stock($cart){
+	function get_cart_after_stock($cart, $cart_count){
 		$cart_sale = 0;
-		foreach ($cart as $key => $value) $cart_sale += $value['count'];
+		foreach ($cart_count as $key => $value) $cart_sale += $value;
 
 		if ($cart_sale > 3) $cart_sale = 3;
 		$cart_sale *= 10;

@@ -1,3 +1,6 @@
+<div class="d-flex justify-content-between">
+  <a class="btn btn-outline-dark mb-2 rounded-0" href="/admin"><-- Назад</a>
+</div>
 <?php if (!$orders): ?>
   <div class="d-flex justify-content-center">
     <h2>Заказов нет</h2>

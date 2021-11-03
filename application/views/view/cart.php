@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-    <div class="col col-12 col-sm-5">
+    <div class="col col-12 col-sm-5 d-none">
         <div class="overflow-auto mb-3" style="max-height: 60vh;" id="cartOverview">
             <div class="w-100 d-flex justify-content-center align-content-center">
                 <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">

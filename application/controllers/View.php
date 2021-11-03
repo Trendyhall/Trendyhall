@@ -260,14 +260,17 @@ class View extends MY_Controller {
 		if (isset($cart_ids)) {
 			$this->data['goods'] = $this->Goods_model->get_goods_by_ids($cart_ids);
 
-			$this->load->helper('stock');
-			$this->data['goods'] = get_cart_after_stock($this->data['goods']);
-
+			
 			foreach ($this->data['goods'] as $key => $value) {
 				$this->data['goods'][$key]['brand'] = $this->Othertables_model->get("brands", $value['brand']);
 				$this->data['goods'][$key]['size'] = $this->Othertables_model->get("sizes", $value['size']);
 				$this->data['goods'][$key]['colour'] = $this->Othertables_model->get("colours", $value['colour']);
+				
+				$this->data['goods'][$key]['changable_sale'] = $value['sale'] == 0; 
 			}
+
+			$this->load->helper('stock');
+			$this->data['goods'] = get_cart_after_stock($this->data['goods'], $cart_ids_json);
 		}
 		$this->load->view('view/cart-cards', $this->data);
 	}

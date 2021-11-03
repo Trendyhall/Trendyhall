@@ -18,7 +18,7 @@
                         <div class="card-price"><?php echo get_price($value['price']); ?> ₽ </div>
                     <?php endif; ?>
                     <?php if ($value['sale'] > 0): ?>
-                        <div style="font-size: 1rem;"><span style="text-decoration: line-through;"><?php echo get_price($value['price']); ?></span> ₽ (<?php echo get_price($value['sale']); ?>%)</div>
+                        <div style="font-size: 1rem;"><span class="text-decoration-line-through" data-changable-sale="<?php echo $value['changable_sale']; ?>"><?php echo get_price($value['price']); ?></span> ₽ (<?php echo $value['sale']; ?>%)</div>
                         <div class="card-price" style="color: #f00;"><?php echo get_price($value['price'], $value['sale']); ?> ₽</div>
                     <?php endif; ?>
                     
