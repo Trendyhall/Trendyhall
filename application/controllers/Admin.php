@@ -31,7 +31,10 @@ class Admin extends MY_Controller {
 		$orders = $this->Orders_model->get_orders();
 		if (is_array($orders)){
 			foreach ($orders as $key => $value) {
-				if (time() > (strtotime($value['ordertime'])+(24 * 60 * 60))) $this->set_order_status($value['id'], 2);
+				if ($value['status'] == 0 || $value['status'] == 1) {
+					if (time() > (strtotime($value['ordertime'])+(24 * 60 * 60))) $this->set_order_status($value['id'], 2);
+				}
+				
 			}
 		}
 	}
@@ -100,18 +103,26 @@ class Admin extends MY_Controller {
 			$this->load->model('Goods_model');
 
 			$this->data['order'] = $this->Orders_model->get_order_by_id($id);
+
 			if ($this->data['order'] === FALSE) {
 				
     			echo "<script type='text/javascript'>alert('Заказ с номером $id не был найден'); window.location = '/admin/orders';</script>";
 			}
+
 			$this->data['cart_json'] = json_decode($this->data['order']['orderbody'], true);
 			foreach ($this->data['cart_json'] as $key => $value) {
 				$ids[] = $key;
 			}
 			$this->data['cart'] = $this->Goods_model->get_goods_by_ids($ids);
 
+
 			$this->load->model('Othertables_model');
 			$this->config->load('databaseequals');
+
+			$this->load->helper('stock');
+			$this->data['cart'] = get_cart_after_stock($this->data['cart']);
+			
+
 			foreach ($this->data['cart'] as $key => $value) {
 				foreach ($this->config->item('foreign_column_name_to_table_name') as $key1 => $value1) {
 					$this->data['cart'][$key][$key1] = $this->Othertables_model->get($value1, $value[$key1]);

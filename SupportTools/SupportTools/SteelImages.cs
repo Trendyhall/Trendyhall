@@ -17,8 +17,17 @@ namespace SupportTools
         public SteelImages()
         {
             InitializeComponent();
+            //DownloadImage();
         }
 
-
+        public void DownloadImage()
+        {
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile(new Uri("https://tommy-europe.scene7.com/is/image/TommyEurope/KB0KB06291_1BC_main?$main$"), @"c:\temp\image35.png");
+                // OR 
+                //client.DownloadFileAsync(new Uri(url), @"c:\temp\image35.png");
+            }
+        }
     }
 }

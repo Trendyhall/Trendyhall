@@ -138,6 +138,11 @@ document.addEventListener("DOMContentLoaded", () => {
     	if (user.cart.countCart() > 0) {
     		document.getElementById("BuyBtn").parentNode.classList.remove('d-none');
 
+    		let sale = user.cart.countCart();
+    		if (sale > 3) sale = 3;
+
+    		sale = sale * 10;
+
         	for (obj of document.getElementById("cartCardsContainer").children){
 	        	let line =
 	        	'<div class="d-flex">'+

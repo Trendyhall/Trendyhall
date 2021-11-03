@@ -28,18 +28,21 @@ $get_st = new GetStatus($this->config);
     <ul class="dropdown-menu">
       <?php if ($order['status'] == 0): ?>
         <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/1">Пометить как <b>просмотренное</b></a></li>
-        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/4">Пометить как <b class="text-success">выполненое</b></a></li>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/4">Пометить как <b class="text-success">выполненное</b></a></li>
         <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/2">Пометить как <b class="text-warning">просроченное</b></a></li>
         <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/3">Пометить как <b class="text-danger">отменённое и вернуть товар на сайт</b></a></li>
       <?php endif ?>
       <?php if ($order['status'] == 1): ?>
         <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/0">Пометить как <b>непросмотренное</b></a></li>
-        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/4">Пометить как <b class="text-success">выполненое</b></a></li>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/4">Пометить как <b class="text-success">выполненное</b></a></li>
         <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/2">Пометить как <b class="text-warning">просроченное</b></a></li>
         <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/3">Пометить как <b class="text-danger">отменённое и вернуть товар на сайт</b></a></li>
       <?php endif ?>
       <?php if ($order['status'] == 2): ?>
-        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/4">Пометить как <b class="text-success">выполненое</b></a></li>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/4">Пометить как <b class="text-success">выполненное</b></a></li>
+        <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/3">Пометить как <b class="text-danger">отменённое и вернуть товар на сайт</b></a></li>
+      <?php endif ?>
+      <?php if ($order['status'] == 4): ?>
         <li><a class="dropdown-item" href="/admin/order/<?php echo $order['id']; ?>/set-status/3">Пометить как <b class="text-danger">отменённое и вернуть товар на сайт</b></a></li>
       <?php endif ?>
     </ul>
@@ -47,9 +50,8 @@ $get_st = new GetStatus($this->config);
 </div>
 
 <?php 
-
   $order_price = 0;
-  foreach ($cart as $key => $value) $order_price += ((int)$value['price']) * ((int)$cart_json[$value['id']]) * (1 + ((float)$value['sale'])/100);
+  foreach ($cart as $key => $value) $order_price += ((int)$value['price']) * ((int)$cart_json[$value['id']]) * (1 - ((float)$value['sale'])/100);
  ?>
 
 <table class="table">
@@ -104,6 +106,7 @@ $get_st = new GetStatus($this->config);
       <tr>
         <th scope="col">#</th>
         <th scope="col">Фото</th>
+        <th scope="col">Ссылка на товар</th>
         <th scope="col">Артикул</th>
         <th scope="col">Название</th>
         <th scope="col">Цвет</th>
@@ -118,8 +121,9 @@ $get_st = new GetStatus($this->config);
     <tbody>
       <?php foreach ($cart as $key => $value): ?>
         <tr onclick="this.classList.toggle('table-dark');">
-          <th scope="row"><?php echo $key; ?></th>
-          <th><img src="<?php if ($value['imagecount'] == 0) { echo "/assets/img/general/noimage.webp"; } else { echo "https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/".$value['modelcode'].'_'.$value['colour'].".webp"; }?>" style="    max-width: 100px;" alt="..."></th>
+          <th scope="row"><?php echo $key+1; ?></th>
+          <th><img src="<?php if ($value['imagecount'] == 0) { echo "/assets/img/general/noimage.webp"; } else { echo "https://raw.githubusercontent.com/Trendyhall/GoodsPictures/main/Main/".$value['modelcode'].'_'.$value['colour'].".webp"; }?>" style="max-width: 100px;" alt="..."></th>
+          <td><a href="/goods/<?php echo $value['id']; ?>"><?php echo $value['id']; ?></a></td>
           <td><?php echo $value['articule']; ?></td>
           <td><?php echo $value['name']; ?></td>
           <td><?php echo $value['colour']; ?></td>
@@ -128,7 +132,7 @@ $get_st = new GetStatus($this->config);
           <td><?php echo $cart_json[$value['id']]; ?></td>
           <td><?php echo $value['price']; ?> ₽ x <?php echo $cart_json[$value['id']]; ?></td>
           <td><?php echo $value['sale']; ?>%</td>
-          <td><?php echo ((int)$value['price']) * ((int)$cart_json[$value['id']]) * (1 + ((float)$value['sale'])/100); ?> ₽</td>
+          <td><?php echo ((int)$value['price']) * ((int)$cart_json[$value['id']]) * (1 - ((float)$value['sale'])/100); ?> ₽</td>
         </tr>
       <?php endforeach ?>
     </tbody>

@@ -1,6 +1,6 @@
-<h6>Наш телефон: +7(495)225-73-90</h6>
+<h6>Наш телефон: +7(499)638-74-44</h6>
 <h6>Наш e-mail: ............@gmail.com</h6>
-<h6>Наш WhatsApp: +7(495)225-73-90</h6>
+<!--<h6>Наш WhatsApp: +7(499)638-74-44</h6>-->
 
 <!--
 <form name="Message" method="post" action="" accept-charset="utf-8" class="signup-container" novalidate>

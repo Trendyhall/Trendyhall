@@ -9,13 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
 			const data = snapshot.val();
 		    var audio = new Audio();
 	  	    audio.src = '/assets/sounds/notification.mp3';
+	  	    setTimeout(() => {alert("У вас новый заказ");}, 2000);
 	  	    try{
 	  	    	audio.play();
 	  	    }
 	  	    catch (error){
 	  	    	alert("У вас новый заказ");
 	  	    }
-	  	    audio.addEventListener("ended", function() {alert("У вас новый заказ")});
 		}
 	});
 });

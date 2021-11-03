@@ -192,7 +192,7 @@
 			<li>Поставщик: <?php echo $good['provider']; ?></li>
 			<li><p></p></li>
 			<li>Цвет: <?php echo $good['colour']; ?></li>
-			<li>Модель: <?php echo $good['modelcode']; ?></li>
+			<!--<li>Модель: <?php echo $good['modelcode']; ?></li>-->
 			<li>Артикул: <?php echo $good['articule']; ?></li>
 		</ul>
 
