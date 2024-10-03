@@ -98,10 +98,10 @@ $db['default'] = array(
 
 $db['profreehost'] = array(
 	'dsn'	=> '',
-	'hostname' => 'sql206.ezyro.com',
-	'username' => 'ezyro_29334395',
-	'password' => 'g8gzh7y',
-	'database' => 'ezyro_29334395_trendyhall',
+	'hostname' => 'mysql',
+	'username' => 'mysql',
+	'password' => 'mysql',
+	'database' => 'trendythall',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

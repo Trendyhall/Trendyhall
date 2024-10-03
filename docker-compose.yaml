@@ -1,0 +1,25 @@
+version: "3"
+services:
+  php:
+    image: php:fpm-alpine
+    restart: always
+    ports:
+      - 9000:9000
+      
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: trendyhall
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    ports:
+    - "9001:80"
+    environment:
+    PMA_HOST: mysql
+    MYSQL_ROOT_PASSWORD: mysql
