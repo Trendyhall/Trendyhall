@@ -4,11 +4,11 @@
 
 
 <form name="Message" method="post" action="" accept-charset="utf-8" class="signup-container" novalidate>
-	<div class="form-floating mb-2">
+	<!-- <div class="form-floating mb-2">
     <input type="text" name="name" class="form-control" id="floatingN" placeholder="Имя Фамилия Отчество" required>
     <label for="floatingN">Имя Фамилия Отчество</label>
     <div class="invalid-feedback">Введите Имя Фамилия Отчество</div>
-  </div>
+  </div> -->
   <div class="form-floating mb-2">
     <input type="text" name="emailphone" class="form-control" id="floatingEP" placeholder="Почта или Номер телефона" required>
     <label for="floatingEP">Почта или Номер телефона</label>
@@ -21,3 +21,12 @@
 	<button type="submit" class="btn btn-outline-dark" disabled id="SendBTN">Отправить</button>
 </form>
 
+<h4>Отзывы:</h4>
+<ul>
+<?php
+$feedbacks = Feedback_model::get_feedbacks();
+foreach ($feedbacks as $feedback) {
+    echo '<li>'.$feedback['name'].' ('.$feedback['email'].') - "'.$feedback['text'].'"</li>';
+}
+?>
+</ul>

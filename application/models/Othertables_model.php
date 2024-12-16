@@ -54,5 +54,26 @@ class Othertables_model extends CI_Model {
 		else return FALSE;
 	}
 
+	public function new_feedback($email, $message){
+		$this->load->helper('cookie');
+		$uuid = get_cookie('uuid');
+		if ($uuid != null) {
+			$this->db->query("INSERT INTO `feedback`(`uuid`, `email`, `text`) VALUES (?, ?, ?)", array(
+				$uuid,
+				$email,
+				$message
+			));
+		}
+	}
+
+	public function get_feedbacks(){
+		$this->load->helper('cookie');
+		$uuid = get_cookie('uuid');
+		if ($uuid != null) {
+			$query = $this->db->query("SELECT * FROM `feedback` WHERE uuid = ? ORDER BY id DESC", array($uuid));
+			$result = $query->result_array();
+			if ($result) return $result;
+		}
+	}
 
 }

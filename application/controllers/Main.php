@@ -106,9 +106,9 @@ class Main extends MY_Controller {
 		$this->load->library('email');
 
         //set validation rules
-        $this->form_validation->set_rules('name', 'Ваше имя', 'trim|required');
+        // $this->form_validation->set_rules('name', 'Ваше имя', 'trim|required');
         $this->form_validation->set_rules('email', 'Ваш email', 'trim|required|valid_email');
-        $this->form_validation->set_rules('subject', 'Тема', 'trim|required');
+        // $this->form_validation->set_rules('subject', 'Тема', 'trim|required');
         $this->form_validation->set_rules('message', 'Ваш отзыв', 'trim|required');
 
         //run validation on form input
@@ -121,29 +121,36 @@ class Main extends MY_Controller {
         }
         else {
             //get the form data
-            $name = $this->input->post('name');
+            // $name = $this->input->post('name');
             $from_email = $this->input->post('email');
-            $subject = $this->input->post('subject');
+            // $subject = $this->input->post('subject');
             $message = $this->input->post('message');
 
             //set to_email id to which you want to receive mails
-            $to_email = 'grunin200412@gmail.com';                  
+            $to_email = 'grunin200412@gmail.com';       
+			
+			$this->load->model('Feedback_model');
+			$this->Feedback_model->insert_feedback($from_email, $message);
+			$feedbacks = $this->Feedback_model->get_feedbacks();
+			$this->data['feedbacks'] = $feedbacks;
+			
 
             //send mail
-            $this->email->from($from_email, $name);
-            $this->email->to($to_email);
-            $this->email->subject($subject);
-            $this->email->message($message);
-            if ($this->email->send()) {
-                // mail sent
-                $this->session->set_flashdata('msg','<div class="alert alert-success text-center">Ваше сообщение успешно отправлено!</div>');
-                redirect('/contact');
-            }
-            else {
-                //error
-                $this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Произошла ошибка, повторите попытку позже.</div>');
-                redirect('/contact');
-            }
+            // $this->email->from($from_email, $name);
+            // $this->email->to($to_email);
+            // $this->email->subject($subject);
+            // $this->email->message($message);
+            // if ($this->email->send()) {
+            //     // mail sent
+            //     $this->session->set_flashdata('msg','<div class="alert alert-success text-center">Ваше сообщение успешно отправлено!</div>');
+            //     redirect('/contact');
+            // }
+            // else {
+            //     //error
+            //     $this->session->set_flashdata('msg','<div class="alert alert-danger text-center">Произошла ошибка, повторите попытку позже.</div>');
+            //     redirect('/contact');
+            // }
+
         }
 	}
 
