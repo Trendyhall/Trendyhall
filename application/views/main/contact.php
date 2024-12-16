@@ -24,7 +24,6 @@
 <h4>Отзывы:</h4>
 <ul>
 <?php
-$feedbacks = Feedback_model::get_feedbacks();
 foreach ($feedbacks as $feedback) {
     echo '<li>'.$feedback['name'].' ('.$feedback['email'].') - "'.$feedback['text'].'"</li>';
 }
