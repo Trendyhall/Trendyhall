@@ -2,7 +2,7 @@
 <h6>Наш e-mail: ............@gmail.com</h6>
 <!--<h6>Наш WhatsApp: +7(499)638-74-44</h6>-->
 
-<!--
+
 <form name="Message" method="post" action="" accept-charset="utf-8" class="signup-container" novalidate>
 	<div class="form-floating mb-2">
     <input type="text" name="name" class="form-control" id="floatingN" placeholder="Имя Фамилия Отчество" required>
@@ -20,4 +20,4 @@
   </div>
 	<button type="submit" class="btn btn-outline-dark" disabled id="SendBTN">Отправить</button>
 </form>
--->
+
