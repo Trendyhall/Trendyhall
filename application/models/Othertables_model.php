@@ -7,8 +7,9 @@ class Othertables_model extends CI_Model {
 
 	public function get($TableName, $ID){
 		$Value = $this->db->escape($ID);
+		// $TableName1 = $this->db->escape($TableName);
 
-		$query = $this->db->query("SELECT output FROM $TableName WHERE id = $Value LIMIT 1");
+		$query = $this->db->query("SELECT output FROM `$TableName` WHERE id = $Value LIMIT 1");
 		$row = $query->row_array();
 		if ($row) return $row['output'];
 		else return FALSE;

@@ -15,15 +15,15 @@
   </div>
 
 
-  <!--<div class="row mb-5">
+  <div class="row mb-5">
     <div class="col p-3" style="background-color: #ff2b29;color: #fff900;font-size: 1.25rem;font-family: cursive;">
       <div style="font-size: 2.25rem;">Скидка 15%</div>
       <div>Если вы прошли регистрацию на нашем сайте, то в дальнейшем при любой покупке новой коллекции вам будет предоставляться скидка в размере 10%</div>
       <div><a href="signup" style="color: #ffff00;text-decoration: underline;font-size: 1.5rem;">Зарегестрироваться</a></div>
     </div>
-  </div>-->
+  </div>
 
-  <div class="row">
+  <!-- <div class="row">
     <div class="col col-12 col-md-8">
       <a href="/junior-republic-event">
         <img class="hover-scale" src="https://www.productionparadise.com/newsletters/641/photos/39525/original/achim-lippoth-ckj-kids-spread-f11-1.jpg" alt="">
@@ -35,10 +35,10 @@
       <a href="/junior-republic-event" class="look">Смотреть</a>
     </div>
   </div>
-    
+     -->
   
     <!-- Carusel -->
-    <!--
+    
     <div id="homeCarousel" class="carousel carousel-dark slide mb-3" data-bs-ride="carousel" data-bs-interval="false">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -46,36 +46,31 @@
         <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active" style="height: 85vh">
-           <img src="/assets/img/main/0052.webp" class="d-none d-sm-block w-100"  alt="...">
+
+        <div class="carousel-item active">
+          <img src="/assets/img/main/0052.webp" class="d-none d-sm-block w-100"  alt="...">
           <img src="/assets/img/main/0054.jpg" class="d-block d-sm-none w-100" alt="..."> 
-           
-          <! --<svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="630px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: Первый слайд" preserveAspectRatio="xMidYMid slice" focusable="false" font-size="calc(1.475rem + 2.7vw)" text-anchor="end">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#eee"></rect>
-            <image xlink:href="/assets/img/main/0050.jpg" height="100%"/>
-            <! --<image xlink:href="/assets/img/main/0102.jpg" height="100%" style="transform: translateX(calc(100% - 354px));"/>
-            <text x="100%" y="50%" fill="#555" dy=".3em" dx="-1rem">First slide</text>
-          </svg>
           <div class="carousel-caption d-none d-md-block">
             <h5>First slide label</h5>
             <p>Some representative placeholder content for the first slide.</p>
-          </div>- ->
+          </div>
         </div>
+
         <div class="carousel-item">
-          <!- - <img src="..." class="d-block w-100" alt="..."> - ->
-          <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="630px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: Первый слайд" preserveAspectRatio="xMidYMid slice" focusable="false" font-size="calc(1.475rem + 2.7vw)" text-anchor="end">
+          <!-- <img src="..." class="d-block w-100" alt="..."> -->
+          <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="630px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: Первый слайд" preserveAspectRatio="xMidYMid slice" focusable="false" font-size="calc(1.475rem + 2.7vw)" text-anchor="middle">
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="#eee"></rect>
-            <text x="100%" y="50%" fill="#555" dy=".3em" dx="-5px">Second slide</text>
+            <text x="50%" y="50%" fill="#555" dy=".3em">Second slide</text>
           </svg>
           <div class="carousel-caption d-none d-md-block">
             <h5>Second slide label</h5>
             <p>Some representative placeholder content for the second slide.</p>
           </div>
         </div>
+
         <div class="carousel-item">
-          <!- - <img src="..." class="d-block w-100" alt="..."> - ->
+          <!-- <img src="..." class="d-block w-100" alt="..."> -->
           <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="630px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: Первый слайд" preserveAspectRatio="xMidYMid slice" focusable="false" font-size="calc(1.475rem + 2.7vw)" text-anchor="middle">
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="#eee"></rect>
@@ -96,7 +91,7 @@
         <span class="visually-hidden">Next</span>
       </button>
   </div>
-  <!- - Carusel end -->
+  <!-- Carusel end -->
 
     <!--
   <div class="row mt-4">

@@ -1,10 +1,14 @@
 version: "3"
 services:
   php:
-    image: php:fpm-alpine
+    build:
+      context: .
     restart: always
     ports:
       - 9000:9000
+    volumes:
+      - /var/www/webprogramminglabs.arsgrunin.ru/html/:/var/www/html/
+      - ./config/php.ini:/usr/local/etc/php/php.ini
       
   mysql:
     image: mysql:latest
@@ -21,5 +25,5 @@ services:
     ports:
     - "9001:80"
     environment:
-    PMA_HOST: mysql
-    MYSQL_ROOT_PASSWORD: mysql
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: mysql
